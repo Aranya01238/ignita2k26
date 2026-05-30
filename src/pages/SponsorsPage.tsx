@@ -143,7 +143,7 @@ const SponsorsPage = () => {
               transition={{ delay: 0.3 }}
               className="text-muted-foreground max-w-xl mx-auto"
             >
-              The partners and organizations fueling IGNITIA'26.
+              The partners and organizations fueling IGNITIA '26.
             </motion.p>
           </div>
         </section>
@@ -233,7 +233,7 @@ const SponsorsPage = () => {
                 Become a Sponsor
               </h2>
               <p className="text-muted-foreground mb-6">
-                Partner with IGNITIA'26 and reach 1000+ student innovators.
+                Partner with IGNITIA '26 and reach 1000+ student innovators.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <motion.a

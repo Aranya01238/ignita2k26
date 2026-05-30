@@ -109,7 +109,9 @@ const Shape = ({ s }: { s: (typeof shapes)[0] }) => {
 
 const FloatingTechElements = () => {
   const isMobile = useIsMobile();
-  const visibleShapes = isMobile ? shapes.slice(0, 4) : shapes;
+  // Reduce the number of animated shapes by half for a calmer presentation
+  const half = Math.max(1, Math.ceil(shapes.length / 2));
+  const visibleShapes = isMobile ? shapes.slice(0, Math.min(3, half)) : shapes.slice(0, half);
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">

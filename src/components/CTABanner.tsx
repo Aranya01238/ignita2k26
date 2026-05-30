@@ -4,19 +4,19 @@ import NeonFlicker from "./NeonFlicker";
 
 const CTABanner = () => (
   <section id="register" className="section-padding relative overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-neon-pink/10" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[150px] animate-pulse-glow" />
+    {/* subtle background accents only — avoid full-width opaque overlays so adjacent sections blend smoothly */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[120px] opacity-40 pointer-events-none" />
 
     {/* Animated neon rings */}
     <motion.div
-      animate={{ rotate: 360, scale: [1, 1.1, 1] }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-primary/10 pointer-events-none"
+      animate={{ rotate: 360, scale: [1, 1.03, 1] }}
+      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-primary/12 pointer-events-none opacity-40"
     />
     <motion.div
-      animate={{ rotate: -360, scale: [1.1, 1, 1.1] }}
-      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-secondary/10 pointer-events-none"
+      animate={{ rotate: -360, scale: [1.03, 1, 1.03] }}
+      transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-secondary/12 pointer-events-none opacity-32"
     />
 
     <div className="container mx-auto relative z-10 text-center">
@@ -64,9 +64,9 @@ const CTABanner = () => (
             href="#events"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="hero-explore-button pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
+            className="hero-explore-outline pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
           >
-            <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary animate-pulse" />
+            <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary opacity-60" />
             Explore Events
             <ArrowRight size={18} />
           </motion.a>

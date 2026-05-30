@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useReducedMotion } from "framer-motion";
 
 const blobs = [
   { color: "bg-primary/10", size: "w-[620px] h-[620px]", x: "50%", y: "48%", duration: 18, centered: true },
@@ -10,7 +11,13 @@ const blobs = [
 
 const AnimatedBlobs = () => {
   const isMobile = useIsMobile();
-  const activeBlobs = isMobile ? blobs.slice(0, 2) : blobs;
+  const prefersReducedMotion = useReducedMotion();
+
+  if (isMobile || prefersReducedMotion) {
+    return null;
+  }
+
+  const activeBlobs = blobs;
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">

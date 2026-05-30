@@ -1,9 +1,17 @@
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ParticleField = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (isMobile || prefersReducedMotion) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -11,7 +19,7 @@ const ParticleField = () => {
 
     let animId: number;
     const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
-    const count = 80;
+    const count = 52;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -72,6 +80,10 @@ const ParticleField = () => {
       window.removeEventListener("resize", resize);
     };
   }, []);
+
+  if (isMobile || prefersReducedMotion) {
+    return null;
+  }
 
   return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none" />;
 };

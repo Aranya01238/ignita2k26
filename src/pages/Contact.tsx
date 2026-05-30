@@ -1,15 +1,5 @@
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Instagram,
-  Twitter,
-  Linkedin,
-  Github,
-} from "lucide-react";
+import { useState } from "react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -17,237 +7,164 @@ import ParticleField from "@/components/ParticleField";
 import AnimatedBlobs from "@/components/AnimatedBlobs";
 import ScrollProgress from "@/components/ScrollProgress";
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "ignitia@uem.edu.in",
-    href: "mailto:ignitia@uem.edu.in",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
-  },
-  {
-    icon: MapPin,
-    label: "Venue",
-    value: "UEM Kolkata, New Town, Kolkata 700160",
-    href: "#",
-  },
-];
-
-const socials = [
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Twitter, label: "Twitter", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Github, label: "GitHub", href: "#" },
-];
+const mapHref =
+  "https://www.google.com/maps/place/University+of+Engineering+%26+Management,+Kolkata+(UEM)/@22.5599202,88.4899014,17z/data=!3m1!4b1!4m6!3m5!1s0x3a020b267a3cdc13:0xb3b21d652126f40!8m2!3d22.5599202!4d88.4899014!16s%2Fg%2F11c4pg5gwf?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D";
+const mapEmbedSrc =
+  "https://www.google.com/maps?q=University+of+Engineering+%26+Management,+Kolkata+(UEM)&z=17&output=embed";
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const formRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: formRef,
-    offset: ["start end", "center center"],
-  });
-  const formScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0.85, 1]),
-    { stiffness: 80, damping: 20 },
-  );
-  const formRotateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [12, 0]),
-    { stiffness: 80, damping: 20 },
-  );
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => setSubmitted(false), 2000);
   };
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background scanline-overlay">
+      <div className="min-h-screen flex flex-col bg-background scanline-overlay">
         <ParticleField />
         <AnimatedBlobs />
         <ScrollProgress />
         <Navbar />
 
-        <section className="relative min-h-[50vh] flex items-center justify-center pt-16">
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <motion.h1
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring" }}
-              className="font-heading text-5xl md:text-7xl font-bold mb-4"
-            >
-              Get in <span className="gradient-text">Touch</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-muted-foreground"
-            >
-              Have questions? Reach out to us!
-            </motion.p>
-          </div>
-        </section>
+        <main className="flex-1">
+          <section className="relative min-h-[40vh] flex items-center justify-center pt-16">
+            <div className="container mx-auto px-4 text-center">
+              <h1 className="font-heading text-4xl md:text-5xl font-bold mb-3">
+                <span className="text-primary">Contact</span> Us
+              </h1>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We're here to help — for general enquiries, partnerships, or media requests,
+                drop us a message and we'll get back to you.
+              </p>
+            </div>
+          </section>
 
-        <section className="section-padding">
-          <div className="container mx-auto max-w-5xl">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Contact info */}
-              <div className="space-y-6">
-                {contactInfo.map((info, i) => (
-                  <motion.a
-                    key={info.label}
-                    href={info.href}
-                    initial={{ opacity: 0, x: -60, rotateY: -10 }}
-                    whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    whileHover={{ scale: 1.03, x: 8 }}
-                    className="glass-card bg-card/75 backdrop-blur-2xl p-5 flex items-center gap-4 shimmer-card animated-border-glow block"
-                    style={{ transformPerspective: 800 }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <info.icon size={22} className="text-primary" />
+          <section className="section-padding">
+            <div className="container mx-auto max-w-5xl">
+              <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+                <div className="space-y-5">
+                  <div className="rounded-2xl border border-white/8 bg-card/45 p-5 md:p-6 transition-all duration-200 hover:border-primary/20 hover:bg-card/55">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105">
+                        <Mail size={18} className="text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-foreground">Email</div>
+                        <a
+                          href="mailto:ignitia@uem.edu.in"
+                          className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                        >
+                          ignitia@uem.edu.in
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/8 bg-card/45 p-5 md:p-6 transition-all duration-200 hover:border-primary/20 hover:bg-card/55">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-transform duration-200 hover:scale-105">
+                        <Phone size={18} className="text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-foreground">Phone</div>
+                        <a
+                          href="tel:+919876543210"
+                          className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                        >
+                          +91 98765 43210
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/8 bg-card/45 p-5 md:p-6 transition-all duration-200 hover:border-primary/20 hover:bg-card/55">
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-transform duration-200 hover:scale-105">
+                        <MapPin size={18} className="text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-foreground">Venue</div>
+                        <a
+                          href={mapHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                        >
+                          UEM Kolkata, New Town, Kolkata 700160
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="group relative mt-4 hidden overflow-hidden rounded-2xl border border-white/8 bg-card/45 h-64 transition-all duration-200 hover:border-primary/25 hover:shadow-[0_20px_60px_rgba(255,83,48,0.12)] lg:block">
+                    <iframe
+                      src={mapEmbedSrc}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0, pointerEvents: "none" }}
+                      loading="lazy"
+                      title="UEM Kolkata Location"
+                    />
+                    <a
+                      href={mapHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Open UEM Kolkata map"
+                      className="absolute right-3 top-3 rounded-full border border-primary/30 bg-background/80 px-3 py-1 text-[11px] font-semibold text-primary backdrop-blur-md transition-colors hover:bg-primary hover:text-white"
+                    >
+                      Open Maps
+                    </a>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-white/8 bg-card/45 p-6 md:p-8 lg:min-h-[100%]">
+                  <h2 className="font-heading text-xl font-semibold mb-5">Send us a message</h2>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label className="text-xs text-muted-foreground">Full name</label>
+                      <input className="w-full mt-1 px-4 py-3 rounded-xl bg-background/40 border border-white/8 transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" required />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground">
-                        {info.label}
-                      </p>
-                      <p className="text-sm text-foreground font-medium">
-                        {info.value}
-                      </p>
+                      <label className="text-xs text-muted-foreground">Email</label>
+                      <input type="email" className="w-full mt-1 px-4 py-3 rounded-xl bg-background/40 border border-white/8 transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" required />
                     </div>
-                  </motion.a>
-                ))}
+                    <div>
+                      <label className="text-xs text-muted-foreground">Message</label>
+                      <textarea rows={6} className="w-full mt-1 px-4 py-3 rounded-xl bg-background/40 border border-white/8 transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" required />
+                    </div>
+                    <button type="submit" className="glow-button inline-flex items-center gap-2 px-6 py-3">
+                      <Send size={14} /> {submitted ? "Sent" : "Send Message"}
+                    </button>
+                  </form>
+                </div>
 
-                {/* Socials */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="flex gap-3 pt-4"
-                >
-                  {socials.map((s, i) => (
-                    <motion.a
-                      key={s.label}
-                      href={s.href}
-                      whileHover={{ scale: 1.2, y: -4 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-11 h-11 rounded-lg glass-card bg-card/75 backdrop-blur-2xl flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <s.icon size={18} />
-                    </motion.a>
-                  ))}
-                </motion.div>
-
-                {/* Map embed placeholder */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className="glass-card bg-card/75 backdrop-blur-2xl overflow-hidden h-48 mt-4"
-                >
+                <div className="group relative overflow-hidden rounded-2xl border border-white/8 bg-card/45 h-64 transition-all duration-200 hover:border-primary/25 hover:shadow-[0_20px_60px_rgba(255,83,48,0.12)] lg:hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.5!2d88.47!3d22.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDM0JzEyLjAiTiA4OMKwMjgnMTIuMCJF!5e0!3m2!1sen!2sin!4v1"
+                    src={mapEmbedSrc}
                     width="100%"
                     height="100%"
-                    style={{
-                      border: 0,
-                      filter: "invert(90%) hue-rotate(180deg)",
-                    }}
-                    allowFullScreen
+                    style={{ border: 0, pointerEvents: "none" }}
                     loading="lazy"
                     title="UEM Kolkata Location"
                   />
-                </motion.div>
+                  <a
+                    href={mapHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open UEM Kolkata map"
+                    className="absolute right-3 top-3 rounded-full border border-primary/30 bg-background/80 px-3 py-1 text-[11px] font-semibold text-primary backdrop-blur-md transition-colors hover:bg-primary hover:text-white"
+                  >
+                    Open Maps
+                  </a>
+                </div>
               </div>
-
-              {/* Contact form */}
-              <motion.div
-                ref={formRef}
-                style={{
-                  scale: formScale,
-                  rotateX: formRotateX,
-                  transformPerspective: 1000,
-                }}
-                className="glass-card bg-card/75 backdrop-blur-2xl p-6 md:p-8 shimmer-card"
-              >
-                <h2 className="font-heading text-xl font-bold text-foreground mb-6">
-                  Send us a Message
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {[
-                    { name: "name", label: "Full Name", type: "text" },
-                    { name: "email", label: "Email Address", type: "email" },
-                    { name: "subject", label: "Subject", type: "text" },
-                  ].map((field, i) => (
-                    <motion.div
-                      key={field.name}
-                      initial={{ opacity: 0, x: 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.08 }}
-                    >
-                      <label className="text-xs text-muted-foreground mb-1 block">
-                        {field.label}
-                      </label>
-                      <input
-                        type={field.type}
-                        required
-                        className="w-full bg-muted/50 border border-glass-border rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                        placeholder={field.label}
-                      />
-                    </motion.div>
-                  ))}
-                  <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.24 }}
-                  >
-                    <label className="text-xs text-muted-foreground mb-1 block">
-                      Message
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      className="w-full bg-muted/50 border border-glass-border rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                      placeholder="Your message..."
-                    />
-                  </motion.div>
-                  <motion.button
-                    type="submit"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="glow-button w-full inline-flex items-center justify-center gap-2 ripple-button"
-                  >
-                    {submitted ? (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="text-sm"
-                      >
-                        ✓ Message Sent!
-                      </motion.span>
-                    ) : (
-                      <>
-                        <Send size={16} /> Send Message
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              </motion.div>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
+
         <Footer />
       </div>
     </PageTransition>

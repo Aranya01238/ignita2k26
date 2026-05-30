@@ -4,7 +4,7 @@ import { X, Zap, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const announcements = [
-  "⚡ IGNITIA'26 registration is open — secure your spot before seats fill up!",
+  "⚡ IGNITIA '26 registration is open — secure your spot before seats fill up!",
   "🏆 Prize Pool: ₹2L+ across 6 events — Hackathon, Gaming, Quiz, Debates & more!",
   "📅 Aug 1–2, 2026 · UEM Kolkata · IEM-UEM group",
   "🎮 Blind Coding, Guess Who & Gaming Tournament — Day 2 Events Registration Open!",

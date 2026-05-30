@@ -175,24 +175,23 @@ const MemberCard = ({
     target: ref,
     offset: ["start end", "center center"],
   });
-  const scale = useSpring(useTransform(scrollYProgress, [0, 1], [0.85, 1]), {
+  const scale = useSpring(useTransform(scrollYProgress, [0, 1], [0.9, 1]), {
     stiffness: 120,
     damping: 20,
   });
-  const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
     <motion.div
       ref={ref}
       style={{ scale, opacity }}
-      whileHover={{ y: -10 }}
-      className="char-select-card group relative cursor-pointer"
+      whileHover={{ y: -8 }}
+      className="char-select-card group relative w-full max-w-[280px] cursor-pointer"
     >
-      {/* Corner brackets – visible always on hover */}
-      <CornerBracket className="absolute top-0 left-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
+      <CornerBracket className="absolute top-0 left-0 opacity-35 group-hover:opacity-80 transition-opacity duration-300" />
       <CornerBracket
         flip
-        className="absolute bottom-0 right-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute bottom-0 right-0 opacity-35 group-hover:opacity-80 transition-opacity duration-300"
       />
 
       {/* Class badge top-right */}
@@ -205,41 +204,39 @@ const MemberCard = ({
       {/* Hover selection overlay */}
       <div className="selection-indicator rounded-xl" />
 
-      <div className="relative z-10 p-5 text-center">
-        {/* Avatar with arc-reactor glow */}
-        <div className="relative w-20 h-20 mx-auto mb-4">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-900/60 to-black flex items-center justify-center border-2 border-red-800/40 group-hover:border-red-500/80 transition-all duration-300">
+      <div className="relative z-10 flex flex-col items-center p-5 text-center">
+        <div className="relative mb-4 h-20 w-20">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/25 via-secondary/15 to-black flex items-center justify-center border border-white/10 transition-all duration-300 group-hover:border-primary/35">
             <span className="font-heading text-xl font-bold text-red-300">
               {member.initials}
             </span>
           </div>
-          {/* Outer glow ring */}
-          <div className="absolute inset-0 rounded-full border border-red-500/0 group-hover:border-red-500/60 transition-all duration-500 group-hover:shadow-[0_0_20px_hsl(0_95%_50%/0.4)]" />
-          {/* Small energy symbol at bottom-right of avatar */}
-          <div className="absolute -bottom-1 -right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <EnergySymbol size={18} />
+          <div className="absolute inset-0 rounded-full border border-primary/0 transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_20px_hsl(24_100%_58%/0.22)]" />
+          <div className="absolute -bottom-1 -right-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <EnergySymbol size={16} />
           </div>
         </div>
 
         <h3 className="font-heading text-base font-semibold text-foreground">
           {member.name}
         </h3>
-        <p className="text-xs text-muted-foreground mt-1 mb-4">{member.role}</p>
+        <p className="mt-1 mb-4 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+          {member.role}
+        </p>
 
-        {/* Social links */}
         <div className="flex items-center justify-center gap-3">
           <motion.a
             href={member.linkedin}
-            whileHover={{ scale: 1.2 }}
-            className="w-8 h-8 rounded-lg bg-red-950/60 border border-red-800/40 flex items-center justify-center text-red-400 hover:border-red-500 hover:text-red-300 transition-all"
+            whileHover={{ scale: 1.12, y: -1 }}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
             onClick={(e) => e.stopPropagation()}
           >
             <Linkedin size={14} />
           </motion.a>
           <motion.a
             href={member.instagram}
-            whileHover={{ scale: 1.2 }}
-            className="w-8 h-8 rounded-lg bg-red-950/60 border border-red-800/40 flex items-center justify-center text-red-400 hover:border-red-500 hover:text-red-300 transition-all"
+            whileHover={{ scale: 1.12, y: -1 }}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
             onClick={(e) => e.stopPropagation()}
           >
             <Instagram size={14} />
@@ -247,12 +244,20 @@ const MemberCard = ({
         </div>
       </div>
 
-      {/* Bottom bar — like a health/power bar in character select */}
-      <div className="relative z-10 mx-4 mb-3 h-0.5 rounded-full bg-red-950/60 overflow-hidden">
+      <div className="relative z-10 mx-4 mb-3 h-0.5 overflow-hidden rounded-full bg-white/10">
         <motion.div
           className="h-full bg-gradient-to-r from-red-600 to-orange-500 rounded-full"
           initial={{ width: "0%" }}
-          whileInView={{ width: member.class === "LEGENDARY" ? "100%" : member.class === "EPIC" ? "80%" : member.class === "RARE" ? "60%" : "30%" }}
+          whileInView={{
+            width:
+              member.class === "LEGENDARY"
+                ? "100%"
+                : member.class === "EPIC"
+                  ? "82%"
+                  : member.class === "RARE"
+                    ? "62%"
+                    : "34%",
+          }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         />
       </div>
@@ -268,74 +273,70 @@ const Team = () => (
       <ScrollProgress />
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center justify-center pt-16">
-        {/* Viewport-centered glow behind heading */}
+      <section className="relative flex items-center justify-center overflow-hidden pt-20 pb-10 md:pt-24 md:pb-14">
         <div
-          className="pointer-events-none fixed inset-0"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at 50vw 50vh, hsl(0 95% 70% / 0.38) 0%, hsl(0 95% 60% / 0.24) 18%, hsl(0 80% 40% / 0.12) 36%, transparent 58%)",
-            filter: "blur(70px)",
+              "radial-gradient(circle at 50% 20%, hsl(24 100% 58% / 0.10) 0%, hsl(0 95% 60% / 0.06) 18%, transparent 40%)",
+            filter: "blur(45px)",
             zIndex: 0,
           }}
         />
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center justify-center gap-3 mb-4"
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.4 }}
+            className="mb-3 text-xs uppercase tracking-[0.32em] text-primary md:text-sm"
           >
-            <EnergySymbol size={28} />
-            <span className="text-sm text-red-400 uppercase tracking-widest font-semibold">
-              The Squad
-            </span>
-            <EnergySymbol size={28} />
-          </motion.div>
+            The People Behind IGNITIA '26
+          </motion.p>
           <motion.h1
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", duration: 0.6 }}
-            className="font-heading text-5xl md:text-7xl font-bold mb-4"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.22, duration: 0.5, ease: "easeOut" }}
+            className="font-heading text-4xl font-bold md:text-6xl lg:text-7xl"
           >
             Our <span className="gradient-text">Team</span>
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-muted-foreground max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.45 }}
+            className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base"
           >
-            The people behind IGNITIA'26 — organizers, creators, and dreamers.
+            A focused group of students and coordinators working together to shape a
+            polished, high-energy experience across every track.
           </motion.p>
         </div>
       </section>
 
       <section className="section-padding">
-        <div className="container mx-auto space-y-20">
+        <div className="container mx-auto max-w-6xl space-y-16 md:space-y-20">
           {teamSections.map((section) => (
-            <div key={section.title}>
+            <section key={section.title} className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="mb-8 flex items-center gap-4"
+                className="flex flex-wrap items-end gap-4"
               >
-                <div>
-                  <p className="text-sm text-primary uppercase tracking-widest mb-1">
+                <div className="min-w-[180px]">
+                  <p className="mb-1 text-xs uppercase tracking-[0.28em] text-primary md:text-sm">
                     {section.title}
                   </p>
-                  <div className={`h-[2px] w-16 bg-gradient-to-r ${section.role_color}`} />
+                  <div className={`h-[2px] w-20 bg-gradient-to-r ${section.role_color}`} />
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-red-800/20 to-transparent" />
+                <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
               </motion.div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+              <div className="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {section.members.map((member, i) => (
                   <MemberCard key={member.name + i} member={member} index={i} />
                 ))}
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </section>

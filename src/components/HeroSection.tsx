@@ -344,9 +344,9 @@ const HeroSection = () => {
                 </a>
                 <a
                   href="/events"
-                  className="hero-explore-button pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
+                  className="hero-explore-outline pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
                 >
-                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary animate-pulse" />
+                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary opacity-60" />
                   Explore Events
                   <ArrowRight size={18} />
                 </a>

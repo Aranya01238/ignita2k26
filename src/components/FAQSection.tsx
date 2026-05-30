@@ -8,7 +8,7 @@ import {
 
 const faqs = [
   {
-    q: "Who can participate in IGNITIA'26?",
+    q: "Who can participate in IGNITIA '26?",
     a: "Any college student from across India can participate. Some events are open to individual participants while others require teams.",
   },
   {
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: "Can students from other colleges join?",
-    a: "Absolutely! IGNITIA'26 welcomes students from all colleges. We have 50+ colleges invited.",
+    a: "Absolutely! IGNITIA '26 welcomes students from all colleges. We have 50+ colleges invited.",
   },
   {
     q: "How do teams register?",

@@ -1,5 +1,14 @@
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import {
+  ArrowRight,
+  Github,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const stagger = {
@@ -13,31 +22,45 @@ const fadeUp = {
 };
 
 const Footer = () => (
-  <footer className="border-t border-glass-border bg-card/40 backdrop-blur-xl">
-    <div className="container mx-auto px-4 py-16">
+  <footer className="relative overflow-hidden border-t border-white/10 bg-background/85 backdrop-blur-xl">
+    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,77,77,0.12),transparent_28%),radial-gradient(circle_at_top_right,rgba(255,255,255,0.04),transparent_24%)]" />
+    <div className="container relative z-10 mx-auto px-4 py-16 md:py-20">
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-4 gap-10"
+        className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr]"
       >
-        <motion.div variants={fadeUp} className="md:col-span-1">
-          <Link to="/" className="flex items-center gap-3">
-            <img src="/ignitia-2d.png" alt="IGNITIA logo" className="h-10 w-auto" />
-            <span className="font-heading text-2xl font-bold gradient-text">IGNITIA'26</span>
+        <motion.div variants={fadeUp} className="space-y-5">
+          <Link to="/" className="inline-flex items-center gap-3">
+            <img
+              src="/ignitia-2d.png"
+              alt="IGNITIA logo"
+              className="h-12 w-12 rounded-full object-cover shadow-[0_0_30px_hsl(0_95%_60%/0.22)]"
+            />
+            <div>
+              <span className="block font-heading text-2xl font-bold gradient-text">
+                IGNITIA '26
+              </span>
+              <span className="text-xs uppercase tracking-[0.26em] text-muted-foreground">
+                IEM-UEM group, UEM Kolkata
+              </span>
+            </div>
           </Link>
-          <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-            The flagship multi-domain event by IEM-UEM group, UEM Kolkata.
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            A flagship multi-domain celebration of technology, creativity, and
+            student innovation.
           </p>
-          <div className="flex gap-3 mt-4">
+          <div className="flex gap-3">
             {[Instagram, Twitter, Linkedin, Github].map((Icon, i) => (
               <motion.a
                 key={i}
                 href="#"
                 whileHover={{ scale: 1.2, y: -3 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Social link"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-card/60 text-muted-foreground transition-colors hover:text-primary"
               >
                 <Icon size={16} />
               </motion.a>
@@ -45,9 +68,11 @@ const Footer = () => (
           </div>
         </motion.div>
 
-        <motion.div variants={fadeUp}>
-          <h4 className="font-heading font-semibold text-foreground mb-4">Quick Links</h4>
-          <div className="flex flex-col gap-2">
+        <motion.div variants={fadeUp} className="space-y-4">
+          <h4 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
+            Quick Links
+          </h4>
+          <div className="flex flex-col gap-3">
             {[
               { label: "About", to: "/about" },
               { label: "Events", to: "/events" },
@@ -55,46 +80,79 @@ const Footer = () => (
               { label: "Sponsors", to: "/sponsors" },
               { label: "Team", to: "/team" },
               { label: "FAQ", to: "/faq" },
-            ].map((l) => (
-              <motion.div key={l.label} whileHover={{ x: 4 }}>
+            ].map((link) => (
+              <motion.div key={link.label} whileHover={{ x: 4 }}>
                 <Link
-                  to={l.to}
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors nav-link-underline w-fit"
+                  to={link.to}
+                  className="inline-flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {l.label}
+                  <ArrowRight size={14} />
+                  {link.label}
                 </Link>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        <motion.div variants={fadeUp}>
-          <h4 className="font-heading font-semibold text-foreground mb-4">Events</h4>
-          <div className="flex flex-col gap-2">
-            {["Ideathon", "Coding Quest", "Quiz", "Gaming Arena", "Cultural Fest", "Game Dev Hackathon"].map((e) => (
-              <motion.div key={e} whileHover={{ x: 4 }}>
+        <motion.div variants={fadeUp} className="space-y-4">
+          <h4 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
+            Events
+          </h4>
+          <div className="flex flex-col gap-3">
+            {[
+              "Ideathon",
+              "Coding Quest",
+              "Quiz",
+              "Gaming Arena",
+              "Cultural Fest",
+              "Game Dev Hackathon",
+            ].map((event) => (
+              <motion.div key={event} whileHover={{ x: 4 }}>
                 <Link
                   to="/events"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors nav-link-underline w-fit"
+                  className="inline-flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {e}
+                  <ArrowRight size={14} />
+                  {event}
                 </Link>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        <motion.div variants={fadeUp}>
-          <h4 className="font-heading font-semibold text-foreground mb-4">Contact</h4>
+        <motion.div variants={fadeUp} className="space-y-4">
+          <h4 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
+            Contact
+          </h4>
           <div className="flex flex-col gap-3">
-            <motion.div whileHover={{ x: 4 }} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Mail size={14} className="text-primary" /> ignitia@uem.edu.in
-            </motion.div>
-            <motion.div whileHover={{ x: 4 }} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Phone size={14} className="text-primary" /> +91 98765 43210
-            </motion.div>
-            <motion.div whileHover={{ x: 4 }} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <MapPin size={14} className="text-primary shrink-0 mt-0.5" /> University of Engineering & Management, Kolkata
+            <motion.a
+              whileHover={{ x: 4 }}
+              href="mailto:ignitia@uem.edu.in"
+              className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-card/60 text-primary">
+                <Mail size={14} />
+              </span>
+              <span>ignitia@uem.edu.in</span>
+            </motion.a>
+            <motion.a
+              whileHover={{ x: 4 }}
+              href="tel:+919876543210"
+              className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-card/60 text-primary">
+                <Phone size={14} />
+              </span>
+              <span>+91 98765 43210</span>
+            </motion.a>
+            <motion.div
+              whileHover={{ x: 4 }}
+              className="flex items-start gap-3 text-sm text-muted-foreground"
+            >
+              <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-card/60 text-primary">
+                <MapPin size={14} />
+              </span>
+              <span>University of Engineering & Management, Kolkata</span>
             </motion.div>
           </div>
         </motion.div>
@@ -105,9 +163,10 @@ const Footer = () => (
         whileInView={{ opacity: 1, scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="border-t border-glass-border mt-12 pt-6 text-center text-xs text-muted-foreground origin-center"
+        className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-muted-foreground origin-center"
       >
-        © 2026 IGNITIA'26 — IEM-UEM group, UEM Kolkata. All rights reserved.
+        © 2026 IGNITIA '26 · Built for students, powered by the IEM-UEM group,
+        UEM Kolkata.
       </motion.div>
     </div>
   </footer>

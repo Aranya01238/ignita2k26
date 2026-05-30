@@ -77,7 +77,7 @@ const About = () => {
               transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
               className="font-heading text-5xl md:text-7xl font-bold mb-6"
             >
-              About <span className="gradient-text">IGNITIA'26</span>
+              About <span className="gradient-text">IGNITIA '26</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -121,7 +121,7 @@ const About = () => {
                   <span className="gradient-text">Innovators</span>
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  IGNITIA'26 aims to create a vibrant ecosystem where students
+                  IGNITIA '26 aims to create a vibrant ecosystem where students
                   from diverse backgrounds come together to learn, compete, and
                   innovate. We believe in the power of technology to transform
                   ideas into impactful solutions.

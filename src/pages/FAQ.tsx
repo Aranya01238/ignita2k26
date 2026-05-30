@@ -15,8 +15,8 @@ import ScrollProgress from "@/components/ScrollProgress";
 
 const faqs = [
   {
-    q: "Who can participate in IGNITIA'26?",
-    a: "IGNITIA'26 is open to all college students across India. Whether you're from UEM Kolkata or any other institution, you're welcome to register and participate.",
+    q: "Who can participate in IGNITIA '26?",
+    a: "IGNITIA '26 is open to all college students across India. Whether you're from UEM Kolkata or any other institution, you're welcome to register and participate.",
   },
   {
     q: "Is there a registration fee?",
@@ -81,7 +81,7 @@ const FAQ = () => {
               transition={{ delay: 0.3 }}
               className="text-muted-foreground max-w-lg mx-auto"
             >
-              Everything you need to know about IGNITIA'26.
+              Everything you need to know about IGNITIA '26.
             </motion.p>
           </div>
         </section>
