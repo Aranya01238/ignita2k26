@@ -57,6 +57,23 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 14%;
     --sidebar-ring: 0 95% 60%;
+
+    /* RA-ONE sci-fi tokens */
+    --raone-red: #e8000d;
+    --raone-red-glow: rgba(232, 0, 13, 0.6);
+    --raone-red-dim: rgba(232, 0, 13, 0.15);
+    --gone-cyan: #00f5ff;
+    --gone-cyan-glow: rgba(0, 245, 255, 0.5);
+    --gone-cyan-dim: rgba(0, 245, 255, 0.1);
+    --void-black: #020408;
+    --deep-space: #080d14;
+    --panel-dark: #0a1220;
+    --panel-border: rgba(0, 245, 255, 0.2);
+    --font-hud: "Orbitron", "Share Tech Mono", monospace;
+    --glow-red: 0 0 8px var(--raone-red), 0 0 24px var(--raone-red-glow);
+    --glow-cyan: 0 0 8px var(--gone-cyan), 0 0 24px var(--gone-cyan-glow);
+    --glow-text-red: 0 0 10px var(--raone-red-glow);
+    --glow-text-cyan: 0 0 10px var(--gone-cyan-glow);
   }
 }
 
@@ -68,6 +85,59 @@
   html, body {
     @apply bg-background text-foreground font-body antialiased;
     scroll-behavior: smooth;
+    cursor: url("/mouse-32.png") 5 5, auto;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  label[for],
+  summary,
+  .cursor-pointer {
+    cursor: url("/mouse-32.png") 5 5, pointer;
+  }
+
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+
+  .custom-cursor-root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2147483646;
+    width: 32px;
+    height: 32px;
+    pointer-events: none !important;
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.12s ease;
+  }
+
+  .custom-cursor-root.is-visible {
+    opacity: 1;
+  }
+
+  .custom-cursor-img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    user-select: none;
+    transform-origin: 5px 5px;
+    transition: transform 0.08s ease, filter 0.12s ease;
+  }
+
+  .custom-cursor-img.has-glow {
+    filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.55));
+  }
+
+  .custom-cursor-img.is-pressing {
+    transform: scale(0.88);
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.85));
   }
 
   #root {
@@ -134,113 +204,6 @@
   .glow-button-secondary:hover {
     @apply bg-primary/10;
     box-shadow: 0 0 20px hsl(0 89% 50% / 0.2);
-  }
-
-  .hero-primary-button {
-    background: linear-gradient(135deg, hsl(0 95% 55%), hsl(0 75% 58%));
-    color: #fff;
-    border-radius: 9999px;
-    box-shadow: 0 18px 45px rgba(255, 66, 79, 0.22), inset 0 0 24px rgba(255, 255, 255, 0.08);
-    padding: 0.9rem 1.75rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    font-weight: 600;
-  }
-
-  .hero-primary-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 24px 55px rgba(255, 66, 79, 0.35), inset 0 0 32px rgba(255, 255, 255, 0.12);
-    background: linear-gradient(135deg, hsl(0 95% 60%), hsl(0 78% 62%));
-  }
-
-  .hero-secondary-button {
-    @apply bg-white/5 text-white/90 border border-white/10;
-    backdrop-filter: blur(18px);
-    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-  }
-
-  .hero-secondary-button:hover {
-    transform: translateY(-1px);
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .hero-explore-button {
-    background:
-      linear-gradient(135deg, hsl(195 95% 56% / 0.22), hsl(230 90% 60% / 0.18)),
-      rgba(255, 255, 255, 0.04);
-    color: #fff;
-    border-radius: 9999px;
-    border: 1px solid hsl(195 95% 60% / 0.22);
-    box-shadow:
-      0 18px 45px rgba(40, 140, 255, 0.12),
-      inset 0 0 24px rgba(255, 255, 255, 0.06);
-    padding: 0.9rem 1.75rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    font-weight: 600;
-  }
-
-  .hero-explore-button::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 20%, hsl(0 0% 100% / 0.18), transparent 80%);
-    transform: translateX(-130%);
-    transition: transform 0.45s ease;
-    pointer-events: none;
-  }
-
-  .hero-explore-button:hover {
-    transform: translateY(-2px);
-    color: #fff;
-    background:
-      linear-gradient(135deg, hsl(195 100% 60% / 0.3), hsl(230 100% 66% / 0.26)),
-      rgba(255, 255, 255, 0.06);
-    box-shadow:
-      0 24px 55px rgba(40, 140, 255, 0.2),
-      inset 0 0 32px rgba(255, 255, 255, 0.1);
-  }
-
-  .hero-explore-button:hover::before {
-    transform: translateX(130%);
-  }
-
-  .sponsor-cta-shell {
-    position: relative;
-    overflow: hidden;
-    background: rgba(15, 15, 20, 0.75);
-  }
-
-  .sponsor-cta-shell::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 25%),
-      radial-gradient(circle at 80% 50%, rgba(255, 56, 148, 0.14), transparent 32%);
-    pointer-events: none;
-  }
-
-  .sponsor-cta-button {
-    position: relative;
-    z-index: 10;
-    color: #fff;
-    background: linear-gradient(135deg, rgba(255, 89, 142, 0.98), rgba(255, 38, 146, 0.96));
-    border-radius: 9999px;
-    box-shadow: 0 0 18px rgba(255, 90, 150, 0.22), inset 0 0 24px rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .sponsor-cta-button::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 30%);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .sponsor-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 42px rgba(255, 90, 150, 0.32), inset 0 0 30px rgba(255, 255, 255, 0.12);
   }
 
   .section-padding {
@@ -511,9 +474,18 @@
   animation: neonFlicker 3s ease-in-out infinite;
 }
 
-/* Scanline overlay -- disabled globally to remove occasional horizontal scanline */
+/* Scanline overlay */
 .scanline-overlay::after {
-  display: none;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, hsl(0 89% 50% / 0.06), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 50;
 }
 
 /* Cyberpunk flicker on hover */

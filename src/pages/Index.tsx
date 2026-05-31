@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import Highlights from "@/components/Highlights";
+import FeaturedEvents from "@/components/FeaturedEvents";
 import WhyAttend from "@/components/WhyAttend";
 import Sponsors from "@/components/Sponsors";
 import FAQSection from "@/components/FAQSection";
@@ -11,12 +12,12 @@ import MouseSpotlight from "@/components/MouseSpotlight";
 import ParticleField from "@/components/ParticleField";
 import ScrollProgress from "@/components/ScrollProgress";
 import ShootingStars from "@/components/ShootingStars";
-import CursorTrail from "@/components/CursorTrail";
 import AnimatedBlobs from "@/components/AnimatedBlobs";
 import ParallaxSection from "@/components/ParallaxSection";
 import PageTransition from "@/components/PageTransition";
-import IgnitiaLogoArtifacts3D from "@/components/IgnitiaLogoArtifacts3D";
+import RAOneArtifacts3D from "@/components/RAOneArtifacts3D";
 import FloatingTechElements from "@/components/FloatingTechElements";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
@@ -40,11 +41,10 @@ const Index = () => {
   return (
     <>
       {!isMobile && <MouseSpotlight />}
-      {!isMobile && <CursorTrail />}
       <PageTransition>
         <div className="min-h-screen bg-background scanline-overlay" style={{ paddingBottom: 52 }}>
           {/* Fixed layers */}
-          {isLoaded && <IgnitiaLogoArtifacts3D />}
+          {isLoaded && <RAOneArtifacts3D />}
           {!isMobile && isLoaded && <FloatingTechElements />}
           {!isMobile && <ParticleField />}
           {!isMobile && <ShootingStars />}
@@ -54,16 +54,22 @@ const Index = () => {
           {/* Page content */}
           <Navbar />
           <HeroSection />
-          <Highlights centerOnMobile />
-          <WhyAttend />
-          <FAQSection />
-          <ParallaxSection offset={isMobile ? 10 : 25}>
-            <Sponsors centerOnMobile />
+          <Highlights />
+          <ParallaxSection offset={isMobile ? 14 : 30}>
+            <FeaturedEvents />
           </ParallaxSection>
+          <WhyAttend />
+          <ParallaxSection offset={isMobile ? 10 : 25}>
+            <Sponsors />
+          </ParallaxSection>
+          <FAQSection />
           <CTABanner />
           <Footer />
         </div>
       </PageTransition>
+
+      {/* Sticky bottom announcement bar — outside PageTransition so it's always on top */}
+      <AnnouncementBar />
     </>
   );
 };

@@ -1,38 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Linkedin, Instagram } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import PageTransition from "@/components/PageTransition";
-import ParticleField from "@/components/ParticleField";
-import AnimatedBlobs from "@/components/AnimatedBlobs";
-import ScrollProgress from "@/components/ScrollProgress";
+import PageSciFiLayout from "@/components/layout/PageSciFiLayout";
+import CelestialStarfield from "@/components/background/CelestialStarfield";
+import { useScrollReveal, useTypewriter } from "@/hooks/useScrollReveal";
 import { EnergySymbol } from "@/components/FloatingTechElements";
-
-// ── RA.One corner bracket (top-left)
-const CornerBracket = ({
-  flip = false,
-  className = "",
-}: {
-  flip?: boolean;
-  className?: string;
-}) => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="0 0 28 28"
-    fill="none"
-    className={className}
-    style={flip ? { transform: "scale(-1,-1)" } : undefined}
-  >
-    <path
-      d="M2 2 L18 2 L18 6 L6 6 L6 18 L2 18 Z"
-      fill="hsl(0 95% 60% / 0.4)"
-      stroke="hsl(0 95% 60%)"
-      strokeWidth="0.8"
-    />
-  </svg>
-);
 
 const teamSections = [
   {
@@ -156,11 +128,11 @@ type Member = {
   class: string;
 };
 
-const classColors: Record<string, string> = {
-  LEGENDARY: "text-yellow-400 bg-yellow-900/30 border-yellow-700/50",
-  EPIC: "text-red-300 bg-red-900/30 border-red-700/50",
-  RARE: "text-orange-300 bg-orange-900/30 border-orange-700/50",
-  TBA: "text-gray-400 bg-gray-900/30 border-gray-700/50",
+const classAccentMap: Record<string, "cyan" | "red" | "blue"> = {
+  LEGENDARY: "cyan",
+  EPIC: "red",
+  RARE: "blue",
+  TBA: "cyan",
 };
 
 const MemberCard = ({
@@ -170,150 +142,111 @@ const MemberCard = ({
   member: Member;
   index: number;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
-  const scale = useSpring(useTransform(scrollYProgress, [0, 1], [0.85, 1]), {
-    stiffness: 120,
-    damping: 20,
-  });
-  const opacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+  const accent = classAccentMap[member.class] || "cyan";
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ scale, opacity }}
-      whileHover={{ y: -10 }}
-      className="char-select-card group relative cursor-pointer"
+    <motion.article 
+      initial={{ opacity: 0, y: 24, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="bento-level-card group" 
+      data-accent={accent}
     >
-      {/* Corner brackets – visible always on hover */}
-      <CornerBracket className="absolute top-0 left-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
-      <CornerBracket
-        flip
-        className="absolute bottom-0 right-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300"
-      />
-
-      {/* Class badge top-right */}
-      <span
-        className={`absolute top-2 right-2 text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded border ${classColors[member.class] || classColors.RARE}`}
-      >
-        {member.class}
-      </span>
-
-      {/* Hover selection overlay */}
-      <div className="selection-indicator rounded-xl" />
-
-      <div className="relative z-10 p-5 text-center">
-        {/* Avatar with arc-reactor glow */}
-        <div className="relative w-20 h-20 mx-auto mb-4">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-900/60 to-black flex items-center justify-center border-2 border-red-800/40 group-hover:border-red-500/80 transition-all duration-300">
-            <span className="font-heading text-xl font-bold text-red-300">
-              {member.initials}
-            </span>
-          </div>
-          {/* Outer glow ring */}
-          <div className="absolute inset-0 rounded-full border border-red-500/0 group-hover:border-red-500/60 transition-all duration-500 group-hover:shadow-[0_0_20px_hsl(0_95%_50%/0.4)]" />
-          {/* Small energy symbol at bottom-right of avatar */}
-          <div className="absolute -bottom-1 -right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <EnergySymbol size={18} />
-          </div>
+      <span className="bento-lvl-badge">CLASS_{member.class}</span>
+      <div className="bento-media">
+        <img 
+          src="/team-avatar-placeholder.png" 
+          alt={member.name} 
+          loading="lazy" 
+          className="mix-blend-screen opacity-80 group-hover:opacity-100 transition-opacity"
+        />
+        <div className="bento-media-gradient" />
+        <div className="bento-media-scan" />
+        
+        {/* Color tint overlay based on class inside media */}
+        <div className={`absolute inset-0 mix-blend-overlay opacity-60 ${
+          member.class === "LEGENDARY" ? "bg-cyan-500" : 
+          member.class === "EPIC" ? "bg-red-500" : 
+          member.class === "RARE" ? "bg-blue-500" : "bg-gray-500"
+        }`} />
+      </div>
+      
+      <div className="bento-card-head mb-4">
+        <div>
+          <h3 className="bento-card-title glitch-text" data-text={member.name}>{member.name}</h3>
+          <p className="bento-card-prompt uppercase tracking-widest">{member.role}</p>
         </div>
+      </div>
 
-        <h3 className="font-heading text-base font-semibold text-foreground">
-          {member.name}
-        </h3>
-        <p className="text-xs text-muted-foreground mt-1 mb-4">{member.role}</p>
-
-        {/* Social links */}
-        <div className="flex items-center justify-center gap-3">
-          <motion.a
+      <div className="bento-prize-row !border-none !pb-0 !mb-0">
+        <span className="bento-prize-label">CONNECT_UPLINK</span>
+        <div className="flex items-center gap-3 relative z-10">
+          <a
             href={member.linkedin}
-            whileHover={{ scale: 1.2 }}
-            className="w-8 h-8 rounded-lg bg-red-950/60 border border-red-800/40 flex items-center justify-center text-red-400 hover:border-red-500 hover:text-red-300 transition-all"
             onClick={(e) => e.stopPropagation()}
+            className="w-8 h-8 rounded border border-[var(--card-accent)]/30 flex items-center justify-center text-[var(--card-accent)] hover:bg-[var(--card-accent)] hover:text-black transition-all"
           >
             <Linkedin size={14} />
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href={member.instagram}
-            whileHover={{ scale: 1.2 }}
-            className="w-8 h-8 rounded-lg bg-red-950/60 border border-red-800/40 flex items-center justify-center text-red-400 hover:border-red-500 hover:text-red-300 transition-all"
             onClick={(e) => e.stopPropagation()}
+            className="w-8 h-8 rounded border border-[var(--card-accent)]/30 flex items-center justify-center text-[var(--card-accent)] hover:bg-[var(--card-accent)] hover:text-black transition-all"
           >
             <Instagram size={14} />
-          </motion.a>
+          </a>
         </div>
       </div>
-
-      {/* Bottom bar — like a health/power bar in character select */}
-      <div className="relative z-10 mx-4 mb-3 h-0.5 rounded-full bg-red-950/60 overflow-hidden">
-        <motion.div
-          className="h-full bg-gradient-to-r from-red-600 to-orange-500 rounded-full"
-          initial={{ width: "0%" }}
-          whileInView={{ width: member.class === "LEGENDARY" ? "100%" : member.class === "EPIC" ? "80%" : member.class === "RARE" ? "60%" : "30%" }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
-      </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
-const Team = () => (
-  <PageTransition>
-    <div className="min-h-screen bg-background scanline-overlay">
-      <ParticleField />
-      <AnimatedBlobs />
-      <ScrollProgress />
-      <Navbar />
+const Team = () => {
+  const { ref: introRef, visible: introVisible } = useScrollReveal(0.25);
+  const eyebrow = useTypewriter("> ORCHESTRATION_CORE.exe — LOADING PROFILES", introVisible, 28);
 
-      {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center justify-center pt-16">
-        {/* Viewport-centered glow behind heading */}
-        <div
-          className="pointer-events-none fixed inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 50vw 50vh, hsl(0 95% 70% / 0.38) 0%, hsl(0 95% 60% / 0.24) 18%, hsl(0 80% 40% / 0.12) 36%, transparent 58%)",
-            filter: "blur(70px)",
-            zIndex: 0,
-          }}
-        />
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center justify-center gap-3 mb-4"
-          >
-            <EnergySymbol size={28} />
-            <span className="text-sm text-red-400 uppercase tracking-widest font-semibold">
-              The Squad
-            </span>
-            <EnergySymbol size={28} />
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", duration: 0.6 }}
-            className="font-heading text-5xl md:text-7xl font-bold mb-4"
-          >
-            Our <span className="gradient-text">Team</span>
-          </motion.h1>
+  return (
+    <PageSciFiLayout variant="team">
+      <section className="section-redesign relative pt-24 pb-8 md:pb-12">
+        <div className="section-redesign-bg section-noise">
+          <div className="events-celestial-bg">
+            <CelestialStarfield density={1.2} />
+          </div>
+          <span className="section-watermark">ORCHESTRATION_CORE</span>
+        </div>
+        <div ref={introRef as React.RefObject<HTMLDivElement>} className="container mx-auto px-4 text-center relative z-10">
+          <p className="font-hud text-xs md:text-sm text-[var(--gone-cyan)] uppercase tracking-[0.25em] mb-4 min-h-[1.25rem]">
+            {eyebrow}
+            {introVisible && eyebrow.length < 42 && <span className="animate-blink text-[var(--gone-cyan)]">█</span>}
+          </p>
+          <div className="relative inline-block mb-10">
+            <div className="section-title-ring" aria-hidden />
+            <motion.h1
+              initial={{ opacity: 0, x: -48 }}
+              animate={introVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className={`events-title-bracket font-hud text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wider relative z-10 ${introVisible ? "is-visible" : ""}`}
+            >
+              <span className="bracket-l">[</span> THE SQUAD <span className="bracket-r">]</span>
+            </motion.h1>
+          </div>
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-muted-foreground max-w-xl mx-auto"
+            animate={introVisible ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4 }}
+            className="text-gray-400 max-w-xl mx-auto font-hud text-[10px] tracking-widest uppercase"
           >
-            The people behind IGNITIA'26 — organizers, creators, and dreamers.
+            The masterminds behind IGNITIA'26
           </motion.p>
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container mx-auto space-y-20">
+      <section className="section-redesign pb-24 px-4 relative z-10">
+        <div className="section-redesign-bg">
+          <CelestialStarfield density={0.8} />
+        </div>
+        <div className="container mx-auto space-y-20 relative z-10 max-w-7xl">
           {teamSections.map((section) => (
             <div key={section.title}>
               <motion.div
@@ -323,14 +256,14 @@ const Team = () => (
                 className="mb-8 flex items-center gap-4"
               >
                 <div>
-                  <p className="text-sm text-primary uppercase tracking-widest mb-1">
-                    {section.title}
+                  <p className="font-hud text-[10px] text-[var(--gone-cyan)] uppercase tracking-[0.2em] mb-1">
+                    [ SECTOR: {section.title.toUpperCase()} ]
                   </p>
                   <div className={`h-[2px] w-16 bg-gradient-to-r ${section.role_color}`} />
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-red-800/20 to-transparent" />
+                <div className="flex-1 h-px bg-gradient-to-r from-[var(--gone-cyan)]/20 to-transparent" />
               </motion.div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {section.members.map((member, i) => (
                   <MemberCard key={member.name + i} member={member} index={i} />
                 ))}
@@ -339,9 +272,8 @@ const Team = () => (
           ))}
         </div>
       </section>
-      <Footer />
-    </div>
-  </PageTransition>
-);
+    </PageSciFiLayout>
+  );
+};
 
 export default Team;
