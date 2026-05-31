@@ -57,6 +57,23 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 14%;
     --sidebar-ring: 0 95% 60%;
+
+    /* RA-ONE sci-fi tokens */
+    --raone-red: #e8000d;
+    --raone-red-glow: rgba(232, 0, 13, 0.6);
+    --raone-red-dim: rgba(232, 0, 13, 0.15);
+    --gone-cyan: #00f5ff;
+    --gone-cyan-glow: rgba(0, 245, 255, 0.5);
+    --gone-cyan-dim: rgba(0, 245, 255, 0.1);
+    --void-black: #020408;
+    --deep-space: #080d14;
+    --panel-dark: #0a1220;
+    --panel-border: rgba(0, 245, 255, 0.2);
+    --font-hud: "Orbitron", "Share Tech Mono", monospace;
+    --glow-red: 0 0 8px var(--raone-red), 0 0 24px var(--raone-red-glow);
+    --glow-cyan: 0 0 8px var(--gone-cyan), 0 0 24px var(--gone-cyan-glow);
+    --glow-text-red: 0 0 10px var(--raone-red-glow);
+    --glow-text-cyan: 0 0 10px var(--gone-cyan-glow);
   }
 }
 
@@ -68,6 +85,59 @@
   html, body {
     @apply bg-background text-foreground font-body antialiased;
     scroll-behavior: smooth;
+    cursor: url("/mouse-32.png") 5 5, auto;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  label[for],
+  summary,
+  .cursor-pointer {
+    cursor: url("/mouse-32.png") 5 5, pointer;
+  }
+
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+
+  .custom-cursor-root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2147483646;
+    width: 32px;
+    height: 32px;
+    pointer-events: none !important;
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.12s ease;
+  }
+
+  .custom-cursor-root.is-visible {
+    opacity: 1;
+  }
+
+  .custom-cursor-img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    user-select: none;
+    transform-origin: 5px 5px;
+    transition: transform 0.08s ease, filter 0.12s ease;
+  }
+
+  .custom-cursor-img.has-glow {
+    filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.55));
+  }
+
+  .custom-cursor-img.is-pressing {
+    transform: scale(0.88);
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.85));
   }
 
   #root {
@@ -534,9 +604,18 @@
   animation: neonFlicker 3s ease-in-out infinite;
 }
 
-/* Scanline overlay -- disabled globally to remove occasional horizontal scanline */
+/* Scanline overlay */
 .scanline-overlay::after {
-  display: none;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, hsl(0 89% 50% / 0.06), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 50;
 }
 
 /* Cyberpunk flicker on hover */

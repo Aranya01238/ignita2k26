@@ -1,0 +1,49 @@
+import { useEffect, useRef, useState } from "react";
+
+export function useScrollReveal(threshold = 0.2) {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin: "0px 0px -40px 0px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, visible };
+}
+
+export function useTypewriter(text: string, active: boolean, speed = 30) {
+  const [display, setDisplay] = useState("");
+
+  useEffect(() => {
+    if (!active) {
+      setDisplay("");
+      return;
+    }
+
+    let i = 0;
+    setDisplay("");
+    const id = window.setInterval(() => {
+      i += 1;
+      setDisplay(text.slice(0, i));
+      if (i >= text.length) clearInterval(id);
+    }, speed);
+
+    return () => clearInterval(id);
+  }, [text, active, speed]);
+
+  return display;
+}

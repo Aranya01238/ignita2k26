@@ -1,43 +1,59 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
+
+const BOOT_LINES = [
+  "> INITIALIZING IGNITIA_CORE...",
+  "> LOADING STARFIELD_BUFFER...",
+  "> SYNCING RA.ONE_PROTOCOLS...",
+  "> ARMING NEON_SUBSYSTEMS...",
+  "> SYSTEM READY",
+];
 
 const LoadingScreen = () => {
   const [loading, setLoading] = useState(true);
+  const [exiting, setExiting] = useState(false);
   const [progress, setProgress] = useState(0);
-  const isMobile = useIsMobile();
+  const [lineIndex, setLineIndex] = useState(0);
 
   useEffect(() => {
-    let rafId = 0;
-    let finishTimeoutId = 0;
-    const start = performance.now();
-    const duration = isMobile ? 1800 : 1500;
+    const doneRef = { current: false };
 
-    const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
-
-    const step = (now: number) => {
-      const elapsed = now - start;
-      const t = Math.min(elapsed / duration, 1);
-      setProgress(easeOutQuart(t) * 100);
-
-      if (t < 1) {
-        rafId = window.requestAnimationFrame(step);
-        return;
-      }
-
-      finishTimeoutId = window.setTimeout(() => {
+    const finish = () => {
+      if (doneRef.current) return;
+      doneRef.current = true;
+      setExiting(true);
+      window.setTimeout(() => {
         setLoading(false);
         window.dispatchEvent(new CustomEvent("ignitia:loader-complete"));
-      }, isMobile ? 320 : 240);
+      }, 650);
     };
 
-    rafId = window.requestAnimationFrame(step);
+    const interval = setInterval(() => {
+      setProgress((p) => {
+        const next = Math.min(p + Math.random() * 12 + 4, 100);
+        if (next >= 100) {
+          clearInterval(interval);
+          finish();
+          return 100;
+        }
+        return next;
+      });
+    }, 70);
+
+    const lineTimer = setInterval(() => {
+      setLineIndex((i) => Math.min(i + 1, BOOT_LINES.length - 1));
+    }, 380);
+
+    const safety = window.setTimeout(finish, 4500);
 
     return () => {
-      window.cancelAnimationFrame(rafId);
-      window.clearTimeout(finishTimeoutId);
+      clearInterval(interval);
+      clearInterval(lineTimer);
+      clearTimeout(safety);
     };
-  }, [isMobile]);
+  }, []);
+
+  const activeLine = BOOT_LINES[lineIndex];
 
   return (
     <AnimatePresence>
@@ -96,16 +112,46 @@ const LoadingScreen = () => {
               }}
               transition={{ duration: 0.22, ease: "easeOut" }}
             />
-          </div>
+            <motion.div
+              className="loader-ring-inner"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+            />
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ delay: 0.5 }}
-            className="text-xs text-muted-foreground mt-4 font-mono relative z-10"
-          >
-            INITIALIZING...
-          </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.15, duration: 0.7 }}
+              className="font-hud text-4xl md:text-5xl font-bold tracking-[0.2em] loader-title"
+            >
+              IGNITIA&apos;26
+            </motion.h1>
+
+            <p className="font-hud text-[10px] text-[var(--gone-cyan)] tracking-[0.3em] mt-2 mb-8 uppercase">
+              System Boot Sequence
+            </p>
+
+            <div className="loader-progress-track w-56 md:w-72">
+              <motion.div className="loader-progress-fill" style={{ width: `${Math.min(progress, 100)}%` }} />
+              <div className="loader-progress-glow" style={{ left: `${Math.min(progress, 100)}%` }} />
+            </div>
+
+            <div className="flex justify-between w-56 md:w-72 mt-2 font-hud text-[9px] text-gray-500 tracking-widest">
+              <span>BOOT</span>
+              <span className="text-[var(--gone-cyan)] tabular-nums">{Math.floor(progress)}%</span>
+              <span>READY</span>
+            </div>
+
+            <motion.p
+              key={activeLine}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 0.75 }}
+              className="font-hud text-[10px] text-gray-400 mt-6 tracking-wide min-h-[1rem]"
+            >
+              {activeLine}
+              <span className="animate-blink text-[var(--gone-cyan)]">█</span>
+            </motion.p>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

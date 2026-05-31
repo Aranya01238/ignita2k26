@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CountdownTimer from "./CountdownTimer";
 import FloatingBadges from "./FloatingBadges";
-import IgnitiaLogoScene from "./IgnitiaLogoCharacter";
+import RAOneScene from "./RAOneCharacter";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -124,14 +124,26 @@ const HeroSection = () => {
         style={{ position: "absolute", inset: 0, zIndex: 0 }}
         className="bg-background"
       >
-        <IgnitiaLogoScene />
+        <RAOneScene />
+        {/* Arc Reactor orb behind heading */}
         <div
-          className="pointer-events-none fixed inset-0"
+          className="arc-reactor"
           style={{
-            background:
-              "radial-gradient(circle at 50vw 50vh, hsl(0 95% 70% / 0.34) 0%, hsl(0 95% 60% / 0.22) 18%, hsl(0 80% 40% / 0.12) 36%, transparent 58%)",
-            filter: "blur(70px)",
+            width: isMobile ? 360 : 700,
+            height: isMobile ? 360 : 700,
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -55%)",
           }}
+        />
+        <div
+          className="arc-reactor-core"
+          style={{ width: isMobile ? 110 : 160, height: isMobile ? 110 : 160 }}
+        />
+        <div className="absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 rounded-full bg-primary/8 blur-[120px] md:blur-[140px] animate-pulse-glow" />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-64 md:w-80 h-64 md:h-80 rounded-full bg-secondary/8 blur-[100px] md:blur-[120px] animate-pulse-glow"
+          style={{ animationDelay: "1.2s" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,30,0,0.018)_1px,transparent_1px),linear-gradient(90deg,rgba(255,30,0,0.018)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
@@ -242,21 +254,15 @@ const HeroSection = () => {
           position: "absolute",
           inset: 0,
           zIndex: 10,
-          backgroundColor: "transparent",
           clipPath: isMobile
             ? "circle(36vw at 50% 50%)"
             : "circle(18vw at 50% 50%)",
           willChange: "clip-path",
+          pointerEvents: "none",
         }}
       >
-        {/* Circular dark fill inside the reveal, so it does not read as a rectangle */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, hsl(var(--background)) 0%, hsl(var(--background)) 58%, transparent 72%)",
-          }}
-        >
+        {/* Rich bg inside the clip */}
+        <div className="absolute inset-0 bg-background">
           <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] rounded-full bg-primary/12 blur-[180px] animate-pulse-glow" />
           <div
             className="absolute bottom-1/3 right-1/3 w-[400px] h-[400px] rounded-full bg-secondary/12 blur-[150px] animate-pulse-glow"
@@ -278,6 +284,7 @@ const HeroSection = () => {
             justifyContent: "center",
             opacity: 0,
             willChange: "opacity, transform",
+            pointerEvents: "auto",
           }}
         >
           <div className="container mx-auto px-4 text-center relative z-10">
@@ -289,32 +296,14 @@ const HeroSection = () => {
                   className="text-primary animate-spin"
                   style={{ animationDuration: "3s" }}
                 />
-                <span>IEM-UEM group × UEM Kolkata</span>
+                <span>IEM-UEM groups × UEM Kolkata</span>
               </div>
 
               {/* Main Title */}
-              <div className="relative inline-flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 lg:gap-6">
-                <div className="hero-title-bg absolute inset-0 -z-10 pointer-events-none">
-                  <div className="hero-title-blob"></div>
-                  <div className="hero-title-line"></div>
-                </div>
-                <img
-                  src="/ignitia-2d.png"
-                  alt="Ignitia 2D logo"
-                  className="md:hidden h-16 w-auto shrink-0 select-none pointer-events-none drop-shadow-[0_0_22px_rgba(255,72,48,0.45)]"
-                  draggable={false}
-                />
-                <img
-                  src="/ignitia-2d.png"
-                  alt="Ignitia 2D logo"
-                  className="hidden md:block h-24 lg:h-32 w-auto shrink-0 select-none pointer-events-none drop-shadow-[0_0_28px_rgba(255,72,48,0.45)]"
-                  draggable={false}
-                />
-                <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tight leading-none hero-title-text">
-                  <span className="gradient-text text-glow-blue">IGNITIA</span>{" "}
-                  <span className="hero-title-number">2K26</span>
-                </h1>
-              </div>
+              <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tight leading-none">
+                <span className="gradient-text text-glow-blue">IGNITIA</span>{" "}
+                <span className="text-foreground">2K26</span>
+              </h1>
 
               {/* Typewriter tagline */}
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl h-8">
@@ -333,14 +322,12 @@ const HeroSection = () => {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-2 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 mt-2">
                 <a
                   href="#register"
-                  className="hero-primary-button pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
+                  className="glow-button pulse-cta cta-sweep inline-flex items-center gap-2 ripple-button"
                 >
-                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary animate-pulse" />
-                  Register Now
-                  <ArrowRight size={18} />
+                  Register Now <ArrowRight size={18} />
                 </a>
                 <a
                   href="/events"
@@ -348,7 +335,6 @@ const HeroSection = () => {
                 >
                   <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary opacity-60" />
                   Explore Events
-                  <ArrowRight size={18} />
                 </a>
               </div>
 

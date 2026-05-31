@@ -1,38 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Linkedin, Instagram } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import PageTransition from "@/components/PageTransition";
-import ParticleField from "@/components/ParticleField";
-import AnimatedBlobs from "@/components/AnimatedBlobs";
-import ScrollProgress from "@/components/ScrollProgress";
+import PageSciFiLayout from "@/components/layout/PageSciFiLayout";
+import CelestialStarfield from "@/components/background/CelestialStarfield";
+import { useScrollReveal, useTypewriter } from "@/hooks/useScrollReveal";
 import { EnergySymbol } from "@/components/FloatingTechElements";
-
-// ── RA.One corner bracket (top-left)
-const CornerBracket = ({
-  flip = false,
-  className = "",
-}: {
-  flip?: boolean;
-  className?: string;
-}) => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="0 0 28 28"
-    fill="none"
-    className={className}
-    style={flip ? { transform: "scale(-1,-1)" } : undefined}
-  >
-    <path
-      d="M2 2 L18 2 L18 6 L6 6 L6 18 L2 18 Z"
-      fill="hsl(0 95% 60% / 0.4)"
-      stroke="hsl(0 95% 60%)"
-      strokeWidth="0.8"
-    />
-  </svg>
-);
 
 const teamSections = [
   {
@@ -156,11 +128,11 @@ type Member = {
   class: string;
 };
 
-const classColors: Record<string, string> = {
-  LEGENDARY: "text-yellow-400 bg-yellow-900/30 border-yellow-700/50",
-  EPIC: "text-red-300 bg-red-900/30 border-red-700/50",
-  RARE: "text-orange-300 bg-orange-900/30 border-orange-700/50",
-  TBA: "text-gray-400 bg-gray-900/30 border-gray-700/50",
+const classAccentMap: Record<string, "cyan" | "red" | "blue"> = {
+  LEGENDARY: "cyan",
+  EPIC: "red",
+  RARE: "blue",
+  TBA: "cyan",
 };
 
 const MemberCard = ({
@@ -216,6 +188,7 @@ const MemberCard = ({
             <EnergySymbol size={16} />
           </div>
         </div>
+      </div>
 
         <h3 className="font-heading text-base font-semibold text-foreground">
           {member.name}
@@ -230,17 +203,19 @@ const MemberCard = ({
             whileHover={{ scale: 1.12, y: -1 }}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
             onClick={(e) => e.stopPropagation()}
+            className="w-8 h-8 rounded border border-[var(--card-accent)]/30 flex items-center justify-center text-[var(--card-accent)] hover:bg-[var(--card-accent)] hover:text-black transition-all"
           >
             <Linkedin size={14} />
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href={member.instagram}
             whileHover={{ scale: 1.12, y: -1 }}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
             onClick={(e) => e.stopPropagation()}
+            className="w-8 h-8 rounded border border-[var(--card-accent)]/30 flex items-center justify-center text-[var(--card-accent)] hover:bg-[var(--card-accent)] hover:text-black transition-all"
           >
             <Instagram size={14} />
-          </motion.a>
+          </a>
         </div>
       </div>
 
@@ -265,13 +240,9 @@ const MemberCard = ({
   );
 };
 
-const Team = () => (
-  <PageTransition>
-    <div className="min-h-screen bg-background scanline-overlay">
-      <ParticleField />
-      <AnimatedBlobs />
-      <ScrollProgress />
-      <Navbar />
+const Team = () => {
+  const { ref: introRef, visible: introVisible } = useScrollReveal(0.25);
+  const eyebrow = useTypewriter("> ORCHESTRATION_CORE.exe — LOADING PROFILES", introVisible, 28);
 
       <section className="relative flex items-center justify-center overflow-hidden pt-20 pb-10 md:pt-24 md:pb-14">
         <div
@@ -340,9 +311,8 @@ const Team = () => (
           ))}
         </div>
       </section>
-      <Footer />
-    </div>
-  </PageTransition>
-);
+    </PageSciFiLayout>
+  );
+};
 
 export default Team;

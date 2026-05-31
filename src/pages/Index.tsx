@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import Highlights from "@/components/Highlights";
+import FeaturedEvents from "@/components/FeaturedEvents";
 import WhyAttend from "@/components/WhyAttend";
 import Sponsors from "@/components/Sponsors";
 import FAQSection from "@/components/FAQSection";
@@ -88,6 +89,9 @@ const Index = () => {
           <Footer />
         </div>
       </PageTransition>
+
+      {/* Sticky bottom announcement bar — outside PageTransition so it's always on top */}
+      <AnnouncementBar />
     </>
   );
 };

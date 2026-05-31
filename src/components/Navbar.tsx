@@ -46,6 +46,7 @@ const Navbar = () => {
     stiffness: 180,
     damping: 30,
   });
+  const logoOpacity = useTransform(scrollY, [0, 20, 80], [0.25, 0.7, 1]);
   const navHeight = useSpring(useTransform(scrollY, [0, 110], [68, 64]), {
     stiffness: 180,
     damping: 30,
@@ -152,10 +153,14 @@ const Navbar = () => {
       >
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <motion.span
-            style={isHome ? { scale: logoScale, y: logoY } : undefined}
+            style={
+              isHome
+                ? { scale: logoScale, y: logoY, opacity: logoOpacity }
+                : undefined
+            }
             className="origin-left"
           >
-            <motion.div
+            <motion.span
               key={logoPulseKey}
               initial={
                 logoPulseKey
@@ -164,7 +169,7 @@ const Navbar = () => {
               }
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 1.1, ease: "easeOut" }}
-              className="flex items-center gap-2"
+              className="font-heading text-xl font-bold gradient-text inline-block"
             >
               <motion.img src="/ignitia-2d.png" alt="IGNITIA logo" className="h-7 w-7 rounded-full object-cover shadow-[0_0_24px_hsl(0_95%_60%/0.28)]" />
               <motion.span className="font-heading text-lg font-bold gradient-text inline-block md:text-xl">
@@ -291,8 +296,6 @@ const Navbar = () => {
                   </motion.div>
                 ))}
               </div>
-
-              <div className="flex-1" />
 
               <Link
                 to="/events"
