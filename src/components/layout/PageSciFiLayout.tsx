@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -14,13 +14,19 @@ type Props = {
 };
 
 const PageSciFiLayout = ({ children, variant = "default", className = "" }: Props) => {
+  const spotlightRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     let rafId = 0;
     const onMove = (e: MouseEvent) => {
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        document.documentElement.style.setProperty("--spot-x", `${(e.clientX / window.innerWidth) * 100}%`);
-        document.documentElement.style.setProperty("--spot-y", `${(e.clientY / window.innerHeight) * 100}%`);
+        if (spotlightRef.current) {
+          const x = `${(e.clientX / window.innerWidth) * 100}%`;
+          const y = `${(e.clientY / window.innerHeight) * 100}%`;
+          spotlightRef.current.style.setProperty("--spot-x", x);
+          spotlightRef.current.style.setProperty("--spot-y", y);
+        }
       });
     };
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -38,7 +44,7 @@ const PageSciFiLayout = ({ children, variant = "default", className = "" }: Prop
       >
         <SciFiUniverseBackground variant={variant} />
         <ShootingStars />
-        <div className="scifi-dual-spotlight pointer-events-none fixed inset-0 z-[2]" />
+        <div ref={spotlightRef} className="scifi-dual-spotlight pointer-events-none fixed inset-0 z-[2]" />
         <ScrollProgress />
         <div className="relative z-10">
           <Navbar />

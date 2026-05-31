@@ -474,6 +474,19 @@
   animation: neonFlicker 3s ease-in-out infinite;
 }
 
+.animate-glitch {
+  animation: glitch 0.3s ease infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes scroll-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
 /* Scanline overlay */
 .scanline-overlay::after {
   content: "";

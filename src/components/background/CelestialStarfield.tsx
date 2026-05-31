@@ -25,7 +25,7 @@ const CelestialStarfield = ({ density = 1 }: { density?: number }) => {
     const init = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const count = Math.floor((canvas.width * canvas.height) / 2800) * density;
+      const count = Math.floor((canvas.width * canvas.height) / 4000) * density;
       stars = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -42,12 +42,15 @@ const CelestialStarfield = ({ density = 1 }: { density?: number }) => {
       const h = canvas.height;
       ctx.clearRect(0, 0, w, h);
       const t = time * 0.001;
+      
+      const globalDriftY = Math.sin(t * 0.15) * 15;
+      const globalDriftX = Math.cos(t * 0.12) * 10;
 
       for (const s of stars) {
         s.twinkle += s.twinkleSpeed;
         const pulse = 0.45 + Math.sin(s.twinkle) * 0.55;
-        const driftY = Math.sin(t * 0.15 + s.x * 0.002) * 0.3 * s.z;
-        const driftX = Math.cos(t * 0.12 + s.y * 0.002) * 0.2 * s.z;
+        const driftY = globalDriftY * s.z;
+        const driftX = globalDriftX * s.z;
         const alpha = pulse * (0.35 + s.z * 0.45);
         const size = s.r * (0.8 + s.z * 0.6);
 
