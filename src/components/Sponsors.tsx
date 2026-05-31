@@ -1,34 +1,111 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const sponsorTiers = [
-  { tier: "Title Sponsor", names: ["TechCorp", "InnovateLabs"] },
+  { tier: "Hosting Partners", sponsors: [{ name: "Vercel", logo: "/sponsors/CrelyneX.jpg" }] },
+  { tier: "Hackathon Partners", sponsors: [{ name: "Devfolio", logo: "/sponsors/CrelyneX.jpg" }] },
+  {
+    tier: "Title Sponsor",
+    sponsors: [
+      { name: "TechCorp", logo: "/sponsors/MSS.jpeg" },
+      { name: "InnovateLabs", logo: "/sponsors/CrelyneX.jpg" },
+    ],
+  },
   {
     tier: "Gold Sponsors",
-    names: ["CloudBase", "DevStack", "PixelForge", "DataFlow"],
+    sponsors: [
+      { name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" },
+      { name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" },
+    ],
   },
   {
     tier: "Community Partners",
-    names: [
-      "GDG Kolkata",
-      "MLH",
-      "Dev Community",
-      "Hack Club",
-      "CodeChef",
-      "IEEE UEM",
+    sponsors: [
+      { name: "Robo Mellotikos", logo: "/sponsors/robo_mellontikos.jpeg" },
+      { name: "UGG UEMK", logo: "/sponsors/UGG.jpg" },
+      { name: "DS UEMK", logo: "/sponsors/Dsu.png" },
+      { name: "Rangrez", logo: "/sponsors/Rangrez.jpeg" },
+      { name: "GDG UEMK", logo: "/sponsors/GDG.jpeg" },
+      { name: "Innofusion", logo: "/sponsors/Innofusion_updated.jpg" },
+      { name: "Diversion", logo: "/sponsors/Diversion.png" },
+      { name: "Oratoria", logo: "/sponsors/Oratoria.jpg" },
+      { name: "Technologia", logo: "/sponsors/technologia.jpeg" },
+      { name: "Symphony", logo: "/sponsors/Symphony.jpg" },
+      { name: "Pragya", logo: "/sponsors/Pragya.jpg" },
+      { name: "GFG UEMK", logo: "/sponsors/Gfg.jpg" },
+      { name: "Driveblaze", logo: "/sponsors/Driveblaze.jpg" },
     ],
   },
 ];
 
-const allSponsors = sponsorTiers.flatMap((t) => t.names);
+const desktopSponsorTiers = [
+  {
+    tier: "Hosting partner",
+    sponsors: [{ name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" }],
+  },
+  {
+    tier: "Hackathon Partner",
+    sponsors: [{ name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" }],
+  },
+  {
+    tier: "Platform Partners",
+    sponsors: [
+      { name: "Unstop", logo: "/sponsors/unstop.png" },
+      { name: "Hack2skills", logo: "/sponsors/hack2skill.jpeg" },
+      { name: "Go Daddy", logo: "/sponsors/GoDaddy.jpg" },
+      { name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" },
+    ],
+  },
+  {
+    tier: "Gold Sponsers",
+    sponsors: [
+      { name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" },
+      { name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" },
+    ],
+  },
+  {
+    tier: "Title Sponsers",
+    sponsors: [
+      { name: "Robo Mellotikos", logo: "/sponsors/robo_mellontikos.jpeg" },
+      { name: "UGG UEMK", logo: "/sponsors/UGG.jpg" },
+      { name: "DS UEMK", logo: "/sponsors/Dsu.png" },
+      { name: "Rangrez", logo: "/sponsors/Rangrez.jpeg" },
+      { name: "GDG UEMK", logo: "/sponsors/GDG.jpeg" },
+      { name: "Innofusion", logo: "/sponsors/Innofusion_updated.jpg" },
+      { name: "Diversion", logo: "/sponsors/Diversion.png" },
+      { name: "Oratoria", logo: "/sponsors/Oratoria.jpg" },
+      { name: "Technologia", logo: "/sponsors/technologia.jpeg" },
+      { name: "Symphony", logo: "/sponsors/Symphony.jpg" },
+      { name: "Pragya", logo: "/sponsors/Pragya.jpg" },
+      { name: "GFG UEMK", logo: "/sponsors/Gfg.jpg" },
+      { name: "Driveblaze", logo: "/sponsors/Driveblaze.jpg" },
+    ],
+  },
+];
 
-const Sponsors = () => {
+const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
   const sectionY = useTransform(scrollYProgress, [0, 1], [30, -24]);
+
+  const isMobile = useIsMobile();
+  const tierData = desktopSponsorTiers;
+  const allSponsors = useMemo(() => {
+    const sponsors = tierData.flatMap((tier) => tier.sponsors);
+    const seen = new Set<string>();
+    return sponsors.filter((s) => {
+      if (seen.has(s.name)) {
+        return false;
+      }
+      seen.add(s.name);
+      return true;
+    });
+  }, [tierData]);
 
   return (
     <section
@@ -59,12 +136,13 @@ const Sponsors = () => {
               transition={{ duration: 30, ease: "linear", repeat: Infinity }}
               className="flex whitespace-nowrap"
             >
-              {[...allSponsors, ...allSponsors].map((name, i) => (
+              {[...allSponsors, ...allSponsors].map((s, i) => (
                 <span
                   key={i}
-                  className="sponsor-marquee-chip glass-card px-6 py-3 mx-3 font-heading text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-105 inline-block shrink-0"
+                  className="sponsor-marquee-chip glass-card px-6 py-3 mx-3 font-heading text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 shrink-0"
                 >
-                  {name}
+                  <img src={s.logo} alt={s.name} className="h-6 w-auto object-contain rounded" />
+                  {s.name}
                 </span>
               ))}
             </motion.div>
@@ -74,7 +152,7 @@ const Sponsors = () => {
         </div>
 
         <div className="space-y-12">
-          {sponsorTiers.map((tier, ti) => (
+          {tierData.map((tier, ti) => (
             <motion.div
               key={tier.tier}
               initial={{ opacity: 0, y: 20 }}
@@ -85,20 +163,68 @@ const Sponsors = () => {
               <p className="text-center text-sm text-muted-foreground mb-4 uppercase tracking-wider">
                 {tier.tier}
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                {tier.names.map((name, i) => (
+              <div
+                className={`${
+                  isMobile
+                    ? "grid grid-cols-2 gap-4 justify-items-center mx-auto"
+                    : tier.tier === "Hosting partner" || tier.tier === "Hackathon Partner"
+                      ? "grid grid-cols-1 lg:max-w-[340px] mx-auto justify-items-center"
+                      : tier.tier === "Platform Partners"
+                        ? "grid grid-cols-2 lg:grid-cols-4 lg:max-w-[1040px] mx-auto justify-items-center"
+                        : tier.tier === "Gold Sponsers"
+                          ? "grid grid-cols-2 lg:max-w-[560px] mx-auto justify-items-center"
+                          : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:max-w-[1200px] mx-auto justify-items-center"
+                }`}
+              >
+                {tier.sponsors.map((s, i) => (
                   <motion.div
-                    key={name}
+                    key={s.name}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.07, duration: 0.35 }}
                     whileHover={{ scale: 1.08, rotateY: 5 }}
-                    className="glass-card px-6 py-4 hover:border-primary/30 transition-colors shimmer-card"
+                    className={`glass-card p-4 flex flex-col items-center gap-3 hover:border-primary/30 transition-colors shimmer-card ${
+                      isMobile
+                        ? `w-full max-w-[170px] ${
+                            tier.sponsors.length === 1 ||
+                            (tier.tier === "Title Sponsers" && i === tier.sponsors.length - 1)
+                              ? "col-span-2 justify-self-center max-w-[220px]"
+                              : ""
+                          }`
+                        : tier.tier === "Hosting partner"
+                          ? "w-full max-w-[260px]"
+                          : tier.tier === "Hackathon Partner"
+                            ? "w-full max-w-[260px]"
+                            : tier.tier === "Platform Partners"
+                              ? "w-full max-w-[220px] lg:max-w-[240px]"
+                              : tier.tier === "Gold Sponsers"
+                                ? "w-full max-w-[220px] lg:max-w-[240px]"
+                                : `w-full max-w-[210px] lg:max-w-[220px] ${
+                                    i >= tier.sponsors.length - 3
+                                      ? i === tier.sponsors.length - 3
+                                        ? "lg:col-start-2"
+                                        : i === tier.sponsors.length - 2
+                                          ? "lg:col-start-3"
+                                          : "lg:col-start-4"
+                                      : ""
+                                  }`
+                    } ${
+                      isMobile && tier.sponsors.length > 2 && i % 2 === 0
+                        ? "translate-x-1.5"
+                        : ""
+                    } ${
+                      isMobile && tier.sponsors.length > 2 && i % 2 === 1
+                        ? "-translate-x-1.5"
+                        : ""
+                    }`}
                     style={{ transformPerspective: 600 }}
                   >
-                    <span className="font-heading text-sm md:text-base text-muted-foreground">
-                      {name}
+                    <div className={`bg-white rounded-lg p-3 w-full flex items-center justify-center ${isMobile && centerOnMobile ? 'h-20' : 'h-28'}`}>
+                      <img src={s.logo} alt={s.name} className="max-h-full max-w-full object-contain" />
+                    </div>
+                    <span className="font-heading text-sm md:text-base text-muted-foreground font-bold text-center">
+                      {s.name}
                     </span>
                   </motion.div>
                 ))}
@@ -113,12 +239,19 @@ const Sponsors = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <a
-            href="#contact"
-            className="glow-button-secondary text-sm ripple-button"
-          >
-            Become a Sponsor
-          </a>
+          <div className="sponsor-cta-shell inline-flex rounded-full border border-white/10 bg-card/70 p-1 shadow-[0_0_45px_rgba(255,80,110,0.18)]">
+            <a
+              href="#contact"
+              className="sponsor-cta-button inline-flex items-center justify-center gap-3 px-6 py-3 text-sm font-semibold ripple-button"
+            >
+              <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary animate-pulse" />
+              <span className="flex flex-col items-start leading-none">
+                <span>Become a Sponsor</span>
+                <span className="text-[11px] text-white/70">Partner with our energy</span>
+              </span>
+              <ArrowRight size={16} />
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </section>

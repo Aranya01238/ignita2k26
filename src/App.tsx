@@ -5,8 +5,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LoadingScreen from "./components/LoadingScreen";
-import CustomCursor from "./components/CustomCursor";
-import SmoothScroll from "./components/SmoothScroll";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Events from "./pages/Events";
@@ -42,17 +40,14 @@ const AnimatedRoutes = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <SmoothScroll>
-      <TooltipProvider>
-        <CustomCursor />
-        <Toaster />
-        <Sonner />
-        <LoadingScreen />
-        <BrowserRouter>
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
-    </SmoothScroll>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <LoadingScreen />
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
+    </TooltipProvider>
   </QueryClientProvider>
 );
 
