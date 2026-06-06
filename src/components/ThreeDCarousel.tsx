@@ -190,7 +190,7 @@ export const ThreeDCarousel = ({ sections, convenors, onOpenMemberCard, orbitCol
               className="h-1.5 rounded-full transition-all duration-300 cursor-pointer"
               style={{
                 width: activeIndex === idx ? "20px" : "6px",
-                background: activeIndex === idx ? "hsl(24 100% 55%)" : "rgba(255,255,255,0.15)"
+                background: activeIndex === idx ? "hsl(45 95% 55%)" : "rgba(255,255,255,0.15)"
               }}
             />
           ))}
