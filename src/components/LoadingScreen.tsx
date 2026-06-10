@@ -7,9 +7,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 interface LoaderCoreProps {
   progress: number;
+  isMobile: boolean;
 }
 
-const LoaderCore = ({ progress }: LoaderCoreProps) => {
+const LoaderCore = ({ progress, isMobile }: LoaderCoreProps) => {
   const innerCoreRef = useRef<THREE.Mesh>(null);
   const ringGoldRef = useRef<THREE.Mesh>(null);
   const ringChromeRef = useRef<THREE.Mesh>(null);
@@ -76,7 +77,7 @@ const LoaderCore = ({ progress }: LoaderCoreProps) => {
 
       {/* 2. Middle Gimbal Ring 1: Rich Polished Gold */}
       <mesh ref={ringGoldRef}>
-        <torusGeometry args={[1.15, 0.07, 16, 80]} />
+        <torusGeometry args={[1.15, 0.07, isMobile ? 10 : 16, isMobile ? 48 : 80]} />
         <meshStandardMaterial
           color="#d4af37" // Metallic Gold
           roughness={0.15}
@@ -86,7 +87,7 @@ const LoaderCore = ({ progress }: LoaderCoreProps) => {
 
       {/* 3. Middle Gimbal Ring 2: Chrome / Silver Steel */}
       <mesh ref={ringChromeRef} rotation={[Math.PI / 2, Math.PI / 4, 0]}>
-        <torusGeometry args={[1.5, 0.05, 12, 64]} />
+        <torusGeometry args={[1.5, 0.05, isMobile ? 8 : 12, isMobile ? 40 : 64]} />
         <meshStandardMaterial
           color="#a1a1aa" // Chrome
           roughness={0.1}
@@ -96,7 +97,7 @@ const LoaderCore = ({ progress }: LoaderCoreProps) => {
 
       {/* 4. Outer Holographic Orbit Track (Faint wireframe) */}
       <mesh rotation={[0, -Math.PI / 4, 0]}>
-        <torusGeometry args={[1.82, 0.012, 6, 48]} />
+        <torusGeometry args={[1.82, 0.012, 6, isMobile ? 32 : 48]} />
         <meshBasicMaterial
           color="#a855f7"
           transparent
@@ -107,17 +108,17 @@ const LoaderCore = ({ progress }: LoaderCoreProps) => {
 
       {/* 5. Outer Refracting Physical Glass containment shell */}
       <mesh ref={outerGlassRef}>
-        <sphereGeometry args={[2.0, 32, 32]} />
+        <sphereGeometry args={[2.0, isMobile ? 20 : 32, isMobile ? 20 : 32]} />
         <meshPhysicalMaterial
           color="#ffffff"
           transparent
-          opacity={0.3}
-          roughness={0.08}
+          opacity={isMobile ? 0.2 : 0.3}
+          roughness={isMobile ? 0.15 : 0.08}
           metalness={0.1}
-          transmission={0.92} // Glass transmission
-          thickness={0.6} // Glass refraction thickness
-          ior={1.48} // Index of refraction for physical glass
-          clearcoat={1.0}
+          transmission={isMobile ? 0.7 : 0.92} // Glass transmission
+          thickness={isMobile ? 0.2 : 0.6} // Glass refraction thickness
+          ior={isMobile ? 1.2 : 1.48} // Index of refraction for physical glass
+          clearcoat={isMobile ? 0 : 1.0}
           clearcoatRoughness={0.05}
         />
       </mesh>
@@ -184,7 +185,7 @@ const LoadingScreen = () => {
           />
 
           {/* 3D WebGL Holographic Loader Viewport */}
-          <div className="w-64 h-64 relative mb-4 z-10">
+          <div className="w-64 h-64 relative mb-4 z-10 rounded-full overflow-hidden" style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
             <Canvas
               gl={{
                 antialias: !isMobile,
@@ -207,11 +208,11 @@ const LoadingScreen = () => {
               {/* Golden rim light from behind to highlight glass boundaries */}
               <directionalLight position={[0, 6, -5]} intensity={2.5} color="#ffd700" />
 
-              <Sparkles count={40} scale={4.5} size={1.8} speed={0.4} color="#a855f7" />
-              <Sparkles count={25} scale={4.5} size={1.2} speed={0.5} color="#00ffc8" />
+              <Sparkles count={isMobile ? 15 : 40} scale={4.5} size={1.8} speed={0.4} color="#a855f7" />
+              <Sparkles count={isMobile ? 10 : 25} scale={4.5} size={1.2} speed={0.5} color="#00ffc8" />
 
               <Suspense fallback={null}>
-                <LoaderCore progress={progress} />
+                <LoaderCore progress={progress} isMobile={isMobile} />
               </Suspense>
             </Canvas>
           </div>

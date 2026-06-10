@@ -237,7 +237,7 @@ const Navbar = () => {
         <button
           ref={mobileButtonRef}
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-card/60 text-foreground backdrop-blur-xl"
+          className="lg:hidden relative z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-card/60 text-foreground backdrop-blur-xl"
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
@@ -268,13 +268,15 @@ const Navbar = () => {
         </button>
 
         {/* Static Character GIF sticking out on the right side */}
-        <div className="absolute top-[-5px] md:top-[0px] right-[-5px] md:right-0 pointer-events-none z-10">
-          <img
-            src="/Transparent_gif_flipped.gif"
-            alt="Navbar Character"
-            className="w-28 md:w-40 lg:w-48 h-auto brightness-110 drop-shadow-[0_0_15px_rgba(255,215,0,0.4)]"
-          />
-        </div>
+        {location.pathname !== "/faq" && (
+          <div className="hidden md:block absolute top-[-5px] md:top-[0px] right-[-5px] md:right-0 pointer-events-none z-10">
+            <img
+              src="/Transparent_gif_flipped.gif"
+              alt="Navbar Character"
+              className="w-28 md:w-40 lg:w-48 h-auto brightness-110 drop-shadow-[0_0_15px_rgba(255,215,0,0.4)]"
+            />
+          </div>
+        )}
       </motion.div>
 
       <AnimatePresence>
@@ -342,7 +344,7 @@ const Navbar = () => {
               <Link
                 to="/events"
                 onClick={() => setIsOpen(false)}
-                className="glow-button text-center text-sm !px-6 !py-3 w-full inline-flex items-center justify-center gap-2"
+                className="glow-button text-center text-sm !px-6 !py-3 w-full inline-flex items-center justify-center gap-2 mb-8"
               >
                 Register Now
                 <ArrowRight size={14} />

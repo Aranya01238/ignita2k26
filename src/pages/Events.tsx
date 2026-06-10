@@ -16,6 +16,8 @@ import {
   ArrowRight,
   X,
   Palette,
+  Swords,
+  Sparkles,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -731,14 +733,14 @@ const Events = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background scanline-overlay">
+      <div className="min-h-screen bg-background scanline-overlay overflow-x-hidden">
         <ParticleField />
         <AnimatedBlobs />
         <ScrollProgress />
         <Navbar />
 
         {/* Hero Header Section */}
-        <section className="relative pt-28 pb-0 overflow-hidden">
+        <section className="relative pt-28 pb-0 overflow-hidden w-full">
           {/* Radial purple ambient glow behind title */}
           <div
             className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
@@ -752,9 +754,11 @@ const Events = () => {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center text-[11px] md:text-xs text-primary uppercase tracking-[0.45em] mb-5 font-semibold font-mono"
+            className="text-center text-[10px] md:text-xs text-primary uppercase tracking-[0.2em] md:tracking-[0.45em] mb-5 font-semibold font-mono flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4"
           >
-            COMPETE & CREATE &mdash; IGNITIA &apos;26
+            <Swords size={12} className="text-primary shrink-0" />
+            <span>COMPETE &amp; CREATE</span>
+            <Sparkles size={12} className="text-primary shrink-0" />
           </motion.p>
 
           {/* Main Title — full-width, centered, perspective tilt */}
@@ -774,7 +778,7 @@ const Events = () => {
                 <span
                   className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
                   style={{
-                    fontSize: "clamp(4rem, 14vw, 13rem)",
+                    fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
                     color: "rgba(88,28,235,0.25)",
                     filter: "blur(8px)",
                   }}
@@ -786,7 +790,7 @@ const Events = () => {
               {/* Actual title */}
               <h1
                 className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
-                style={{ fontSize: "clamp(4rem, 14vw, 13rem)", transformStyle: "preserve-3d" }}
+                style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
               >
                 {/* ALL — dimmer, lighter weight */}
                 <span
@@ -831,29 +835,31 @@ const Events = () => {
               Seven thrilling competitions &middot; UEM Kolkata
             </motion.p>
 
-            {/* Filter Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="border border-white/10 bg-white/[0.04] backdrop-blur-xl p-1.5 rounded-full flex gap-1 items-center shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-            >
-              {["ALL", "TECHNICAL", "GAMING", "NON-TECH"].map((filter) => {
-                const isActive = activeFilter === filter;
-                return (
-                  <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shrink-0 ${isActive
-                      ? "bg-primary text-white shadow-[0_0_18px_rgba(139,92,246,0.6)]"
-                      : "text-muted-foreground hover:text-white hover:bg-white/8"
-                      }`}
-                  >
-                    {filter}
-                  </button>
-                );
-              })}
-            </motion.div>
+            {/* Filter Bar — scrollable on mobile */}
+            <div className="w-full overflow-x-auto px-4 flex justify-center hide-scrollbar">
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+                className="border border-white/10 bg-white/[0.04] backdrop-blur-xl p-1.5 rounded-full flex gap-1 items-center shadow-[0_4px_30px_rgba(0,0,0,0.4)] shrink-0"
+              >
+                {["ALL", "TECHNICAL", "GAMING", "NON-TECH"].map((filter) => {
+                  const isActive = activeFilter === filter;
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setActiveFilter(filter)}
+                      className={`px-4 py-2 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider md:tracking-widest transition-all duration-300 shrink-0 ${isActive
+                        ? "bg-primary text-white shadow-[0_0_18px_rgba(139,92,246,0.6)]"
+                        : "text-muted-foreground hover:text-white hover:bg-white/8"
+                        }`}
+                    >
+                      {filter}
+                    </button>
+                  );
+                })}
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -876,10 +882,10 @@ const Events = () => {
                 >
                   {event.id === "hackathon" && (
                     <div className="absolute bottom-full left-[20px] md:left-[50px] -z-10 pointer-events-none -mb-[10px] md:-mb-[15px]">
-                      <img 
-                        src="/download.gif" 
-                        alt="Sci-Fi Hologram" 
-                        className="w-28 md:w-40 h-auto" 
+                      <img
+                        src="/download.gif"
+                        alt="Sci-Fi Hologram"
+                        className="w-28 md:w-40 h-auto"
                       />
                     </div>
                   )}

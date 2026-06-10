@@ -188,8 +188,8 @@ export const AboutScrollScene = ({ scrollProgressRef }: AboutScrollSceneProps) =
         <pointLight position={[3, -1, 3]} intensity={1.5} color="#06b6d4" distance={8} />
 
         {/* Floating cyber particles */}
-        <Sparkles count={40} scale={6} size={2.5} speed={0.4} color="#ff7b00" />
-        <Sparkles count={30} scale={6} size={1.8} speed={0.6} color="#06b6d4" />
+        <Sparkles count={isMobile ? 15 : 40} scale={6} size={2.5} speed={0.4} color="#ff7b00" />
+        <Sparkles count={isMobile ? 10 : 30} scale={6} size={1.8} speed={0.6} color="#06b6d4" />
 
         <Suspense fallback={null}>
           <AboutModel scrollProgressRef={scrollProgressRef} />

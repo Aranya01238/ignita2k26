@@ -68,6 +68,7 @@
   html, body {
     @apply bg-background text-foreground font-body antialiased;
     scroll-behavior: smooth;
+    overscroll-behavior-y: none;
   }
 
   #root {

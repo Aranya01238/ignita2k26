@@ -157,33 +157,69 @@ const Gallery = () => {
 
         {/* Hero Header Section */}
         <section className="relative pt-24 pb-12 flex items-center justify-center min-h-[40vh]">
-          <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="container mx-auto px-4 text-center relative z-10 w-full overflow-hidden">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-[10px] md:text-xs text-orange-500 uppercase tracking-[0.4em] mb-3 font-semibold font-mono"
+              className="text-[10px] md:text-xs text-primary uppercase tracking-[0.4em] mb-5 font-semibold font-mono flex items-center justify-center gap-2"
             >
-              MEMORIES & MOMENTS — IGNITIA &apos;26
+              <ZoomIn size={14} className="text-primary" /> MEMORIES & MOMENTS
             </motion.p>
-            <div className="relative inline-block mb-3 px-4">
-              {/* Futuristic Cyber brackets */}
-              <div className="absolute left-0 -top-2 w-3 h-3 border-t-2 border-l-2 border-orange-500/50" />
-              <div className="absolute right-0 -top-2 w-3 h-3 border-t-2 border-r-2 border-orange-500/50" />
-              <div className="absolute left-0 -bottom-2 w-3 h-3 border-b-2 border-l-2 border-orange-500/50" />
-              <div className="absolute right-0 -bottom-2 w-3 h-3 border-b-2 border-r-2 border-orange-500/50" />
+            
+            <div className="relative w-full" style={{ perspective: "800px" }}>
+              <div style={{ transformStyle: "preserve-3d" }}>
+                {/* Shadow/depth clone */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                  style={{ transform: "translateZ(-40px) translateY(12px)" }}
+                >
+                  <span
+                    className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                    style={{
+                      fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                      color: "rgba(88,28,235,0.25)",
+                      filter: "blur(8px)",
+                    }}
+                  >
+                    OUR GALLERY
+                  </span>
+                </div>
 
-              <motion.h1
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, type: "spring" }}
-                className="font-heading text-5xl md:text-7xl font-black tracking-wider uppercase mb-0"
-              >
-                <span className="text-white/40 font-light mr-3 select-none">OUR</span>
-                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(249,115,22,0.4)] animate-pulse">
-                  GALLERY
-                </span>
-              </motion.h1>
+                {/* Actual title */}
+                <h1
+                  className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                  style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
+                >
+                  <span
+                    className="inline-block mr-[0.15em]"
+                    style={{
+                      color: "rgba(255,255,255,0.28)",
+                      fontWeight: 300,
+                      textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                    }}
+                  >
+                    OUR
+                  </span>
+
+                  <span
+                    className="inline-block relative"
+                    style={{
+                      color: "#ffffff",
+                      textShadow: [
+                        "0 0 60px rgba(139,92,246,0.9)",
+                        "0 0 120px rgba(139,92,246,0.5)",
+                        "0 2px 0 rgba(88,28,235,0.6)",
+                        "0 4px 0 rgba(68,14,180,0.4)",
+                        "0 8px 20px rgba(0,0,0,0.6)",
+                      ].join(", "),
+                    }}
+                  >
+                    GALLERY
+                  </span>
+                </h1>
+              </div>
             </div>
 
             <motion.p

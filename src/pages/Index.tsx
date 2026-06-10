@@ -4,6 +4,8 @@ import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import PageTransition from "@/components/PageTransition";
+import ParticleField from "@/components/ParticleField";
+import AnimatedBlobs from "@/components/AnimatedBlobs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import CharacterHeroScene from "@/components/CharacterHeroScene";
 import gsap from "gsap";
@@ -52,7 +54,7 @@ const Index = () => {
       } else {
         clearInterval(timer);
       }
-    }, 15);
+    }, 30);
     return () => clearInterval(timer);
   }, [isLoaded]);
 
@@ -69,6 +71,8 @@ const Index = () => {
           pin: true,
           pinSpacing: true,
           scrub: 0.5,
+          fastScrollEnd: true,
+          preventOverlaps: true,
           onUpdate: (self) => {
             characterScrollProgressRef.current = self.progress;
           },
@@ -96,7 +100,9 @@ const Index = () => {
 
   return (
     <PageTransition>
-      <div ref={indexRef} className="min-h-screen flex flex-col bg-[#050406] text-white overflow-x-hidden">
+      <div ref={indexRef} className="min-h-screen flex flex-col bg-background scanline-overlay text-white overflow-x-hidden">
+        <ParticleField />
+        <AnimatedBlobs />
         <Suspense fallback={null}>
           {isLoaded && !isMobile && <HomeEffects />}
         </Suspense>
@@ -104,15 +110,15 @@ const Index = () => {
         <Navbar />
 
         <main className="flex-1 relative z-10">
-         
+
           {/* Unified Pinned Hero & About Section */}
           <section
             id="hero-showcase-section"
-            className="relative h-screen w-full bg-[#050406] overflow-hidden"
+            className="relative h-screen w-full overflow-hidden"
           >
             {/* Full-bleed 3D Character Canvas as background */}
             <Suspense fallback={
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#050406] z-10">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-transparent z-10">
                 <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin mb-4" />
                 <span className="text-xs tracking-widest text-muted-foreground uppercase animate-pulse font-mono">Initializing Telemetry Link...</span>
               </div>
@@ -214,7 +220,7 @@ const Index = () => {
 
                     <div className="flex items-center gap-2 mb-4">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="font-mono text-[9px] tracking-[0.35em] text-white/40 uppercase">T-Minus // Event Launch Sequence</span>
+                      <span className="font-mono text-[9px] tracking-[0.35em] text-white/40 uppercase">Event Launch Sequence</span>
                     </div>
 
                     <CountdownTimer embedded />
@@ -279,9 +285,9 @@ const Index = () => {
                   <div className="space-y-3 pt-1">
                     {[
                       { label: "PRIZE POOL", value: "₹2,00,000+", pct: 90, color: "from-secondary to-yellow-400" },
-                      { label: "FOOTFALL",   value: "5000+",      pct: 85, color: "from-primary to-purple-400" },
+                      { label: "FOOTFALL", value: "5000+", pct: 85, color: "from-primary to-purple-400" },
                       { label: "COLLABORATORS", value: "50+ Colleges", pct: 75, color: "from-neon-cyan to-teal-400" },
-                      { label: "ARENAS",     value: "7+",         pct: 55, color: "from-pink-500 to-primary" },
+                      { label: "ARENAS", value: "7+", pct: 55, color: "from-pink-500 to-primary" },
                     ].map(({ label, value, pct, color }) => (
                       <div key={label} className="space-y-1">
                         <div className="flex justify-between items-baseline">
@@ -314,9 +320,9 @@ const Index = () => {
           </section>
 
           {/* Below sections flow up naturally following pin completion */}
-          <div className="relative bg-[#050406] z-20">
+          <div className="relative bg-transparent z-20">
             <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-           
+
             <CTABanner />
 
             {/* Event Map Location Embed */}

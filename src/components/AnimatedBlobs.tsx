@@ -37,7 +37,7 @@ const AnimatedBlobs = () => {
           >
             <motion.div
               className={`rounded-full ${blob.size}`}
-              style={{ background: blobStyles[blob.color] }}
+              style={{ background: blobStyles[blob.color], willChange: "transform" }}
               animate={{
                 x: isMobile ? [0, 18, -12, 0] : [0, 44, -28, 16, 0],
                 y: isMobile ? [0, -14, 10, 0] : [0, -36, 24, -16, 0],
@@ -54,7 +54,7 @@ const AnimatedBlobs = () => {
           <motion.div
             key={i}
             className={`absolute rounded-full ${blob.size}`}
-            style={{ left: blob.x, top: blob.y, background: blobStyles[blob.color] }}
+            style={{ left: blob.x, top: blob.y, background: blobStyles[blob.color], willChange: "transform" }}
             animate={{
               x: isMobile ? [0, 24, -16, 0] : [0, 60, -40, 20, 0],
               y: isMobile ? [0, -18, 14, 0] : [0, -50, 30, -20, 0],

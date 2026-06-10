@@ -3,46 +3,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// ─── Real sponsor data ────────────────────────────────────────────────────────
 const sponsorTiers = [
-  { tier: "Hosting Partners", sponsors: [{ name: "Vercel", logo: "/sponsors/CrelyneX.jpg" }] },
-  { tier: "Hackathon Partners", sponsors: [{ name: "Devfolio", logo: "/sponsors/CrelyneX.jpg" }] },
   {
-    tier: "Title Sponsor",
-    sponsors: [
-      { name: "TechCorp", logo: "/sponsors/MSS.jpeg" },
-      { name: "InnovateLabs", logo: "/sponsors/CrelyneX.jpg" },
-    ],
-  },
-  {
-    tier: "Gold Sponsors",
-    sponsors: [
-      { name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" },
-      { name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" },
-    ],
-  },
-  {
-    tier: "Community Partners",
-    sponsors: [
-      { name: "Robo Mellotikos", logo: "/sponsors/robo_mellontikos.jpeg" },
-      { name: "UGG UEMK", logo: "/sponsors/UGG.jpg" },
-      { name: "DS UEMK", logo: "/sponsors/Dsu.png" },
-      { name: "Rangrez", logo: "/sponsors/Rangrez.jpeg" },
-      { name: "GDG UEMK", logo: "/sponsors/GDG.jpeg" },
-      { name: "Innofusion", logo: "/sponsors/Innofusion_updated.jpg" },
-      { name: "Diversion", logo: "/sponsors/Diversion.png" },
-      { name: "Oratoria", logo: "/sponsors/Oratoria.jpg" },
-      { name: "Technologia", logo: "/sponsors/technologia.jpeg" },
-      { name: "Symphony", logo: "/sponsors/Symphony.jpg" },
-      { name: "Pragya", logo: "/sponsors/Pragya.jpg" },
-      { name: "GFG UEMK", logo: "/sponsors/Gfg.jpg" },
-      { name: "Driveblaze", logo: "/sponsors/Driveblaze.jpg" },
-    ],
-  },
-];
-
-const desktopSponsorTiers = [
-  {
-    tier: "Hosting partner",
+    tier: "Hosting Partner",
     sponsors: [{ name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" }],
   },
   {
@@ -59,14 +23,14 @@ const desktopSponsorTiers = [
     ],
   },
   {
-    tier: "Gold Sponsers",
+    tier: "Gold Sponsors",
     sponsors: [
       { name: "Crelynex", logo: "/sponsors/CrelyneX.jpg" },
       { name: "Microsoft Student Society UEMK", logo: "/sponsors/MSS.jpeg" },
     ],
   },
   {
-    tier: "Title Sponsers",
+    tier: "Title Sponsors",
     sponsors: [
       { name: "Robo Mellotikos", logo: "/sponsors/robo_mellontikos.jpeg" },
       { name: "UGG UEMK", logo: "/sponsors/UGG.jpg" },
@@ -94,18 +58,17 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
   const sectionY = useTransform(scrollYProgress, [0, 1], [30, -24]);
 
   const isMobile = useIsMobile();
-  const tierData = desktopSponsorTiers;
+
   const allSponsors = useMemo(() => {
-    const sponsors = tierData.flatMap((tier) => tier.sponsors);
     const seen = new Set<string>();
-    return sponsors.filter((s) => {
-      if (seen.has(s.name)) {
-        return false;
-      }
-      seen.add(s.name);
-      return true;
-    });
-  }, [tierData]);
+    return sponsorTiers
+      .flatMap((t) => t.sponsors)
+      .filter((s) => {
+        if (seen.has(s.name)) return false;
+        seen.add(s.name);
+        return true;
+      });
+  }, []);
 
   return (
     <section
@@ -124,7 +87,7 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
             Backed By The Best
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-            Sponsors & <span className="gradient-text">Partners</span>
+            Sponsors &amp; <span className="gradient-text">Partners</span>
           </h2>
         </motion.div>
 
@@ -141,7 +104,11 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
                   key={i}
                   className="sponsor-marquee-chip glass-card px-6 py-3 mx-3 font-heading text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 shrink-0"
                 >
-                  <img src={s.logo} alt={s.name} className="h-6 w-auto object-contain rounded" />
+                  <img
+                    src={s.logo}
+                    alt={s.name}
+                    className="h-6 w-auto object-contain rounded"
+                  />
                   {s.name}
                 </span>
               ))}
@@ -152,7 +119,7 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
         </div>
 
         <div className="space-y-12">
-          {tierData.map((tier, ti) => (
+          {sponsorTiers.map((tier, ti) => (
             <motion.div
               key={tier.tier}
               initial={{ opacity: 0, y: 20 }}
@@ -167,11 +134,11 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
                 className={`${
                   isMobile
                     ? "grid grid-cols-2 gap-4 justify-items-center mx-auto"
-                    : tier.tier === "Hosting partner" || tier.tier === "Hackathon Partner"
+                    : tier.tier === "Hosting Partner" || tier.tier === "Hackathon Partner"
                       ? "grid grid-cols-1 lg:max-w-[340px] mx-auto justify-items-center"
                       : tier.tier === "Platform Partners"
                         ? "grid grid-cols-2 lg:grid-cols-4 lg:max-w-[1040px] mx-auto justify-items-center"
-                        : tier.tier === "Gold Sponsers"
+                        : tier.tier === "Gold Sponsors"
                           ? "grid grid-cols-2 lg:max-w-[560px] mx-auto justify-items-center"
                           : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:max-w-[1200px] mx-auto justify-items-center"
                 }`}
@@ -188,27 +155,19 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
                       isMobile
                         ? `w-full max-w-[170px] ${
                             tier.sponsors.length === 1 ||
-                            (tier.tier === "Title Sponsers" && i === tier.sponsors.length - 1)
+                            (tier.tier === "Title Sponsors" && i === tier.sponsors.length - 1)
                               ? "col-span-2 justify-self-center max-w-[220px]"
                               : ""
                           }`
-                        : tier.tier === "Hosting partner"
+                        : tier.tier === "Hosting Partner"
                           ? "w-full max-w-[260px]"
                           : tier.tier === "Hackathon Partner"
                             ? "w-full max-w-[260px]"
                             : tier.tier === "Platform Partners"
                               ? "w-full max-w-[220px] lg:max-w-[240px]"
-                              : tier.tier === "Gold Sponsers"
+                              : tier.tier === "Gold Sponsors"
                                 ? "w-full max-w-[220px] lg:max-w-[240px]"
-                                : `w-full max-w-[210px] lg:max-w-[220px] ${
-                                    i >= tier.sponsors.length - 3
-                                      ? i === tier.sponsors.length - 3
-                                        ? "lg:col-start-2"
-                                        : i === tier.sponsors.length - 2
-                                          ? "lg:col-start-3"
-                                          : "lg:col-start-4"
-                                      : ""
-                                  }`
+                                : `w-full max-w-[210px] lg:max-w-[220px]`
                     } ${
                       isMobile && tier.sponsors.length > 2 && i % 2 === 0
                         ? "translate-x-1.5"
@@ -220,8 +179,16 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
                     }`}
                     style={{ transformPerspective: 600 }}
                   >
-                    <div className={`rounded-lg p-3 w-full flex items-center justify-center ${isMobile && centerOnMobile ? 'h-20' : 'h-28'}`}>
-                      <img src={s.logo} alt={s.name} className="max-h-full max-w-full object-contain" />
+                    <div
+                      className={`rounded-lg p-3 w-full flex items-center justify-center ${
+                        isMobile && centerOnMobile ? "h-20" : "h-28"
+                      }`}
+                    >
+                      <img
+                        src={s.logo}
+                        alt={s.name}
+                        className="max-h-full max-w-full object-contain"
+                      />
                     </div>
                     <span className="font-heading text-sm md:text-base text-muted-foreground font-bold text-center">
                       {s.name}
@@ -241,13 +208,15 @@ const Sponsors = ({ centerOnMobile = false }: { centerOnMobile?: boolean }) => {
         >
           <div className="inline-flex">
             <a
-              href="#contact"
+              href="/sponsors"
               className="hero-explore-outline pulse-cta cta-sweep inline-flex items-center justify-center gap-3 ripple-button"
             >
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-secondary opacity-60" />
               <span className="flex flex-col items-start leading-none">
-                <span>Become a Sponsor</span>
-                <span className="text-[11px] text-orange-200/65">Partner with our energy</span>
+                <span>Our Sponsors</span>
+                <span className="text-[11px] text-orange-200/65">
+                  View all partners
+                </span>
               </span>
               <ArrowRight size={16} />
             </a>

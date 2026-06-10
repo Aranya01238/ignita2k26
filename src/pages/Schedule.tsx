@@ -7,6 +7,7 @@ import PageTransition from "@/components/PageTransition";
 import ParticleField from "@/components/ParticleField";
 import AnimatedBlobs from "@/components/AnimatedBlobs";
 import ScrollProgress from "@/components/ScrollProgress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const schedule = {
   "Day 1 — Aug 1": [
@@ -218,6 +219,7 @@ const ZigzagNode = ({
 }) => {
   const topPercent = (nodeConfig.y / totalH) * 100;
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   // Dot position relative to 800px SVG
   const dotLeft = `${(nodeConfig.x / 800) * 100}%`;
@@ -225,9 +227,11 @@ const ZigzagNode = ({
   // Calculate the card's position relative to the dot.
   // Left nodes (isRight=false): Place card to the right of the dot.
   // Right nodes (isRight=true): Place card to the left of the dot.
-  const cardStyle = isRight 
-    ? { right: `${((800 - nodeConfig.x) / 800) * 100 + 4}%`, width: '320px' } 
-    : { left: `${(nodeConfig.x / 800) * 100 + 4}%`, width: '320px' };
+  const cardStyle = isMobile
+    ? { left: '50%', marginLeft: '-140px', marginTop: '32px', width: '280px' }
+    : isRight 
+      ? { right: `${((800 - nodeConfig.x) / 800) * 100 + 4}%`, width: '320px' } 
+      : { left: `${(nodeConfig.x / 800) * 100 + 4}%`, width: '320px' };
 
   return (
     <div
@@ -262,14 +266,15 @@ const ZigzagNode = ({
       <motion.div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ scale: 1.02, x: isRight ? -5 : 5 }}
-        initial={{ opacity: 0, x: isRight ? 50 : -50 }}
+        whileHover={{ scale: 1.02, x: isMobile ? 0 : (isRight ? -5 : 5) }}
+        initial={{ opacity: 0, x: isMobile ? 0 : (isRight ? 50 : -50), y: isMobile ? 20 : 0 }}
         animate={isCrossed ? { 
             opacity: 1, 
-            x: [isRight ? 30 : -30, isRight ? -5 : 5, 0],
+            x: isMobile ? 0 : [isRight ? 30 : -30, isRight ? -5 : 5, 0],
+            y: isMobile ? [10, -5, 0] : 0,
             skewX: [10, -5, 0],
             filter: ["drop-shadow(5px 0px 0px rgba(255,0,0,0.5)) drop-shadow(-5px 0px 0px rgba(0,255,255,0.5)) blur(4px)", "blur(0px)"]
-        } : { opacity: 0, x: isRight ? 50 : -50 }}
+        } : { opacity: 0, x: isMobile ? 0 : (isRight ? 50 : -50), y: isMobile ? 20 : 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`absolute z-10 pointer-events-auto flex max-w-[85vw] md:max-w-none`}
         style={cardStyle}
@@ -304,7 +309,7 @@ const ZigzagNode = ({
             <motion.div
               animate={isCrossed ? { opacity: [0.3, 1, 0.3] } : {}}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className={`absolute inset-y-0 w-[2px] ${isRight ? "left-0 bg-gradient-to-b" : "right-0 bg-gradient-to-b"} from-[#ffd700] via-[#9333ea] to-transparent`}
+              className={`absolute inset-y-0 w-[2px] ${isMobile ? 'left-0' : (isRight ? "left-0" : "right-0")} bg-gradient-to-b from-[#ffd700] via-[#9333ea] to-transparent`}
             />
 
             <h4 className="font-heading font-bold text-white/90 text-sm md:text-base mb-2 leading-snug">
@@ -449,6 +454,11 @@ const Schedule = () => {
               newCrossed.add(i);
               changed = true;
             }
+          } else {
+            if (newCrossed.has(i)) {
+              newCrossed.delete(i);
+              changed = true;
+            }
           }
         }
         if (changed) {
@@ -492,49 +502,102 @@ const Schedule = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background scanline-overlay">
+      <div className="min-h-screen bg-background scanline-overlay overflow-x-hidden">
         <ParticleField />
         <AnimatedBlobs />
         <ScrollProgress />
         <Navbar />
 
-        <section className="relative min-h-[40vh] flex items-center justify-center pt-24 pb-12">
-          <div className="container mx-auto px-4 text-center relative z-10 flex flex-col items-center">
+        <section className="relative pt-28 pb-12 overflow-hidden w-full">
+          {/* Radial purple ambient glow behind title */}
+          <div
+            className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 70% 50% at 60% 40%, rgba(139,92,246,0.18) 0%, transparent 70%)",
+            }}
+          />
 
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center text-[11px] md:text-xs text-primary uppercase tracking-[0.45em] mb-5 font-semibold font-mono flex items-center justify-center gap-2"
+          >
+            <Calendar size={14} className="text-primary" /> MASTER PLAN
+          </motion.p>
+
+          {/* Main Title — full-width, centered, perspective tilt */}
+          <div className="relative w-full" style={{ perspective: "800px" }}>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 text-[10px] md:text-xs text-[#ffd700] uppercase tracking-[0.4em] mb-4 font-semibold font-mono"
+              initial={{ opacity: 0, rotateX: 12, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <Calendar size={14} className="text-[#ffd700]" /> MASTER PLAN
-            </motion.div>
+              {/* Shadow/depth clone */}
+              <div
+                aria-hidden
+                className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                style={{ transform: "translateZ(-40px) translateY(12px)" }}
+              >
+                <span
+                  className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                  style={{
+                    fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                    color: "rgba(88,28,235,0.25)",
+                    filter: "blur(8px)",
+                  }}
+                >
+                  EVENT SCHEDULE
+                </span>
+              </div>
 
-            <div className="relative inline-block mb-3 px-4 sm:px-6">
-              {/* Futuristic Cyber brackets */}
-              <div className="absolute left-0 -top-2 w-3 h-3 border-t-2 border-l-2 border-[#9333ea]/50" />
-              <div className="absolute right-0 -top-2 w-3 h-3 border-t-2 border-r-2 border-[#9333ea]/50" />
-              <div className="absolute left-0 -bottom-2 w-3 h-3 border-b-2 border-l-2 border-[#9333ea]/50" />
-              <div className="absolute right-0 -bottom-2 w-3 h-3 border-b-2 border-r-2 border-[#9333ea]/50" />
-
-              <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-wider uppercase mb-0">
-                <span className="text-white/40 font-light mr-3 sm:mr-4 select-none">
+              {/* Actual title */}
+              <h1
+                className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
+              >
+                {/* EVENT — dimmer, lighter weight */}
+                <span
+                  className="inline-block mr-[0.15em]"
+                  style={{
+                    color: "rgba(255,255,255,0.28)",
+                    fontWeight: 300,
+                    textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                  }}
+                >
                   EVENT
                 </span>
-                <span className="bg-gradient-to-r from-[#ffd700] via-[#9333ea] to-[#e9d5ff] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,215,0,0.4)] animate-pulse">
+
+                {/* SCHEDULE — full white with 3D purple bloom */}
+                <span
+                  className="inline-block relative"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: [
+                      "0 0 60px rgba(139,92,246,0.9)",
+                      "0 0 120px rgba(139,92,246,0.5)",
+                      "0 2px 0 rgba(88,28,235,0.6)",
+                      "0 4px 0 rgba(68,14,180,0.4)",
+                      "0 8px 20px rgba(0,0,0,0.6)",
+                    ].join(", "),
+                  }}
+                >
                   SCHEDULE
                 </span>
               </h1>
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-4 sm:mt-6 text-muted-foreground max-w-lg mx-auto font-mono text-xs sm:text-sm text-center"
-            >
-              Plan your day and explore the exciting lineup of events at Ignitia 2k26.
-            </motion.p>
+            </motion.div>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+            className="mt-10 text-muted-foreground text-base md:text-lg font-medium text-center relative z-10 px-4"
+          >
+            Plan your day and explore the exciting lineup of events at Ignitia 2k26.
+          </motion.p>
         </section>
 
         <section className="pb-24">
@@ -559,7 +622,7 @@ const Schedule = () => {
             </div>
 
             {/* Zigzag Map Container */}
-            <div ref={containerRef} className="relative w-full max-w-4xl mx-auto zigzag-map" style={{ height: `${containerHeight}px` }}>
+            <div ref={containerRef} className="relative w-full max-w-4xl mx-auto zigzag-map touch-pan-y" style={{ height: `${containerHeight}px` }}>
               <SvgPath layout={layoutConfig} totalH={containerHeight} />
 
               <img

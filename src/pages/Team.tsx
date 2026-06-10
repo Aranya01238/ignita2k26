@@ -268,7 +268,7 @@ const _orbitColors = [
   "12 85% 52%",   // Orbit 2: Core Team
   "340 80% 60%",   // Orbit 3: Domain Leads
   "190 85% 55%",  // Orbit 4: Coordinators
-  "200 70% 55%",  
+  "200 70% 55%",
   "160 70% 55%",
 ];
 
@@ -957,56 +957,119 @@ const Team = () => {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="relative flex items-center justify-center pt-28 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-36">
-          <div className="container mx-auto px-4 text-center relative z-10">
+        <section className="relative pt-28 pb-0 overflow-hidden w-full">
+          {/* Radial purple ambient glow behind title */}
+          <div
+            className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(139,92,246,0.22) 0%, transparent 70%)",
+            }}
+          />
+
+          {/* Eyebrow pill badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center gap-2 mb-5"
+          >
+            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/25 bg-primary/5 backdrop-blur-md">
+              <Users size={13} className="text-primary shrink-0" />
+              <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] text-primary/90 font-semibold">
+                Meet The Minds
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Main Title — full-width, centered, perspective tilt */}
+          <div className="relative w-full" style={{ perspective: "800px" }}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="inline-flex flex-col items-center"
+              initial={{ opacity: 0, rotateX: 12, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="flex items-center gap-2 mb-4 sm:mb-6 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md">
-                <Users size={14} className="text-primary" />
-                <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-primary/90 font-semibold">
-                  Meet The Minds
+              {/* Shadow/depth clone */}
+              <div
+                aria-hidden
+                className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                style={{ transform: "translateZ(-40px) translateY(12px)" }}
+              >
+                <span
+                  className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                  style={{
+                    fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                    color: "rgba(88,28,235,0.25)",
+                    filter: "blur(8px)",
+                  }}
+                >
+                  OUR TEAM
                 </span>
               </div>
 
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-wider uppercase mb-0">
-                <span className="text-white/40 font-light mr-2 sm:mr-4 select-none">
+              {/* Actual title */}
+              <h1
+                className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
+              >
+                {/* OUR — dimmer, lighter weight */}
+                <span
+                  className="inline-block mr-[0.15em]"
+                  style={{
+                    color: "rgba(255,255,255,0.28)",
+                    fontWeight: 300,
+                    textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                  }}
+                >
                   OUR
                 </span>
-                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+
+                {/* TEAM — full white with 3D purple bloom */}
+                <span
+                  className="inline-block relative"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: [
+                      "0 0 60px rgba(139,92,246,0.9)",
+                      "0 0 120px rgba(139,92,246,0.5)",
+                      "0 2px 0 rgba(88,28,235,0.6)",
+                      "0 4px 0 rgba(68,14,180,0.4)",
+                      "0 8px 20px rgba(0,0,0,0.6)",
+                    ].join(", "),
+                  }}
+                >
                   TEAM
                 </span>
               </h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="mt-3 sm:mt-5 max-w-xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground font-medium px-2"
-              >
-                A dedicated group of visionaries, planners, and creators shaping IGNITIA '26
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="mt-2 text-[9px] sm:text-[10px] text-white/15 font-mono tracking-widest uppercase"
-              >
-                Hover or tap a planet to explore
-              </motion.p>
             </motion.div>
+          </div>
+
+          {/* Subtitle + hint */}
+          <div className="mt-8 mb-0 flex flex-col items-center gap-3 relative z-10 pb-10">
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="text-muted-foreground text-sm md:text-base font-medium"
+            >
+              A dedicated group of visionaries, planners, and creators shaping IGNITIA '26
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="text-[9px] sm:text-[10px] text-white/20 font-mono tracking-widest uppercase"
+            >
+              Hover or tap a planet to explore
+            </motion.p>
           </div>
         </section>
 
         {/* Orbital System */}
         <section className="relative z-10 pb-12 sm:pb-20 md:pb-32">
           <div className="w-full px-1 sm:px-4">
-            <SolarSystem 
-              onOpenCard={handleOpenCard} 
+            <SolarSystem
+              onOpenCard={handleOpenCard}
               onOpenConvenorsList={handleOpenConvenorsList}
             />
           </div>
@@ -1016,7 +1079,7 @@ const Team = () => {
         <section className="relative z-10 pb-24 md:pb-36 overflow-x-clip">
           <ThreeDCarousel
             sections={teamSections}
-            convenors={convenorsList} 
+            convenors={convenorsList}
             onOpenMemberCard={handleOpenCard}
             orbitColors={_orbitColors}
           />

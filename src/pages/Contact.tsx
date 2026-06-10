@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,23 +24,103 @@ const Contact = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex flex-col bg-background scanline-overlay">
+      <div className="min-h-screen flex flex-col bg-background scanline-overlay overflow-x-hidden">
         <ParticleField />
         <AnimatedBlobs />
         <ScrollProgress />
         <Navbar />
 
         <main className="flex-1">
-          <section className="relative min-h-[40vh] flex items-center justify-center pt-16">
-            <div className="container mx-auto px-4 text-center">
-              <h1 className="font-heading text-4xl md:text-5xl font-bold mb-3">
-                <span className="text-primary">Contact</span> Us
-              </h1>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We're here to help — for general enquiries, partnerships, or media requests,
-                drop us a message and we'll get back to you.
-              </p>
+          <section className="relative pt-28 pb-12 overflow-hidden w-full">
+            {/* Radial purple ambient glow behind title */}
+            <div
+              className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse 70% 50% at 60% 40%, rgba(139,92,246,0.18) 0%, transparent 70%)",
+              }}
+            />
+
+            {/* Eyebrow */}
+            <motion.p
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center text-[11px] md:text-xs text-primary uppercase tracking-[0.45em] mb-5 font-semibold font-mono flex items-center justify-center gap-2"
+            >
+              <Mail size={14} className="text-primary" /> COMMUNICATION LINK
+            </motion.p>
+
+            {/* Main Title — full-width, centered, perspective tilt */}
+            <div className="relative w-full" style={{ perspective: "800px" }}>
+              <motion.div
+                initial={{ opacity: 0, rotateX: 12, y: 30 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Shadow/depth clone */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                  style={{ transform: "translateZ(-40px) translateY(12px)" }}
+                >
+                  <span
+                    className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                    style={{
+                      fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                      color: "rgba(88,28,235,0.25)",
+                      filter: "blur(8px)",
+                    }}
+                  >
+                    GET IN TOUCH
+                  </span>
+                </div>
+
+                {/* Actual title */}
+                <h1
+                  className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                  style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
+                >
+                  {/* GET IN — dimmer, lighter weight */}
+                  <span
+                    className="inline-block mr-[0.15em]"
+                    style={{
+                      color: "rgba(255,255,255,0.28)",
+                      fontWeight: 300,
+                      textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                    }}
+                  >
+                    GET IN
+                  </span>
+
+                  {/* TOUCH — full white with 3D purple bloom */}
+                  <span
+                    className="inline-block relative"
+                    style={{
+                      color: "#ffffff",
+                      textShadow: [
+                        "0 0 60px rgba(139,92,246,0.9)",
+                        "0 0 120px rgba(139,92,246,0.5)",
+                        "0 2px 0 rgba(88,28,235,0.6)",
+                        "0 4px 0 rgba(68,14,180,0.4)",
+                        "0 8px 20px rgba(0,0,0,0.6)",
+                      ].join(", "),
+                    }}
+                  >
+                    TOUCH
+                  </span>
+                </h1>
+              </motion.div>
             </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.6 }}
+              className="mt-10 text-muted-foreground text-base md:text-lg font-medium text-center relative z-10 px-4"
+            >
+              We're here to help — for general enquiries, partnerships, or media requests, drop us a message.
+            </motion.p>
           </section>
 
           <section className="section-padding">
@@ -104,7 +185,7 @@ const Contact = () => {
                       src={mapEmbedSrc}
                       width="100%"
                       height="100%"
-                      style={{ border: 0, pointerEvents: "none" }}
+                      style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
                       loading="lazy"
                       title="UEM Kolkata Location"
                     />
@@ -142,14 +223,14 @@ const Contact = () => {
                 </div>
 
                 <div className="group relative overflow-hidden rounded-2xl border border-white/8 bg-card/45 h-64 transition-all duration-200 hover:border-primary/25 hover:shadow-[0_20px_60px_rgba(255,83,48,0.12)] lg:hidden">
-                  <iframe
-                    src={mapEmbedSrc}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0, pointerEvents: "none" }}
-                    loading="lazy"
-                    title="UEM Kolkata Location"
-                  />
+                    <iframe
+                      src={mapEmbedSrc}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
+                      loading="lazy"
+                      title="UEM Kolkata Location"
+                    />
                   <a
                     href={mapHref}
                     target="_blank"

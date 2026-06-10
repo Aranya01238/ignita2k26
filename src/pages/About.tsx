@@ -124,24 +124,65 @@ const About = () => {
             id="about-hero-content"
             className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none z-20"
           >
-            <p className="text-[10px] md:text-xs text-orange-500 uppercase tracking-[0.4em] mb-3 font-semibold font-mono">
-              OUR STORY & VISION — IGNITIA &apos;26
+            <p className="text-[10px] md:text-xs text-primary uppercase tracking-[0.4em] mb-5 font-semibold font-mono flex items-center justify-center gap-2">
+              <Cpu size={14} className="text-primary" /> OUR STORY & VISION
             </p>
-            <div className="relative inline-block mb-3 px-6 py-2">
-              <div className="absolute left-0 -top-2 w-3 h-3 border-t-2 border-l-2 border-orange-500/50" />
-              <div className="absolute right-0 -top-2 w-3 h-3 border-t-2 border-r-2 border-orange-500/50" />
-              <div className="absolute left-0 -bottom-2 w-3 h-3 border-b-2 border-l-2 border-orange-500/50" />
-              <div className="absolute right-0 -bottom-2 w-3 h-3 border-b-2 border-r-2 border-orange-500/50" />
+            <div className="relative w-full" style={{ perspective: "800px" }}>
+              <div style={{ transformStyle: "preserve-3d" }}>
+                {/* Shadow/depth clone */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                  style={{ transform: "translateZ(-40px) translateY(12px)" }}
+                >
+                  <span
+                    className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                    style={{
+                      fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                      color: "rgba(88,28,235,0.25)",
+                      filter: "blur(8px)",
+                    }}
+                  >
+                    ABOUT IGNITIA
+                  </span>
+                </div>
 
-              <h1 className="font-heading text-5xl md:text-7xl font-black tracking-wider uppercase mb-0">
-                <span className="text-white/40 font-light mr-3 select-none">ABOUT</span>
-                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(249,115,22,0.4)]">
-                  IGNITIA
-                </span>
-              </h1>
+                {/* Actual title */}
+                <h1
+                  className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                  style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
+                >
+                  <span
+                    className="inline-block mr-[0.15em]"
+                    style={{
+                      color: "rgba(255,255,255,0.28)",
+                      fontWeight: 300,
+                      textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                    }}
+                  >
+                    ABOUT
+                  </span>
+
+                  <span
+                    className="inline-block relative"
+                    style={{
+                      color: "#ffffff",
+                      textShadow: [
+                        "0 0 60px rgba(139,92,246,0.9)",
+                        "0 0 120px rgba(139,92,246,0.5)",
+                        "0 2px 0 rgba(88,28,235,0.6)",
+                        "0 4px 0 rgba(68,14,180,0.4)",
+                        "0 8px 20px rgba(0,0,0,0.6)",
+                      ].join(", "),
+                    }}
+                  >
+                    IGNITIA
+                  </span>
+                </h1>
+              </div>
             </div>
 
-            <p className="text-muted-foreground text-sm max-w-xl mx-auto font-medium leading-relaxed mt-4">
+            <p className="text-muted-foreground text-sm max-w-xl mx-auto font-medium leading-relaxed mt-10">
               The flagship multi-domain event organized by the IEM-UEM group
               at UEM Kolkata — where innovation, creativity, and
               competition converge.

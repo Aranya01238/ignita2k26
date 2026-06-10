@@ -16,9 +16,7 @@ const HomeEffects = () => {
     <>
       <MouseSpotlight />
       <CursorTrail />
-      <ParticleField />
       <ShootingStars />
-      <AnimatedBlobs />
     </>
   );
 };

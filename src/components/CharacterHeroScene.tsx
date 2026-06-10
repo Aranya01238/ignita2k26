@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Preload the character model
 useGLTF.preload("/3d_models/character-hero-2.glb");
@@ -117,6 +118,7 @@ interface CharacterHeroSceneProps {
 }
 
 export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProps) => {
+  const isMobile = useIsMobile();
   return (
     <div className="absolute inset-0 w-full h-full z-10 pointer-events-auto">
       {/* Visual background grid and glows inside the 3D scene box */}
@@ -125,11 +127,12 @@ export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProp
       <Canvas
         shadows
         gl={{
-          antialias: true,
+          antialias: !isMobile,
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.2,
           powerPreference: "high-performance",
         }}
+        dpr={isMobile ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 40, near: 0.1, far: 100 }}
         className="w-full h-full cursor-grab active:cursor-grabbing"
       >
@@ -171,14 +174,16 @@ export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProp
             dampingFactor={0.05}
           />
 
-          <EffectComposer enableNormalPass={false}>
-            <Bloom
-              intensity={1.2}
-              luminanceThreshold={0.5}
-              luminanceSmoothing={0.5}
-              mipmapBlur
-            />
-          </EffectComposer>
+          {!isMobile && (
+            <EffectComposer enableNormalPass={false}>
+              <Bloom
+                intensity={1.2}
+                luminanceThreshold={0.5}
+                luminanceSmoothing={0.5}
+                mipmapBlur
+              />
+            </EffectComposer>
+          )}
         </Suspense>
       </Canvas>
      

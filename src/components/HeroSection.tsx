@@ -330,7 +330,7 @@ const HeroSection = () => {
                 {/* Label */}
                 <div className="flex items-center gap-2 mb-4">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-white/40 uppercase">T-Minus // Event Launch Sequence</span>
+                  <span className="font-mono text-[9px] tracking-[0.35em] text-white/40 uppercase">Event Launch Sequence</span>
                 </div>
 
                 {/* Countdown display */}
@@ -357,4 +357,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default HeroSection;

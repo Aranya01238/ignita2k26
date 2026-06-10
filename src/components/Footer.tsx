@@ -40,7 +40,7 @@ const Footer = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr]"
+        className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.7fr_0.7fr_1fr_0.8fr]"
       >
         <motion.div variants={fadeUp} className="space-y-5">
           <Link to="/" className="inline-flex items-center gap-3">
@@ -166,6 +166,20 @@ const Footer = () => (
             </motion.div>
           </div>
         </motion.div>
+
+        <motion.div variants={fadeUp} className="space-y-4">
+          <h4 className="font-heading text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
+            <span className="text-primary">*</span> Web Dev Team
+          </h4>
+          <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground font-mono">
+            <li><span className="text-primary/50 mr-1">1.</span> Diptodeep Biswas</li>
+            <li><span className="text-primary/50 mr-1">2.</span> Aranya Rath</li>
+            <li><span className="text-primary/50 mr-1">3.</span> Tridibesh Sen</li>
+            <li><span className="text-primary/50 mr-1">4.</span> Rony Roy</li>
+            <li><span className="text-primary/50 mr-1">5.</span> Daliya Paul</li>
+            <li><span className="text-primary/50 mr-1">6.</span> Harsit Kedia</li>
+          </ul>
+        </motion.div>
       </motion.div>
 
       <motion.div
@@ -176,7 +190,7 @@ const Footer = () => (
         className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-muted-foreground origin-center"
       >
         © 2026 IGNITIA '26 · Built for students, powered by the IEM-UEM group,
-        UEM Kolkata.
+        UEM Kolkata. <span className="text-primary">*</span>
       </motion.div>
     </div>
   </footer>

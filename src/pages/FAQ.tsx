@@ -137,50 +137,96 @@ const FAQ = () => {
         <Navbar />
 
         {/* Data Core Header */}
-        <section className="relative pt-28 pb-8 flex items-center justify-center z-20">
-          <div className="container mx-auto px-4 text-center relative z-10">
+        <section className="relative pt-28 pb-12 overflow-hidden w-full">
+          {/* Radial purple ambient glow behind title */}
+          <div
+            className="absolute inset-x-0 top-0 h-[500px] pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 70% 50% at 60% 40%, rgba(139,92,246,0.18) 0%, transparent 70%)",
+            }}
+          />
+
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center text-[11px] md:text-xs text-primary uppercase tracking-[0.45em] mb-5 font-semibold font-mono flex items-center justify-center gap-2"
+          >
+            <Database size={14} className="text-primary" /> KNOWLEDGE BASE
+          </motion.p>
+
+          {/* Main Title — full-width, centered, perspective tilt */}
+          <div className="relative w-full" style={{ perspective: "800px" }}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="inline-flex flex-col items-center"
+              initial={{ opacity: 0, rotateX: 12, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center gap-2 text-[10px] md:text-xs text-[#ffd700] uppercase tracking-[0.4em] mb-4 font-semibold font-mono"
+              {/* Shadow/depth clone */}
+              <div
+                aria-hidden
+                className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+                style={{ transform: "translateZ(-40px) translateY(12px)" }}
               >
-                <Database size={14} className="text-[#ffd700]" /> KNOWLEDGE BASE
-              </motion.div>
-
-              <div className="relative inline-block mb-3 px-4 sm:px-6">
-                {/* Futuristic Cyber brackets */}
-                <div className="absolute left-0 -top-2 w-3 h-3 border-t-2 border-l-2 border-[#9333ea]/50" />
-                <div className="absolute right-0 -top-2 w-3 h-3 border-t-2 border-r-2 border-[#9333ea]/50" />
-                <div className="absolute left-0 -bottom-2 w-3 h-3 border-b-2 border-l-2 border-[#9333ea]/50" />
-                <div className="absolute right-0 -bottom-2 w-3 h-3 border-b-2 border-r-2 border-[#9333ea]/50" />
-
-                <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-wider uppercase mb-0">
-                  <span className="text-white/40 font-light mr-3 sm:mr-4 select-none">
-                    DATA
-                  </span>
-                  <span className="bg-gradient-to-r from-[#ffd700] via-[#9333ea] to-[#e9d5ff] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,215,0,0.4)] animate-pulse">
-                    CORE
-                  </span>
-                </h1>
+                <span
+                  className="font-heading font-black uppercase leading-none tracking-tight text-center w-full"
+                  style={{
+                    fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
+                    color: "rgba(88,28,235,0.25)",
+                    filter: "blur(8px)",
+                  }}
+                >
+                  FAQ CORE
+                </span>
               </div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="mt-4 sm:mt-6 text-muted-foreground max-w-lg mx-auto font-mono text-xs sm:text-sm"
+              {/* Actual title */}
+              <h1
+                className="font-heading font-black uppercase leading-none tracking-tight w-full text-center relative"
+                style={{ fontSize: "clamp(2.5rem, 10vw, 5.5rem)", transformStyle: "preserve-3d" }}
               >
-                QUERY IGNITIA NETWORK: Accessing encrypted event intelligence...
-              </motion.p>
+                {/* FAQ — dimmer, lighter weight */}
+                <span
+                  className="inline-block mr-[0.15em]"
+                  style={{
+                    color: "rgba(255,255,255,0.28)",
+                    fontWeight: 300,
+                    textShadow: "0 2px 20px rgba(139,92,246,0.1)",
+                  }}
+                >
+                  FAQ
+                </span>
+
+                {/* CORE — full white with 3D purple bloom */}
+                <span
+                  className="inline-block relative"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: [
+                      "0 0 60px rgba(139,92,246,0.9)",
+                      "0 0 120px rgba(139,92,246,0.5)",
+                      "0 2px 0 rgba(88,28,235,0.6)",
+                      "0 4px 0 rgba(68,14,180,0.4)",
+                      "0 8px 20px rgba(0,0,0,0.6)",
+                    ].join(", "),
+                  }}
+                >
+                  CORE
+                </span>
+              </h1>
             </motion.div>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+            className="mt-10 text-muted-foreground text-base md:text-lg font-medium text-center relative z-10 px-4"
+          >
+            QUERY IGNITIA NETWORK: Accessing encrypted event intelligence...
+          </motion.p>
         </section>
 
         {/* Hero Interactive Area: Terminal Box + 3 Rays + 3D Model */}
@@ -196,7 +242,7 @@ const FAQ = () => {
 
                   {/* Windows CMD Header */}
                   <div className="mb-4 text-xs sm:text-sm text-[#CCCCCC]/90 relative z-10">
-                    <p className="text-[#ffd700]/80">IGNITIA Data Core [Version 2026.1.0]</p>
+                    <p className="text-[#ffd700]/80">IGNITIA FAQ Core [Version 2026.1.0]</p>
                     <p>&copy; 2026 IGNITIA &apos;26. POWER LEVEL: MAXIMUM.</p>
                   </div>
 
@@ -315,7 +361,7 @@ const FAQ = () => {
             </div>
 
             {/* Right Side: 3D Model */}
-            <div className="absolute -right-[2rem] lg:-right-[8rem] -top-[32vh] lg:-top-[62vh] w-[300px] h-[450px] lg:w-[450px] lg:h-[650px] z-[15] pointer-events-none">
+            <div className="hidden md:block absolute -right-[2rem] lg:-right-[8rem] -top-[45vh] lg:-top-[62vh] w-[300px] h-[450px] lg:w-[450px] lg:h-[650px] z-[15] pointer-events-none">
               <FAQHeroScene />
             </div>
 
@@ -327,11 +373,11 @@ const FAQ = () => {
           <div className="container mx-auto max-w-3xl px-4">
 
             {/* Category Filter Toggles */}
-            <div className="flex justify-center mb-10 w-full overflow-x-auto pb-4 hide-scrollbar">
+            <div className="flex justify-center mb-10 w-full">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative inline-flex p-1.5 bg-white/5 border border-white/10 rounded-full backdrop-blur-md whitespace-nowrap min-w-max"
+                className="relative flex flex-wrap justify-center gap-1.5 p-1.5 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md max-w-full"
               >
                 {categories.map((cat) => {
                   const isActive = activeCategory === cat;
@@ -340,13 +386,13 @@ const FAQ = () => {
                     <button
                       key={cat}
                       onClick={() => setActiveCategory(cat)}
-                      className={`relative px-4 sm:px-6 py-2.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider rounded-full transition-colors z-10 ${isActive ? "text-white" : "text-muted-foreground hover:text-white"
+                      className={`relative px-3 sm:px-5 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors z-10 ${isActive ? "text-white" : "text-muted-foreground hover:text-white"
                         }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="faq-category-toggle"
-                          className="absolute inset-0 rounded-full z-[-1]"
+                          className="absolute inset-0 rounded-xl z-[-1]"
                           style={{
                             background: isActive && cat === "All Files"
                               ? `linear-gradient(to right, #ffd700, #9333ea)`
