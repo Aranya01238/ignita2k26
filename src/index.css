@@ -57,6 +57,21 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 14%;
     --sidebar-ring: 0 95% 60%;
+
+    --border-color-1: #FF5613;
+    --border-color-2: #9F4EFF;
+    --border-color-3: #2196F3;
+    --border-bg-color: #0c0d0e;
+    --card-bg-color: #0c0d0e;
+    --shadow-color: #0c0d0e;
+    --text-color: #f5f5f5;
+    --hover-text-color-1: #0c0d0e;
+    --hover-text-color-2: #0c0d0e;
+    --hover-text-color-3: #0c0d0e;
+    --font-family: 'Roboto Mono', monospace;
+    --rtl-font-family: 'Montserrat', sans-serif;
+    --pattern-color1: rgba(200,200,200,0.05);
+    --pattern-color2: rgba(220,220,220,0.05);
   }
 }
 
