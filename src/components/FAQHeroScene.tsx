@@ -134,6 +134,7 @@ export const FAQHeroScene = () => {
           <OrbitControls
             enableZoom={false}
             enablePan={false}
+            enableRotate={false}
             enableDamping
             dampingFactor={0.05}
             maxPolarAngle={Math.PI / 2 + 0.1}

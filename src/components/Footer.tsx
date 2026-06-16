@@ -172,12 +172,12 @@ const Footer = () => (
             <span className="text-primary">*</span> Web Dev Team
           </h4>
           <ul className="flex flex-col gap-2.5 text-sm text-muted-foreground font-mono">
-            <li><span className="text-primary/50 mr-1">1.</span> Diptodeep Biswas</li>
-            <li><span className="text-primary/50 mr-1">2.</span> Aranya Rath</li>
-            <li><span className="text-primary/50 mr-1">3.</span> Tridibesh Sen</li>
-            <li><span className="text-primary/50 mr-1">4.</span> Rony Roy</li>
-            <li><span className="text-primary/50 mr-1">5.</span> Daliya Paul</li>
-            <li><span className="text-primary/50 mr-1">6.</span> Harsit Kedia</li>
+            <li><span className="text-primary/50 mr-1">1.</span> <a href="https://www.linkedin.com/in/diptodeep-biswas/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Diptodeep Biswas</a></li>
+            <li><span className="text-primary/50 mr-1">2.</span> <a href="https://www.linkedin.com/in/aranya-rath-275a5628a/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Aranya Rath</a></li>
+            <li><span className="text-primary/50 mr-1">3.</span> <a href="https://www.linkedin.com/in/tridibesh-sen/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Tridibesh Sen</a></li>
+            <li><span className="text-primary/50 mr-1">4.</span> <a href="https://www.linkedin.com/in/rony-roy-813bb5335/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Rony Roy</a></li>
+            <li><span className="text-primary/50 mr-1">5.</span> <a href="https://www.linkedin.com/in/daliya-paul-4b80393a9/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Daliya Paul</a></li>
+            <li><span className="text-primary/50 mr-1">6.</span> <a href="https://www.linkedin.com/in/harsit-kedia/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Harsit Kedia</a></li>
           </ul>
         </motion.div>
       </motion.div>

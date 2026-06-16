@@ -102,89 +102,118 @@ const themes = {
   },
 };
 
-const events = [
+export type EventType = {
+  id: string;
+  icon: any;
+  title: string;
+  category: string;
+  prize?: string;
+  teamSize: string;
+  teamSizeLabel?: string;
+  duration: string;
+  day: string;
+  entryFee: string;
+  theme: keyof typeof themes;
+  rulebookUrl?: string;
+  isWide?: boolean;
+  leftPoolLayout?: boolean;
+  arrowTop?: boolean;
+  isTopEvent?: boolean;
+  watermark?: string;
+  description: string;
+  overview: string;
+  rules?: string[];
+  criteria?: string[];
+};
+
+const events: EventType[] = [
   {
-    id: "hackathon",
+    id: "ignysis",
     icon: Zap,
-    title: "Hackathon",
+    title: "IGNISYS",
     category: "TECHNICAL",
-    prize: "₹35K",
-    teamSize: "4-6",
+    prize: "TBD",
+    teamSize: "1-4",
     duration: "Hybrid",
-    day: "01",
-    entryFee: "₹100",
+    day: "1st & 2nd",
+    entryFee: "Free",
     theme: "orange",
+    rulebookUrl: "https://drive.google.com/file/d/1x0szLJB-k8JGOt1MozE0S5vgDmxHTci2/preview",
     isWide: true,
     arrowTop: true,
     isTopEvent: true,
     watermark: "01",
-    description: "Unleash your coding potential to crack real-world tracks collaboratively.",
-    overview: "IGNYSIS is a hybrid hackathon starting with an online 720-hour collaborative build phase and culminating in an offline pitching finale before a jury at IEM Newtown campus.",
+    description: "Collaborate on problem-solving to crack designated tracks and submit an innovative solution.",
+    overview: "IGNISYS is a hybrid hackathon where teams collaborate to solve designated tracks. Round 1 features a 720-hour online project window where participants must submit a comprehensive presentation and video detailing their solution. The top 20 qualifying teams will advance to Round 2, culminating in an offline presentation before a jury at the IEM Newtown campus on August 2nd.",
     rules: [
-      "Teams must consist of 4 to 6 members (inter-college and cross-branch allowed)",
-      "Hybrid format: Round 1 is online, Round 2 is offline at IEM Newtown campus",
-      "Only the team leader submits the final 5-slide PPT + video solution",
-      "Up to 30% of code structure/logic may be prepared in advance"
+      "Teams must consist of a minimum of 1 and a maximum of 4 participants.",
+      "Registration is completely free and open to students from any department of any registered college or university.",
+      "Inter-college and cross-branch teams are permitted.",
+      "A student cannot be a part of more than one team.",
+      "Only the team leader is permitted to submit the final solution in the form of a PPT and video before the deadline.",
+      "Internet usage for research is allowed, but direct plagiarism or copied solutions will result in immediate disqualification."
     ],
     criteria: [
-      "Solution Originality & Plagiarism check",
-      "Unique Selling Proposition (USP) & Viability",
-      "Technical Execution & Logic (up to 30% pre-coded)",
-      "Presentation & Q&A Quality (7 mins pitch, 3 mins Q&A)"
+      "Originality: Ideas submitted must represent the original work of the team.",
+      "Technical Execution: Participants may prepare up to 20% of their code structure or logic at home prior to the final round.",
+      "Presentation Quality: The offline pitch requires a 7-minute presentation followed by a 3-minute Q&A session.",
+      "Required Structure: Problem Statement, Understanding & Approach, Detailed Solution, System Architecture, Technologies, Innovation Summary, Research/References."
     ],
   },
   {
     id: "efootball",
     icon: Gamepad2,
-    title: "eFootball Tournament",
+    title: "E-Football Ultimate 11",
     category: "GAMING",
-    prize: "₹15K",
+    prize: "TBD",
     teamSize: "Solo",
     teamSizeLabel: "FORMAT",
     duration: "Online",
-    day: "Online",
-    entryFee: "₹100",
+    day: "July 28 - August 01",
+    entryFee: "₹70 / person",
     theme: "purple",
+    rulebookUrl: "https://drive.google.com/file/d/1R8xPidpPx2p1QltAYp4CHPAa5jWi2mys/preview",
     watermark: "02",
-    description: "One Match. One Chance. One Champion. Online single-elimination mobile eFootball tournament.",
-    overview: "A fully online, single-elimination mobile eFootball tournament open to 32 participants. Survive each round or go home.",
+    description: "One Match. One Chance. One Champion.",
+    overview: "A completely online, 32-participant, single-elimination knockout tournament played on the mobile platform of the latest E-Football version.",
     rules: [
-      "Platform: Mobile (latest eFootball version required)",
-      "Single-elimination knockout format for 32 participants",
-      "Matches must be screen recorded (Player ID check mandatory)",
-      "Winners must submit screenshot proof immediately after the match"
+      "Solo participation requires a ₹70 non-refundable entry fee.",
+      "Extra time and penalties must be set to ON, while \"Smart Assist\" must be turned OFF.",
+      "Players are limited to a maximum of 8 long balls and 8 back passes per match.",
+      "Dream Teams and Model Teams are allowed, but team changes during the tournament are prohibited."
     ],
     criteria: [
-      "Top 3 secure cash prizes",
-      "All participants receive e-certificates",
-      "Strict compliance with fair play (Smart Assist OFF)"
+      "Participants advance through a single-elimination knockout format.",
+      "If a match is tied, the winner is determined through penalties.",
+      "The Top 3 players will receive cash prizes."
     ],
   },
   {
     id: "bgmi",
     icon: Gamepad2,
-    title: "BGMI Tournament",
+    title: "Battlegrounds Mobile India",
     category: "GAMING",
-    prize: "₹20K",
-    teamSize: "Squad (4 Players)",
+    prize: "TBD",
+    teamSize: "2 - 4",
     teamSizeLabel: "FORMAT",
     duration: "Hybrid",
-    day: "02",
-    entryFee: "₹100",
+    day: "July 29 - August 02",
+    entryFee: "₹200 / team",
     theme: "pink",
+    rulebookUrl: "https://drive.google.com/file/d/1lLt8tuXtGmcSJPXT94Mpcs_o9Rxtt3SM/preview",
     watermark: "03",
-    description: "Ultimate BGMI squad tournament. Hybrid format with online qualifiers and offline grand final.",
-    overview: "Lock, load, and own the zone. The ultimate BGMI squad tournament at Ignitia '26 — hybrid format with online qualifiers and an offline grand final. Only the strongest survive.",
+    description: "Squad-based mobile survival tournament.",
+    overview: "A hybrid TPP Squad-based BGMI tournament featuring online qualifiers and offline finals. Teams must compete utilizing the BGIS 2026 ranking mechanism across all major maps.",
     rules: [
-      "TPP Squad format (Android or iOS; iPads not allowed)",
-      "Strictly no GFx tools, controllers, or third-party apps allowed",
-      "Emergency Pickup item is strictly prohibited",
-      "Qualifiers on 29-30 July (online), Grand Finals on 2 August (offline)"
+      "Teams require a minimum of 2 players and a maximum of 4, with 1 optional substitute allowed.",
+      "All players must use iOS or Android mobile devices; iPads, tablets, triggers, or external controllers are strictly prohibited.",
+      "The use of any third-party application or hack results in an instant ban.",
+      "Players are strictly prohibited from picking up or using the \"Emergency Pickup\" item."
     ],
     criteria: [
-      "BGIS 2026 Points System (10 pts for 1st, 6 for 2nd, etc.)",
-      "1 Point per finish/kill",
-      "Fair Play compliance (triggers/emulators banned)"
+      "Scoring utilizes a placement point system awarding 10 points for 1st place, scaling down to 0 points for 17th place and below.",
+      "Every confirmed finish is worth 1 point.",
+      "Ties are broken by total first-place finishes, total placement points, accumulated finishes, and most recent match placement."
     ],
   },
   {
@@ -192,112 +221,248 @@ const events = [
     icon: Code,
     title: "Blind Coding",
     category: "TECHNICAL",
-    prize: "₹15K",
-    teamSize: "x1",
+    prize: "TBD",
+    teamSize: "Solo",
     teamSizeLabel: "SOLO",
-    duration: "Day 2",
+    duration: "Offline",
     day: "02",
-    entryFee: "₹100",
+    entryFee: "TBD",
     theme: "teal",
+    rulebookUrl: "https://drive.google.com/file/d/19BRSzJ3Rxb9QDE9D9jui0kho0kjiF1z9/preview",
     watermark: "04",
-    description: "Code without screen visibility. Pure instinct.",
-    overview: "Offline solo competition where participants write code without being able to see their screen. Open to students of any branch from any registered college.",
+    description: "Code without screen visibility.",
+    overview: "An individual programming challenge conducted in Python, Java, or C where participants must write code without being able to see their screens.",
     rules: [
-      "Solo participation — write code without viewing your screen",
-      "Allowed programming languages: Python, Java, or C",
-      "Once time ends, no further typing or editing is permitted",
-      "Strictly no internet, AI tools, or external assistance"
+      "This competition is strictly for individual participants.",
+      "Once the timer starts, participants cannot view their own screen or any other participant's screen.",
+      "No typing or changes can be made once the time limit ends.",
+      "Internet usage and AI tools are strictly prohibited."
     ],
     criteria: [
-      "Amount of correct, functional code completed within the time limit",
-      "Number of errors in the submitted code"
+      "Evaluation is based on how much correct and functional code is completed within the time limit.",
+      "The number of errors present in the code will also be judged.",
+      "The best 10 participants advance to Round 2, from which the top 3 finalists are chosen."
     ],
   },
   {
     id: "guess-who",
     icon: HelpCircle,
-    title: "Guess Who",
+    title: "Guess Who?",
     category: "NON-TECH",
-    prize: "₹10K",
+    prize: "TBD",
     teamSize: "Solo",
     teamSizeLabel: "FORMAT",
-    duration: "15-20 Mins",
+    duration: "Offline (15-20 mins)",
     day: "02",
-    entryFee: "₹100",
+    entryFee: "TBD",
     theme: "yellow",
+    rulebookUrl: "https://drive.google.com/file/d/187w12QZWolU72Lj1Uh8OWfvteZfv65R2/preview",
     watermark: "05",
-    description: "A fast-paced, high-energy Bollywood celebrity guessing challenge.",
-    overview: "A fast-paced, high-energy Bollywood celebrity guessing challenge where your eyes do the talking. Zoomed-in visuals flash on screen — from a pair of eyes to an iconic smile to a signature accessory — and you have seconds to name the star before the room does.",
+    description: "Spot it. Guess it. Own it.",
+    overview: "A fast-paced, 15 to 20-minute Bollywood guessing challenge. Participants must identify celebrities through zoomed-in visuals, such as eyes, smiles, hairstyles, and iconic accessories.",
     rules: [
-      "No use of phones or external devices to look up answers",
-      "Only respond when signalled by the host",
-      "Wrong answers do not penalise, but shouting out of turn skips the point",
-      "Walk-in participation — no prior team registration needed"
+      "This is an individual event; no teams, collaboration, or discussion is allowed.",
+      "Participants must raise their hand or follow the host's instructions, as only the first valid answer will be considered.",
+      "No use of mobile phones or internet access is permitted."
     ],
     criteria: [
-      "Speed and accuracy in identifying the celebrity",
-      "Highest accumulated score at the end",
-      "Tiebreaker rounds in case of level scores"
+      "Correct answers earn points.",
+      "The participant with the highest score wins.",
+      "In the event of a tie, a tie-breaker round will be conducted."
     ],
   },
   {
     id: "quizophonia",
     icon: Brain,
     title: "Quizophonia",
-    category: "TECHNICAL",
-    prize: "₹15K",
-    teamSize: "1-2",
+    category: "NON-TECH",
+    prize: "TBD",
+    teamSize: "1 - 2",
     teamSizeLabel: "TEAM / SOLO",
-    duration: "1 Day",
+    duration: "Offline",
     day: "01",
-    entryFee: "₹100",
+    entryFee: "₹50 / person",
     theme: "blue",
+    rulebookUrl: "https://drive.google.com/file/d/1-h3tIhTGEJRQPEHFksjzG500BSpr6wab/preview",
     isWide: true,
     leftPoolLayout: true,
     watermark: "06",
-    description: "Test your knowledge across tech, science, and pop culture.",
-    overview: "A multi-domain quiz spanning 9 creative and technical categories. Open to cross-institute teams and solo participants.",
+    description: "Wisdom of domains covering Biz-Tech and more.",
+    overview: "A Biz-Tech themed quiz competition open to all registered college or university students below 25 years of age. The quiz spans various areas related to business and technology.",
     rules: [
-      "No electronic devices during the quiz — violation = instant disqualification",
-      "Quiz Master's decision is final on all matters",
-      "Campus code of conduct applies — no smoking/alcohol/prohibited items",
-      "Lost property to be deposited at the Ignitia Control Room"
+      "Teams can consist of a maximum of 2 members, but individual participation is also allowed.",
+      "Participants must carry a valid identity card.",
+      "The use of electronic devices like phones, tablets, or smartwatches is strictly prohibited during the quiz."
     ],
     criteria: [
-      "Accuracy in trivia questions across the 9 domains",
-      "Speed and points scored in buzzer/buzzer-free rounds"
+      "Questions will be evaluated based on accuracy and response time.",
+      "Teams or participants with the highest scores in the preliminary rounds will qualify for the next round.",
+      "A tie-breaker round will be conducted in case of a tie."
     ],
   },
   {
-    id: "poster-design",
+    id: "pixel-prophecy",
     icon: Palette,
-    title: "Poster Design",
+    title: "Pixel Prophecy",
     category: "NON-TECH",
-    prize: "₹10K",
-    teamSize: "Individual",
+    prize: "TBD",
+    teamSize: "Solo",
     teamSizeLabel: "FORMAT",
-    duration: "50 Mins",
-    day: "01",
-    entryFee: "₹100",
+    duration: "Offline (50 mins - 1.5 hrs)",
+    day: "02",
+    entryFee: "TBD",
     theme: "pink",
+    rulebookUrl: "https://drive.google.com/file/d/1ssMOPgn2USMshSZ7Byw7_b3mpMOQuQW2/preview",
     watermark: "07",
-    description: "Draw a Bollywood celebrity chit and design a poster inspired by their aura and signature presence.",
-    overview: "Design the icon. Capture the aura. Participants will randomly draw a chit featuring a Bollywood actor or actress and create a poster inspired by their aura and signature presence.",
+    description: "Design the icon. Capture the aura.",
+    overview: "An individual poster design competition where participants randomly draw a chit featuring a Bollywood celebrity. Participants must create a poster inspired by that celebrity's aura and signature postures during the event.",
     rules: [
-      "Random chit draw determines your Bollywood celebrity subject",
-      "No chit exchanges or pre-made designs allowed",
-      "Time limit: 50 minutes to complete and submit",
-      "Bring your own design device (laptop, iPad, or tablet)"
+      "This is strictly an individual competition with no pre-designed templates or external work permitted.",
+      "Participants must bring their own charged devices (laptop/iPad/tablet) and designing tools.",
+      "The rulebook specifies an event duration of 50 minutes, but also notes a total time limit of 1 hour and 30 minutes for submission."
     ],
     criteria: [
-      "Creativity & representation of the celebrity's aura",
-      "Visual aesthetics & composition quality",
-      "Overall presentation impact within 50 minutes"
+      "Shortlisting will be based on creativity and originality.",
+      "Judges will look for visual appeal, design quality, and concept storytelling.",
+      "The accurate representation of the assigned celebrity's aura is a key evaluation metric."
     ],
   },
-] as const;
-
-type EventType = typeof events[number];
+  {
+    id: "cineverse",
+    icon: Palette,
+    title: "Cineverse",
+    category: "NON-TECH",
+    prize: "TBD",
+    teamSize: "Any Size",
+    teamSizeLabel: "FORMAT",
+    duration: "Offline Finals",
+    day: "02",
+    entryFee: "TBD",
+    theme: "orange",
+    rulebookUrl: "https://drive.google.com/file/d/1cgB9s2y6E7ivKWrTNvh7DYowvz7QxoAU/preview",
+    watermark: "08",
+    description: "Short film making competition.",
+    overview: "A filmmaking competition where participants create and complete a short film prior to the event, submitting it via Google Drive. The submitted content must be completely original and free from copyright violations.",
+    rules: [
+      "Teams can consist of any number of members with a flat ₹120 registration fee per team.",
+      "The film's duration must be strictly between 4 and 5 minutes.",
+      "All participants are required to join the event lobby at least 15 minutes before it starts.",
+      "Late submissions will not be considered."
+    ],
+    criteria: [
+      "Shortlisting and evaluation will be based on the film's story, concept, and creativity.",
+      "Judges will also score the acting performance and overall presentation/impact."
+    ],
+  },
+  {
+    id: "circuit-crawl",
+    icon: Zap,
+    title: "Circuit Crawl",
+    category: "TECHNICAL",
+    prize: "TBD",
+    teamSize: "Min 5",
+    teamSizeLabel: "FORMAT",
+    duration: "Offline",
+    day: "01 & 02",
+    entryFee: "TBD",
+    theme: "purple",
+    rulebookUrl: "https://drive.google.com/file/d/1WV0U7e-uMVoG4X5nUR5wMHY_aB06ZwLf/preview",
+    watermark: "09",
+    description: "Every curve holds a challenge.",
+    overview: "An autonomous line follower robot competition. Teams must build a mobile machine that can detect and follow predefined paths consisting of either a black line on a white surface or vice versa.",
+    rules: [
+      "Each team must have a minimum of 5 members.",
+      "The robot must be strictly autonomous with no Wi-Fi or Bluetooth communication allowed.",
+      "Robot dimensions are restricted to 25 x 25 x 25 cm, and weight must not exceed 1 kg.",
+      "Two physical touches are allowed per round; subsequent touches result in a 10-second penalty each."
+    ],
+    criteria: [
+      "Participants are shortlisted in Round 1 based on the completion time of a basic track.",
+      "The winner is the team finishing the complex track of Round 2 in the shortest time.",
+      "Time bonuses are awarded for checkpoint indications, line inversion indications, and stopping at the end of the track."
+    ],
+  },
+  {
+    id: "evadex",
+    icon: Swords,
+    title: "Evade-X",
+    category: "TECHNICAL",
+    prize: "TBD",
+    teamSize: "2 - 4",
+    teamSizeLabel: "FORMAT",
+    duration: "Offline",
+    day: "01 & 02",
+    entryFee: "TBD",
+    theme: "teal",
+    rulebookUrl: "https://drive.google.com/file/d/19qHWLouS6_GdrPjQ9205eXye4osJx2T9/preview",
+    watermark: "10",
+    description: "Escape Limits, Embrace Innovation.",
+    overview: "A robotics competition challenging teams to design a wired or wireless robot capable of manually operating and navigating through all turns of a specialized track.",
+    rules: [
+      "Teams must consist of 2 to 4 participants with a registration fee of ₹120 per team.",
+      "Robots must not exceed 25 x 25 x 25 cm dimensions or 3.0 kg in weight (with a 10% tolerance allowed for both).",
+      "The machine must be electrically powered with a maximum operating voltage of 16.8 volts; Lego kits and IC engines are prohibited.",
+      "Only one driver is permitted per bot during a single event."
+    ],
+    criteria: [
+      "The robot that successfully completes the specified task and track in the least amount of time will be declared the winner."
+    ],
+  },
+  {
+    id: "ai-argumentarium",
+    icon: Brain,
+    title: "The AI Argumentarium",
+    category: "NON-TECH",
+    prize: "TBD",
+    teamSize: "Solo",
+    teamSizeLabel: "FORMAT",
+    duration: "Offline",
+    day: "02",
+    entryFee: "₹100 / person",
+    theme: "yellow",
+    rulebookUrl: "https://drive.google.com/file/d/1xODG1S779xIJxol8Jbk3Q8wOxFwdI91t/preview",
+    isWide: true,
+    leftPoolLayout: true,
+    watermark: "11",
+    description: "Oxford Style Debate (Modified).",
+    overview: "Participants will compete as individual speakers in a modified Oxford-style debate. Their stance (For or Against) will be assigned randomly through a lottery system. The debate will be trilingual, permitting English, Bengali, and Hindi, though speakers must stick to one chosen language throughout.",
+    rules: [
+      "The speaking order alternates between FOR and AGAINST the motion.",
+      "Preliminary rounds consist of a 2-minute main speech and a 1-minute rebuttal, while final rounds extend the main speech to 3 minutes.",
+      "Prelims motion is released 48 hours prior, and Finals motion is tentatively released 1 hour prior to commencement.",
+      "Overreliance on AI-generated content or plagiarism is prohibited and may result in disqualification."
+    ],
+    criteria: [
+      "Marking and qualification will be assessed based on individual performances.",
+      "The top 30% of speakers from each stance (FOR and AGAINST) will qualify for the Finals based on their individual scores."
+    ],
+  },
+  {
+    id: "cultural-program",
+    icon: Sparkles,
+    title: "Cultural Program",
+    category: "NON-TECH",
+    prize: "TBD",
+    teamSize: "TBA",
+    teamSizeLabel: "FORMAT",
+    duration: "TBA",
+    day: "TBA",
+    entryFee: "TBD",
+    theme: "pink",
+    rulebookUrl: "",
+    watermark: "12",
+    description: "Cultural Program Description (Placeholder).",
+    overview: "Cultural Program Overview (Placeholder).",
+    rules: [
+      "Rule 1 Placeholder",
+      "Rule 2 Placeholder"
+    ],
+    criteria: [
+      "Criteria 1 Placeholder",
+      "Criteria 2 Placeholder"
+    ],
+  },
+];
 
 const InteractiveCardWrapper = ({
   children,
@@ -383,58 +548,69 @@ const InteractiveCardWrapper = ({
     return {};
   };
 
+  const getWrapperGradient = () => {
+    if (theme.iconText.includes("orange")) return "bg-gradient-to-r from-orange-600 via-orange-400 to-orange-500";
+    if (theme.iconText.includes("purple")) return "bg-gradient-to-r from-purple-600 via-purple-400 to-purple-500";
+    if (theme.iconText.includes("teal")) return "bg-gradient-to-r from-teal-600 via-teal-400 to-teal-500";
+    if (theme.iconText.includes("amber") || theme.iconText.includes("yellow")) return "bg-gradient-to-r from-amber-600 via-amber-400 to-amber-500";
+    if (theme.iconText.includes("pink")) return "bg-gradient-to-r from-pink-600 via-pink-400 to-pink-500";
+    if (theme.iconText.includes("sky") || theme.iconText.includes("blue")) return "bg-gradient-to-r from-sky-600 via-sky-400 to-sky-500";
+    return "bg-gradient-to-r from-gray-600 via-gray-400 to-gray-500";
+  };
+
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        ...getShadowStyle(),
-      }}
-      className={`relative group overflow-hidden rounded-[24px] border bg-[#0c0d0e]/85 backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-300 cursor-pointer ${isWide ? "md:col-span-2" : "md:col-span-1"
-        } ${theme.border}`}
-    >
-      {/* Cyber scanlines / tech scan overlay on hover */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.35)_50%),linear-gradient(90deg,rgba(255,0,0,0.05),rgba(0,255,0,0.02),rgba(0,0,255,0.05))] bg-[length:100%_4px,3px_100%] z-0"
-      />
-
-      {/* Cyber ambient micro grid details */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 bg-[linear-gradient(to_right,gray_1px,transparent_1px),linear-gradient(to_bottom,gray_1px,transparent_1px)] bg-[size:32px_32px] z-0"
-      />
-
-      {/* Magnetic spotlight radial glow inside card */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+    <div className={`relative p-[2px] rounded-[26px] ${getWrapperGradient()} ${isWide ? "md:col-span-2" : "md:col-span-1"}`}>
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={onClick}
         style={{
-          background: `radial-gradient(400px circle at ${glowPos.x}px ${glowPos.y}px, ${getGlowColor()}, transparent 80%)`,
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+          ...getShadowStyle(),
         }}
-      />
+        className={`relative group overflow-hidden rounded-[24px] bg-[#0c0d0e]/85 backdrop-blur-xl transition-[border-color,box-shadow,background-color] duration-300 cursor-pointer w-full h-full`}
+      >
+        {/* Cyber scanlines / tech scan overlay on hover */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.35)_50%),linear-gradient(90deg,rgba(255,0,0,0.05),rgba(0,255,0,0.02),rgba(0,0,255,0.05))] bg-[length:100%_4px,3px_100%] z-0"
+        />
 
-      {/* Dynamic Border highlight glow overlay using CSS masking */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 rounded-[24px]"
-        style={{
-          margin: "-1px",
-          border: "2px solid transparent",
-          backgroundImage: `radial-gradient(150px circle at ${glowPos.x}px ${glowPos.y}px, ${getBorderGlowColor()}, transparent 70%)`,
-          WebkitMask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
-          WebkitMaskComposite: "destination-out",
-          maskComposite: "exclude",
-        }}
-      />
+        {/* Cyber ambient micro grid details */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 bg-[linear-gradient(to_right,gray_1px,transparent_1px),linear-gradient(to_bottom,gray_1px,transparent_1px)] bg-[size:32px_32px] z-0"
+        />
 
-      {/* Dynamic 3D depth wrapper for inner content */}
-      <div style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }} className="relative z-10 w-full h-full">
-        {children}
-      </div>
-    </motion.div>
+        {/* Magnetic spotlight radial glow inside card */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+          style={{
+            background: `radial-gradient(400px circle at ${glowPos.x}px ${glowPos.y}px, ${getGlowColor()}, transparent 80%)`,
+          }}
+        />
+
+        {/* Dynamic Border highlight glow overlay using CSS masking */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 rounded-[24px]"
+          style={{
+            margin: "-1px",
+            border: "2px solid transparent",
+            backgroundImage: `radial-gradient(150px circle at ${glowPos.x}px ${glowPos.y}px, ${getBorderGlowColor()}, transparent 70%)`,
+            WebkitMask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "destination-out",
+            maskComposite: "exclude",
+          }}
+        />
+
+        {/* Dynamic 3D depth wrapper for inner content */}
+        <div style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }} className="relative z-10 w-full h-full">
+          {children}
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
@@ -472,18 +648,20 @@ const EventCard = ({
 
           <div className="flex flex-col md:flex-row h-full min-h-[280px]">
             {/* Left Column (only on md and up) */}
-            <div
-              style={{ transform: "translateZ(15px)" }}
-              className="hidden md:flex flex-col justify-center items-center px-10 border-r border-white/5 relative z-10 w-[200px] shrink-0"
-            >
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 font-mono">PRIZE POOL</span>
-              <span className={`text-3xl font-extrabold font-heading ${theme.textGlow}`}>
-                {event.prize}
-              </span>
-              <span className="text-xs uppercase tracking-wider text-muted-foreground mt-2 font-mono">
-                DAY {event.day}
-              </span>
-            </div>
+            {event.prize && event.prize !== "N/A" && event.prize !== "TBA" && (
+              <div
+                style={{ transform: "translateZ(15px)" }}
+                className="hidden md:flex flex-col justify-center items-center px-10 border-r border-white/5 relative z-10 w-[200px] shrink-0"
+              >
+                <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 font-mono">PRIZE POOL</span>
+                <span className={`text-3xl font-extrabold font-heading ${theme.textGlow}`}>
+                  {event.prize}
+                </span>
+                <span className="text-xs uppercase tracking-wider text-muted-foreground mt-2 font-mono">
+                  DAY {event.day}
+                </span>
+              </div>
+            )}
 
             {/* Right Column */}
             <div className="flex-1 flex flex-col justify-between p-8 relative z-10">
@@ -515,10 +693,12 @@ const EventCard = ({
               {/* Bottom details */}
               <div className="flex justify-between items-end pt-4 border-t border-white/5 mt-auto">
                 <div className="flex flex-wrap gap-3 sm:gap-6">
-                  <div className="md:hidden">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE</span>
-                    <span className={`text-sm font-semibold ${theme.iconText}`}>{event.prize}</span>
-                  </div>
+                  {event.prize && event.prize !== "N/A" && event.prize !== "TBA" && (
+                    <div className="md:hidden">
+                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE</span>
+                      <span className={`text-sm font-semibold ${theme.iconText}`}>{event.prize}</span>
+                    </div>
+                  )}
                   <div>
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono font-semibold font-semibold">TEAM</span>
                     <span className="text-sm font-semibold text-white">{event.teamSize}</span>
@@ -597,16 +777,18 @@ const EventCard = ({
                 </div>
               </div>
               {/* Massive Prize Pool info */}
-              <div
-                style={{ transform: "translateZ(20px)" }}
-                className="text-left md:text-right shrink-0"
-              >
-                <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE POOL</span>
-                <span className={`text-3xl md:text-4xl font-extrabold font-heading ${theme.textGlow}`}>
-                  {event.prize}
-                </span>
-                <span className="text-[10px] uppercase tracking-wider text-muted-foreground block mt-1 font-mono">TOP EVENT</span>
-              </div>
+              {event.prize && event.prize !== "N/A" && event.prize !== "TBA" && (
+                <div
+                  style={{ transform: "translateZ(20px)" }}
+                  className="text-left md:text-right shrink-0"
+                >
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE POOL</span>
+                  <span className={`text-3xl md:text-4xl font-extrabold font-heading ${theme.textGlow}`}>
+                    {event.prize}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground block mt-1 font-mono">TOP EVENT</span>
+                </div>
+              )}
             </div>
 
             {/* Bottom details */}
@@ -696,10 +878,12 @@ const EventCard = ({
         {/* Bottom details */}
         <div className="relative z-10 flex justify-between items-center">
           <div className="flex flex-wrap gap-3 sm:gap-4">
-            <div>
-              <span className="text-[9px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE</span>
-              <span className={`text-xs font-semibold ${theme.iconText}`}>{event.prize}</span>
-            </div>
+            {event.prize && event.prize !== "N/A" && event.prize !== "TBA" && (
+              <div>
+                <span className="text-[9px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE</span>
+                <span className={`text-xs font-semibold ${theme.iconText}`}>{event.prize}</span>
+              </div>
+            )}
             <div>
               <span className="text-[9px] uppercase tracking-wider text-muted-foreground block font-mono font-semibold">
                 {"teamSizeLabel" in event ? event.teamSizeLabel : "TEAM"}
@@ -905,7 +1089,7 @@ const Events = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+              className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto"
               onClick={() => { setSelectedEvent(null); setShowRulebook(false); }}
             >
               <motion.div
@@ -913,7 +1097,7 @@ const Events = () => {
                 animate={{ scale: 1, y: 0, opacity: 1 }}
                 exit={{ scale: 0.9, y: 20, opacity: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className={`relative w-full max-w-2xl bg-[#0c0d0e]/95 border rounded-[28px] overflow-hidden max-h-[85vh] flex flex-col ${themes[selectedEvent.theme].border} ${themes[selectedEvent.theme].shadow}`}
+                className={`relative w-full max-w-2xl bg-[#0c0d0e]/95 border rounded-[28px] overflow-hidden flex flex-col ${themes[selectedEvent.theme].border} ${themes[selectedEvent.theme].shadow}`}
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Diagonal color glow in background */}
@@ -941,7 +1125,7 @@ const Events = () => {
                       <span className={`text-[10px] font-bold tracking-wider px-2 py-0.5 border rounded uppercase mb-1 inline-block ${themes[selectedEvent.theme].badge}`}>
                         {selectedEvent.category}
                       </span>
-                      <h3 className="text-2xl font-bold font-heading text-white">{selectedEvent.title}</h3>
+                      <h3 className="text-2xl font-bold font-mono text-white">{selectedEvent.title}</h3>
                     </div>
                   </div>
                   <button
@@ -952,27 +1136,29 @@ const Events = () => {
                   </button>
                 </div>
 
-                {/* Modal Scrollable Body */}
-                <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 relative z-10">
+                {/* Modal Body */}
+                <div className="flex-1 p-6 md:p-8 space-y-6 relative z-10">
                   {/* Quick Metrics */}
-                  <div className="grid grid-cols-3 gap-4 p-4 border border-white/5 bg-[#ffffff02] rounded-2xl">
-                    <div className="text-center">
-                      <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE POOL</span>
-                      <span className={`text-base md:text-lg font-bold font-heading ${themes[selectedEvent.theme].iconText}`}>
-                        {selectedEvent.prize}
-                      </span>
-                    </div>
-                    <div className="text-center border-x border-white/5">
+                  <div className={`grid ${selectedEvent.prize && selectedEvent.prize !== "N/A" && selectedEvent.prize !== "TBA" ? 'grid-cols-3' : 'grid-cols-2'} gap-4 p-4 border border-white/5 bg-[#ffffff02] rounded-2xl`}>
+                    {selectedEvent.prize && selectedEvent.prize !== "N/A" && selectedEvent.prize !== "TBA" && (
+                      <div className="text-center">
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">PRIZE POOL</span>
+                        <span className={`text-base md:text-lg font-bold font-mono ${themes[selectedEvent.theme].iconText}`}>
+                          {selectedEvent.prize}
+                        </span>
+                      </div>
+                    )}
+                    <div className={`text-center ${selectedEvent.prize && selectedEvent.prize !== "N/A" && selectedEvent.prize !== "TBA" ? 'border-x' : 'border-r'} border-white/5`}>
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">
                         {"teamSizeLabel" in selectedEvent ? selectedEvent.teamSizeLabel : "TEAM"}
                       </span>
-                      <span className="text-base md:text-lg font-bold font-heading text-white">
+                      <span className="text-base md:text-lg font-bold font-mono text-white">
                         {selectedEvent.teamSize}
                       </span>
                     </div>
                     <div className="text-center">
                       <span className="text-[10px] uppercase tracking-wider text-muted-foreground block font-mono">TIMING</span>
-                      <span className="text-sm md:text-base font-bold font-heading text-white">
+                      <span className="text-sm md:text-base font-bold font-mono text-white">
                         {selectedEvent.duration}
                       </span>
                     </div>
@@ -983,7 +1169,7 @@ const Events = () => {
                     <h4 className={`text-xs uppercase tracking-wider font-semibold font-mono mb-2 ${themes[selectedEvent.theme].iconText}`}>
                       Overview
                     </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed font-mono">
                       {selectedEvent.overview || selectedEvent.description}
                     </p>
                   </div>
@@ -1000,7 +1186,7 @@ const Events = () => {
                           {selectedEvent.rules.map((rule, idx) => (
                             <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
                               <span className={`${themes[selectedEvent.theme].iconText} mt-0.5 shrink-0`}>▸</span>
-                              <span>{rule}</span>
+                              <span className="font-mono">{rule}</span>
                             </li>
                           ))}
                         </ul>
@@ -1017,7 +1203,7 @@ const Events = () => {
                           {selectedEvent.criteria.map((crit, idx) => (
                             <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
                               <span className={`${themes[selectedEvent.theme].iconText} mt-0.5 shrink-0`}>◆</span>
-                              <span>{crit}</span>
+                              <span className="font-mono">{crit}</span>
                             </li>
                           ))}
                         </ul>
@@ -1030,7 +1216,7 @@ const Events = () => {
                 <div className="p-6 md:p-8 border-t border-white/5 flex gap-4 justify-end relative z-10 bg-[#0c0d0e]/50">
                   <button
                     onClick={() => setShowRulebook(true)}
-                    className="px-6 py-3.5 rounded-xl border border-white/10 text-white font-semibold transition-all duration-300 text-center text-sm bg-transparent hover:bg-white/5 hover:border-white/20 shrink-0"
+                    className="px-6 py-3.5 rounded-xl border border-white/10 text-white font-mono font-semibold uppercase tracking-wider transition-all duration-300 text-center text-sm bg-transparent hover:bg-white/5 hover:border-white/20 shrink-0"
                   >
                     Rulebook
                   </button>
@@ -1038,7 +1224,7 @@ const Events = () => {
                     href="#"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full md:w-auto relative overflow-hidden font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 text-center text-sm ${selectedEvent.theme === "orange" ? "bg-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)]" :
+                    className={`w-full md:w-auto relative overflow-hidden font-mono font-semibold uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-300 text-center text-sm ${selectedEvent.theme === "orange" ? "bg-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)]" :
                       selectedEvent.theme === "purple" ? "bg-purple-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)]" :
                         selectedEvent.theme === "teal" ? "bg-teal-500 text-white shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)]" :
                           selectedEvent.theme === "yellow" ? "bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)]" :
@@ -1061,7 +1247,7 @@ const Events = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+              className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
               onClick={() => setShowRulebook(false)}
             >
               <motion.div
@@ -1069,26 +1255,13 @@ const Events = () => {
                 animate={{ scale: 1, y: 0, opacity: 1 }}
                 exit={{ scale: 0.9, y: 20, opacity: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className={`relative w-full max-w-3xl bg-[#0c0d0e]/98 border rounded-[28px] overflow-hidden max-h-[90vh] flex flex-col ${themes[selectedEvent.theme].border} ${themes[selectedEvent.theme].shadow}`}
+                className={`relative w-full max-w-4xl bg-[#0c0d0e]/98 border rounded-[28px] overflow-hidden h-[90vh] flex flex-col ${themes[selectedEvent.theme].border}`}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Background Phoenix Logo Watermark */}
-                <div className="absolute inset-0 pointer-events-none opacity-[0.18] overflow-hidden select-none">
-                  <img
-                    src="/phoenix-logo.jpg"
-                    alt="Phoenix watermark"
-                    className="w-full h-full object-cover filter brightness-[0.38] contrast-[1.1]"
-                  />
-                </div>
                 {/* Header */}
-                <div className="flex justify-between items-center p-6 md:p-8 border-b border-white/5 relative z-10">
-                  <h3 className={`text-xl md:text-2xl font-bold font-heading ${themes[selectedEvent.theme].iconText}`}>
-                    {selectedEvent.id === "hackathon" ? "IGNYSIS — Hackathon Rulebook" :
-                      selectedEvent.id === "guess-who" ? "Guess Who — Bollywood Edition" :
-                        selectedEvent.id === "efootball" ? "E-Football Ultimate 11 — Tournament" :
-                          selectedEvent.id === "bgmi" ? "BGMI — Gaming Tournament Rulebook" :
-                            selectedEvent.id === "poster-design" ? "Bollywood Poster Design Challenge" :
-                              `${selectedEvent.title} Rulebook`}
+                <div className="flex justify-between items-center p-4 md:p-6 border-b border-white/5 relative z-10 shrink-0">
+                  <h3 className={`text-lg md:text-xl font-bold font-mono ${themes[selectedEvent.theme].iconText}`}>
+                    {selectedEvent.title} — Rulebook
                   </h3>
                   <button
                     onClick={() => setShowRulebook(false)}
@@ -1098,650 +1271,22 @@ const Events = () => {
                   </button>
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 relative z-10 text-sm leading-relaxed text-muted-foreground">
-                  {selectedEvent.id === "hackathon" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Eligibility</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Open to students of any department from any registered college/university.</li>
-                          <li>Team members can be from different institutions and branches.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Team</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>4 to 6 members per team.</li>
-                          <li>Registration fee: ₹99 (early bird) / ₹199 (regular).</li>
-                          <li>One student cannot be in more than one team.</li>
-                          <li>No team modification after registration (contact POC for emergencies).</li>
-                          <li>Bring your own laptop, spike buster, and accessories.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Format</h4>
-                        <p className="mb-2">Hybrid hackathon — Round 1 is online, Round 2 is offline at IEM Newtown campus.</p>
-                        <div className="mt-3 space-y-3 pl-4 border-l-2 border-orange-500/30">
-                          <div>
-                            <h5 className="text-white font-semibold text-sm">Round 1 — Crack the Problem</h5>
-                            <ul className="list-disc pl-5 space-y-1 text-xs text-muted-foreground">
-                              <li>Tracks revealed on 10th June; solve collaboratively within 720 hours.</li>
-                              <li>Submit a video solution + presentation before 1st July, 10:00 AM.</li>
-                              <li>Register before 20th June to get the full 720-hour window.</li>
-                              <li>Only the team leader submits the PPT.</li>
-                            </ul>
-                          </div>
-                          <div>
-                            <h5 className="text-white font-semibold text-sm">Round 2 — Final Round (1st August)</h5>
-                            <ul className="list-disc pl-5 space-y-1 text-xs text-muted-foreground">
-                              <li>Top 25–30 teams present offline before a jury.</li>
-                              <li>7 minutes to present + 3 minutes Q&A.</li>
-                              <li>Up to 30% of code structure/logic may be prepared in advance.</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Submission Format (5 slides)</h4>
-                        <ul className="list-decimal pl-5 space-y-1">
-                          <li>Team intro</li>
-                          <li>Solution overview</li>
-                          <li>Unique selling proposition</li>
-                          <li>Risks & challenges</li>
-                          <li>Approximate running expenses</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">General Rules</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Original ideas only — plagiarism = instant disqualification.</li>
-                          <li>Internet allowed for research, not for copying solutions.</li>
-                          <li>All team members must be present during the final round.</li>
-                          <li>Organizer decisions are final.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Key Dates</h4>
-                        <div className="overflow-x-auto border border-white/5 rounded-xl">
-                          <table className="w-full text-left border-collapse text-xs text-muted-foreground">
-                            <thead>
-                              <tr className="bg-white/[0.02] border-b border-white/5 text-white">
-                                <th className="p-3 font-semibold">Date</th>
-                                <th className="p-3 font-semibold">Milestone</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5 text-muted-foreground">
-                              <tr>
-                                <td className="p-3 font-mono text-white">5th June</td>
-                                <td className="p-3">Registration opens</td>
-                              </tr>
-                              <tr>
-                                <td className="p-3 font-mono text-white">10th June</td>
-                                <td className="p-3">Tracks revealed</td>
-                              </tr>
-                              <tr>
-                                <td className="p-3 font-mono text-white">1st July</td>
-                                <td className="p-3">Registration + submission deadline</td>
-                              </tr>
-                              <tr>
-                                <td className="p-3 font-mono text-white">5th–7th July</td>
-                                <td className="p-3">Round 1 results</td>
-                              </tr>
-                              <tr>
-                                <td className="p-3 font-mono text-white">1st August</td>
-                                <td className="p-3">Final round</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Daliya Paul — <span className="font-mono text-white">+91 97487 53104</span></li>
-                          <li>Samit Gupta — <span className="font-mono text-white">+91 81000 89301</span></li>
-                        </ul>
-                      </div>
+                {/* PDF Embed */}
+                <div className="flex-1 w-full relative z-10">
+                  {/* @ts-ignore */}
+                  {selectedEvent.rulebookUrl ? (
+                    <iframe
+                      // @ts-ignore
+                      src={selectedEvent.rulebookUrl}
+                      className="w-full h-full border-none"
+                      allow="autoplay"
+                      title={`${selectedEvent.title} Rulebook`}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
+                      Rulebook coming soon...
                     </div>
-                  ) : selectedEvent.id === "blind-coding" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>Offline solo competition where participants write code without being able to see their screen. Open to students of any branch from any registered college.</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Date:</strong> 2nd August 2026</li>
-                          <li><strong>Venue:</strong> IEM Newtown Campus (both rounds)</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Eligibility</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Must belong to a registered college/university.</li>
-                          <li>Open to all branches.</li>
-                          <li>Languages: Python, Java, or C.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Format</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Solo only — no teams.</li>
-                          <li>Central registration fee applies.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Format Structure</h4>
-                        <div className="pl-4 border-l-2 border-teal-500/30 space-y-3">
-                          <div>
-                            <h5 className="text-white font-semibold text-sm">Round 1</h5>
-                            <p className="text-xs">Participants are judged on overall performance. The top 10 are shortlisted for Round 2.</p>
-                          </div>
-                          <div>
-                            <h5 className="text-white font-semibold text-sm">Round 2 — Final</h5>
-                            <p className="text-xs">Top 10 face off. The top 3 finalists are selected as winners.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Judging Criteria</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Amount of correct, functional code completed within the time limit.</li>
-                          <li>Number of errors in the submitted code.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Rules</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Screen must not be viewed until the timer starts.</li>
-                          <li>Once time ends, no further typing or edits allowed.</li>
-                          <li>No internet, AI tools, or external help — strictly prohibited.</li>
-                          <li>No viewing another participant's screen at any point.</li>
-                          <li>Any technical issue must be reported to organizers immediately.</li>
-                          <li>Organizer decisions are final.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Daliya Paul — <span className="font-mono text-white">+91 97487 53104</span></li>
-                          <li>Samit Gupta — <span className="font-mono text-white">+91 81000 89301</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  ) : selectedEvent.id === "quizophonia" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>A multi-domain quiz spanning 9 categories. Open to cross-institute teams. Solo participants welcome too.</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Date:</strong> 1st August 2026</li>
-                          <li><strong>Venue:</strong> UEM Campus, New Town</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Eligibility</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Must be a registered college/university student.</li>
-                          <li>Must be under 25 years of age.</li>
-                          <li>Cross-institute teams allowed.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Team</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>1 or 2 members per team (solo allowed).</li>
-                          <li>Carry valid college ID card.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Quiz Domains</h4>
-                        <p className="px-3 py-2 rounded bg-white/[0.02] border border-white/5 font-medium tracking-wide text-xs inline-block text-white">
-                          Music · Innovation · Cinema · Recent Affairs · Online Trends · Space · Olympics · Food · Technology
-                        </p>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Rules</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>No electronic devices during the quiz — phones, tablets, smartwatches, calculators all banned; violation = instant disqualification.</li>
-                          <li>Quiz Master's decision is final on all matters.</li>
-                          <li>Campus code of conduct applies — no smoking, alcohol, or prohibited items on premises.</li>
-                          <li>Lost property to be deposited at the Ignitia Control Room; claim with ID the next day.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Arunava Das — <span className="font-mono text-white">+91 80013 86218</span></li>
-                          <li>Sneha Priya — <span className="font-mono text-white">+91 78783 96475</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  ) : selectedEvent.id === "efootball" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>One Match. One Chance. One Champion. A fully online, single-elimination mobile eFootball tournament open to 32 participants. Survive each round or go home.</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Platform:</strong> Mobile (eFootball — latest version required)</li>
-                          <li><strong>Mode:</strong> Completely Online · Single Elimination Knockout</li>
-                          <li><strong>Entry Fee:</strong> ₹70 per participant (non-refundable)</li>
-                          <li><strong>Awards:</strong> Top 3 get cash prizes · All participants get e-certificates</li>
-                        </ul>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Tournament Schedule</h4>
-                          <div className="overflow-x-auto border border-white/5 rounded-xl">
-                            <table className="w-full text-left border-collapse text-xs text-muted-foreground">
-                              <thead>
-                                <tr className="bg-white/[0.02] border-b border-white/5 text-white">
-                                  <th className="p-2 font-semibold">Date</th>
-                                  <th className="p-2 font-semibold">Round</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-white/5">
-                                <tr>
-                                  <td className="p-2 font-mono text-white">28 July</td>
-                                  <td className="p-2">Round of 32</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 font-mono text-white">29 July</td>
-                                  <td className="p-2">Round of 16</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 font-mono text-white">30 July</td>
-                                  <td className="p-2">Quarter Finals</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 font-mono text-white">31 July</td>
-                                  <td className="p-2">Semi Finals</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 font-mono text-white">1 August</td>
-                                  <td className="p-2">Third Place + Grand Final</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">Daily time slot: 9:30 AM – 11:30 PM</p>
-                        </div>
-
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Match Duration</h4>
-                          <div className="overflow-x-auto border border-white/5 rounded-xl">
-                            <table className="w-full text-left border-collapse text-xs text-muted-foreground">
-                              <thead>
-                                <tr className="bg-white/[0.02] border-b border-white/5 text-white">
-                                  <th className="p-2 font-semibold">Round</th>
-                                  <th className="p-2 font-semibold">Duration</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-white/5">
-                                <tr>
-                                  <td className="p-2 text-white">Round of 32</td>
-                                  <td className="p-2 font-mono">6 mins</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">Round of 16</td>
-                                  <td className="p-2 font-mono">8 mins</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">Quarter Finals</td>
-                                  <td className="p-2 font-mono">10 mins</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">Semi Finals onwards</td>
-                                  <td className="p-2 font-mono">12 mins</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Match Rules</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Extra time and penalties both ON. Tied matches go to penalties.</li>
-                          <li>Home/Away selected randomly.</li>
-                          <li>Winners must submit screenshot proof immediately after the match.</li>
-                          <li>Dream Team and Model Team both allowed. No team changes once tournament begins.</li>
-                          <li>Max 6 substitutions — 5 in 90 mins, 1 additional in extra time.</li>
-                          <li>Only registered player IDs permitted.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Fair Play</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Screen record your Player ID before kick-off with opponent's consent.</li>
-                          <li>Smart Assist must be OFF throughout.</li>
-                          <li>Double Defence only allowed after the 60th in-game minute.</li>
-                          <li>Max 8 long balls and max 8 back passes per match.</li>
-                          <li>Match fixing, toxicity, harassment, and abusive language result in immediate disqualification.</li>
-                          <li>Any malpractice suspicion must be backed by screenshot or screen recording proof.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Connection & Disputes</h4>
-                        <div className="pl-4 border-l-2 border-purple-500/30 space-y-2 text-xs">
-                          <p><strong>Connection Rules:</strong> Disconnection mid-match rematches begin at remaining time + 2 bonus minutes. 3 disconnections without valid reason = walkover to opponent. Severe lag must be reported within first 3 in-game minutes; complaints after the 10th minute will not be entertained. Screenshot or video proof is mandatory for connection disputes.</p>
-                          <p><strong>Disputes:</strong> Admin decisions are final and binding. Protests must be filed within 30 minutes of the incident with supporting proof.</p>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Souhardya Das — <span className="font-mono text-white">+91 70859 17542</span></li>
-                          <li>Sayandip Pandit — <span className="font-mono text-white">+91 89103 85921</span></li>
-                          <li>Prachurya Debnath — <span className="font-mono text-white">+91 85971 28380</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  ) : selectedEvent.id === "bgmi" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>Lock, load, and own the zone. The ultimate BGMI squad tournament at Ignitia '26 — hybrid format with online qualifiers and an offline grand final. Only the strongest survive.</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Venue:</strong> IEM Newtown, Kolkata (for offline finals)</li>
-                          <li><strong>Mode:</strong> Hybrid — Online qualifiers, Offline finals</li>
-                          <li><strong>Dates:</strong> 29–30 July (Online, 7:30 PM onwards) · 2 August (Offline, 9:30 AM onwards)</li>
-                          <li><strong>Eligibility:</strong> Anyone aged 16+ from any school, college, or organisation</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Team Requirements</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Squad of 4 players (minimum 2 players to compete).</li>
-                          <li>One substitute allowed — can only replace before a round starts.</li>
-                          <li>Every member must register with their official BGMI ID. No roster changes after registration.</li>
-                          <li>Team name must be unique, inoffensive, and logo-free.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Game Settings & Device Restrictions</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li><strong>Platform:</strong> Android or iOS (iPads strictly not allowed).</li>
-                          <li><strong>Mode:</strong> TPP Squad (Ranking: BGIS 2026).</li>
-                          <li><strong>Maps:</strong> Erangel, Miramar, Rondo (download all before arriving).</li>
-                          <li>No triggers, controllers, or joypads allowed.</li>
-                          <li><strong>Emergency Pickup</strong> item is strictly prohibited (violations result in point deduction, match loss, or DQ).</li>
-                          <li>No GFx tools or third-party apps (instant team disqualification).</li>
-                        </ul>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Match Settings</h4>
-                          <div className="overflow-x-auto border border-white/5 rounded-xl">
-                            <table className="w-full text-left border-collapse text-xs text-muted-foreground">
-                              <thead>
-                                <tr className="bg-white/[0.02] border-b border-white/5 text-white">
-                                  <th className="p-2 font-semibold">Stage</th>
-                                  <th className="p-2 font-semibold">Duration</th>
-                                  <th className="p-2 font-semibold">Loot</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-white/5">
-                                <tr>
-                                  <td className="p-2 text-white">League Stage</td>
-                                  <td className="p-2 font-mono">~30 mins</td>
-                                  <td className="p-2 font-mono">2X</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">Playoffs & Finals</td>
-                                  <td className="p-2 font-mono">~30 mins</td>
-                                  <td className="p-2 font-mono">3X</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Points Structure</h4>
-                          <div className="overflow-x-auto border border-white/5 rounded-xl">
-                            <table className="w-full text-left border-collapse text-xs text-muted-foreground">
-                              <thead>
-                                <tr className="bg-white/[0.02] border-b border-white/5 text-white">
-                                  <th className="p-2 font-semibold">Placement</th>
-                                  <th className="p-2 font-semibold">Points</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-white/5">
-                                <tr>
-                                  <td className="p-2 text-white">1st</td>
-                                  <td className="p-2 font-mono">10 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">2nd</td>
-                                  <td className="p-2 font-mono">6 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">3rd</td>
-                                  <td className="p-2 font-mono">5 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">4th</td>
-                                  <td className="p-2 font-mono">4 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">5th</td>
-                                  <td className="p-2 font-mono">3 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">6th</td>
-                                  <td className="p-2 font-mono">2 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">7th – 8th</td>
-                                  <td className="p-2 font-mono">1 pt</td>
-                                </tr>
-                                <tr>
-                                  <td className="p-2 text-white">9th – 16th</td>
-                                  <td className="p-2 font-mono">0 pts</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">Every kill = 1 point</p>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Tiebreakers</h4>
-                        <ol className="list-decimal pl-5 space-y-1 text-xs">
-                          <li>Most first-place finishes</li>
-                          <li>Total placement points</li>
-                          <li>Total kills</li>
-                          <li>Placement in most recent match</li>
-                        </ol>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Online Mode Rules</h4>
-                          <ul className="list-disc pl-5 space-y-1 text-xs">
-                            <li>Join room within 5 minutes of announcement.</li>
-                            <li>Connection issues/lag do not trigger a rematch.</li>
-                            <li>Impersonation leads to a permanent ban.</li>
-                            <li>Screen sharing may be requested by admins at any time.</li>
-                            <li>Streamers must maintain a minimum 2-minute delay to prevent ghosting.</li>
-                            <li>Report violations within 5 minutes of match finish.</li>
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h4 className="text-white font-bold font-heading text-base mb-2">Offline Mode Rules</h4>
-                          <ul className="list-disc pl-5 space-y-1 text-xs">
-                            <li>Report 30 minutes before match slot; latecomers are disqualified.</li>
-                            <li>Strictly no audience coaching or spectators shouting instructions.</li>
-                            <li>No food or drinks near gaming stations.</li>
-                            <li>Early eliminated teams must disconnect from tournament Wi-Fi.</li>
-                            <li>Rehost only if 3+ players disconnect on management Wi-Fi before first circle forms. Mobile data issues do not count.</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">General Policies</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Wi-Fi provided but keep mobile data backup ready. Charging facilities available.</li>
-                          <li>Organizers not responsible for lost, stolen, or damaged devices.</li>
-                          <li>All admin decisions are final. Disputes must be raised within 5 minutes.</li>
-                          <li>Any unethical conduct results in immediate disqualification.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Soham Roy — <span className="font-mono text-white">+91 89060 14314</span></li>
-                          <li>Arpayan Chakraborty — <span className="font-mono text-white">+91 85090 68265</span></li>
-                          <li>Sudeshna Sarkar — <span className="font-mono text-white">+91 98676 21693</span></li>
-                          <li>Debangshu Sarkar — <span className="font-mono text-white">+91 70749 19071</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                  ) : selectedEvent.id === "guess-who" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>A fast-paced, high-energy Bollywood celebrity guessing challenge where your eyes do the talking. Zoomed-in visuals flash on screen — from a pair of eyes to an iconic smile to a signature accessory — and you have seconds to name the star before the room does. No prep needed. Just vibes, instinct, and a solid knowledge of Bollywood.</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Date:</strong> Day 2</li>
-                          <li><strong>Duration:</strong> 15–20 minutes</li>
-                          <li><strong>Venue:</strong> IEM Newtown Campus</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">How It Works</h4>
-                        <p className="text-xs mb-2">Each round, a zoomed-in or partially revealed image of a Bollywood celebrity is displayed on the main screen. Participants study the visual and race to be the first to correctly identify the star. Speed and accuracy both matter — shout too early and you might get it wrong, wait too long and someone else takes the point.</p>
-                        <h5 className="text-white font-semibold text-xs mt-3 mb-1">What You'll Be Shown:</h5>
-                        <ul className="list-disc pl-5 space-y-1 text-xs">
-                          <li>Eyes and eyebrows</li>
-                          <li>Mouth or smile</li>
-                          <li>Hairstyle or hair color</li>
-                          <li>Signature accessories — glasses, jewellery, hats, or iconic outfits</li>
-                          <li>Partial face reveals that widen with each passing second</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Answering & Scoring</h4>
-                        <div className="pl-4 border-l-2 border-amber-500/30 space-y-2 text-xs">
-                          <p><strong>Answering:</strong> The host controls when answers are accepted — only respond when signalled. First participant to give the correct answer earns the point for that round. Wrong answers do not penalise, but shouting out of turn may result in the point being skipped.</p>
-                          <p><strong>Scoring:</strong> Each correct answer = 1 point. Points accumulate across all rounds. Participant with the highest total score at the end wins. Tiebreaker rounds will be held if scores are level.</p>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Rules & Fair Play</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>No use of phones or any external device to look up answers — violation leads to immediate disqualification.</li>
-                          <li>No shouting over other participants or disrupting the host.</li>
-                          <li>Maintain discipline and sportsmanship throughout.</li>
-                          <li>The host's decision on correct answers and point allocation is final.</li>
-                          <li>Everyone gets an equal opportunity to participate across rounds.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Who Can Participate</h4>
-                        <p>Open to all college participants — no registration required beyond the central Ignitia entry. Walk in, find a seat, and play.</p>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <p className="text-xs">Reach out via the main Ignitia contact channels for any queries about this event.</p>
-                      </div>
-                    </div>
-                  ) : selectedEvent.id === "poster-design" ? (
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Overview</h4>
-                        <p>Design the icon. Capture the aura. Participants will randomly draw a chit featuring a Bollywood actor or actress and create a poster inspired by their aura and signature presence. Bring your vision. Design with impact. Celebrate Bollywood. ✨</p>
-                        <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-                          <li><strong>Duration:</strong> 50 Minutes</li>
-                          <li><strong>Participation:</strong> Individual (Solo)</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Rules & Guidelines</h4>
-                        <ul className="list-disc pl-5 space-y-2">
-                          <li><strong>Chit Draw:</strong> Each participant will pick one chit randomly. Chits cannot be exchanged.</li>
-                          <li><strong>Poster Theme:</strong> Design a poster based only on the assigned celebrity, reflecting their aura, presence, and aesthetic.</li>
-                          <li><strong>Time Limit:</strong> Total time is 50 minutes. You must submit before time ends.</li>
-                          <li><strong>Devices:</strong> Participants must bring their own charged laptop / iPad / tablet. Any designing device is allowed. No devices will be provided by the organisers.</li>
-                          <li><strong>Creative Freedom:</strong> Open to all poster design styles including typography, digital art, collage, editorial, cinematic, etc.</li>
-                          <li><strong>Originality:</strong> Design must be created during the event. No pre-made work allowed.</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Judging Criteria</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li>Creativity</li>
-                          <li>Visual aesthetics</li>
-                          <li>Representation of celebrity's aura</li>
-                          <li>Overall presentation</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Awards & Recognition</h4>
-                        <div className="px-3 py-2 rounded bg-white/[0.02] border border-white/5 font-medium tracking-wide text-xs inline-block text-white">
-                          🏆 Best Poster Design – Winner
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-white font-bold font-heading text-base mb-2">Contact</h4>
-                        <p className="text-xs">Reach out via the main Ignitia contact channels for any queries about this challenge.</p>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-
-                {/* Footer */}
-                <div className="p-6 md:p-8 border-t border-white/5 flex justify-end bg-[#0c0d0e]/50 relative z-10">
-                  <button
-                    onClick={() => setShowRulebook(false)}
-                    className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 text-center text-sm ${selectedEvent.theme === "orange" ? "bg-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)]" :
-                      selectedEvent.theme === "purple" ? "bg-purple-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)]" :
-                        selectedEvent.theme === "teal" ? "bg-teal-500 text-white shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)]" :
-                          selectedEvent.theme === "yellow" ? "bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)]" :
-                            selectedEvent.theme === "pink" ? "bg-pink-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.5)]" :
-                              "bg-sky-500 text-white shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)]"
-                      }`}
-                  >
-                    Got it
-                  </button>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
