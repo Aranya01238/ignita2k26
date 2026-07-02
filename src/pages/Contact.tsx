@@ -278,9 +278,9 @@ const Contact = () => {
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Open UEM Kolkata map"
-                    className="absolute right-4 top-4 z-30 font-mono border border-primary/50 bg-black/80 px-4 py-1.5 text-xs font-bold text-primary backdrop-blur-md transition-all hover:bg-primary/20 shadow-[0_0_10px_rgba(139,92,246,0.3)] uppercase tracking-widest"
+                    className="absolute right-4 top-4 z-30 font-mono border border-primary/50 bg-black/80 px-3 py-1 text-[10px] md:px-4 md:py-1.5 md:text-xs font-bold text-primary backdrop-blur-md transition-all hover:bg-primary/20 shadow-[0_0_10px_rgba(139,92,246,0.3)] uppercase tracking-widest"
                   >
-                    [ Get Directions ]
+                    [ Directions ]
                   </a>
                 </div>
               </div>

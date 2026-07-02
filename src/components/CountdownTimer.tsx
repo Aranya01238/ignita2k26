@@ -94,7 +94,7 @@ const CountdownTimer = ({ embedded = false }: { embedded?: boolean }) => {
 
   if (embedded) {
     return (
-      <div className="relative w-full pt-7 md:pt-5 lg:pt-4">
+      <div className="relative w-full pt-0 md:pt-5 lg:pt-4">
         <div className="mx-auto w-full max-w-[340px] sm:max-w-3xl">{content}</div>
       </div>
     );
