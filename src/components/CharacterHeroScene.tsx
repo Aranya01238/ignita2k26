@@ -134,7 +134,7 @@ export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProp
         }}
         dpr={isMobile ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 40, near: 0.1, far: 100 }}
-        className="w-full h-full cursor-grab active:cursor-grabbing"
+        className={`w-full h-full ${isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing'}`}
       >
         {/* Removed solid background color to allow comets to show behind */}
         {/* Ambient fill light with violet/blue tint */}
@@ -167,6 +167,7 @@ export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProp
           <OrbitControls
             enableZoom={false}
             enablePan={false}
+            enableRotate={!isMobile}
             minPolarAngle={Math.PI / 2.5}
             maxPolarAngle={Math.PI / 1.8}
             enableDamping
@@ -187,9 +188,11 @@ export const CharacterHeroScene = ({ scrollProgressRef }: CharacterHeroSceneProp
       </Canvas>
 
       {/* Interactive indicator overlay */}
-      <div className="absolute bottom-6 right-6 z-10 pointer-events-none opacity-40 bg-black/50 backdrop-blur-sm border border-white/5 px-3 py-1.5 rounded-full text-[9px] text-white uppercase tracking-[0.2em]">
-        Drag to Orbit Character
-      </div>
+      {!isMobile && (
+        <div className="absolute bottom-6 right-6 z-10 pointer-events-none opacity-40 bg-black/50 backdrop-blur-sm border border-white/5 px-3 py-1.5 rounded-full text-[9px] text-white uppercase tracking-[0.2em]">
+          Drag to Orbit Character
+        </div>
+      )}
     </div>
   );
 };

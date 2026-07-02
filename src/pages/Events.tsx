@@ -305,7 +305,7 @@ const events: EventType[] = [
     entryFee: "₹50 / person",
     theme: "blue",
     rulebookUrl: "https://drive.google.com/file/d/1-h3tIhTGEJRQPEHFksjzG500BSpr6wab/preview",
-    registrationUrl: "https://forms.gle/rJ5bxnGSUyPXw6kr5",
+    registrationUrl: "https://forms.gle/uMaviLsz1iBkQ3G47",
     isWide: true,
     leftPoolLayout: true,
     watermark: "06",
@@ -335,7 +335,7 @@ const events: EventType[] = [
     entryFee: "central registration",
     theme: "pink",
     rulebookUrl: "https://drive.google.com/file/d/1ssMOPgn2USMshSZ7Byw7_b3mpMOQuQW2/preview",
-    registrationUrl: CENTRAL_REGISTRATION_URL,
+    registrationUrl: "https://forms.gle/8uAevZEg7TrJMnbFA",
     watermark: "07",
     description: "\"One celebrity, infinite frames — design their world in pixels.\"",
     overview: "A celebrity-inspired poster design challenge. Participants draw a celebrity at random and transform their persona into a visually compelling work of art.",
@@ -363,6 +363,7 @@ const events: EventType[] = [
     entryFee: "₹120 / team",
     theme: "orange",
     rulebookUrl: "https://drive.google.com/file/d/1cgB9s2y6E7ivKWrTNvh7DYowvz7QxoAU/preview",
+    registrationUrl: "https://forms.gle/uk5wkzEHTi75Ac359",
     watermark: "08",
     description: "\"Lights, camera, 5 minutes — tell a story the world needs to see.\"",
     overview: "A filmmaking competition celebrating cinematic storytelling. Create an original short film and compete for recognition among fellow aspiring creators.",
@@ -419,7 +420,7 @@ const events: EventType[] = [
     entryFee: "central registration",
     theme: "teal",
     rulebookUrl: "https://drive.google.com/file/d/19qHWLouS6_GdrPjQ9205eXye4osJx2T9/preview",
-    registrationUrl: CENTRAL_REGISTRATION_URL,
+    registrationUrl: "https://forms.gle/kqJMDB941Ep9FdGa6",
     watermark: "10",
     description: "\"Engineer the fastest machine — obstacles are just opportunities in disguise.\"",
     overview: "An obstacle-track robotics challenge where speed, precision, and engineering intelligence determine the victor.",
@@ -446,7 +447,7 @@ const events: EventType[] = [
     entryFee: "central registration",
     theme: "yellow",
     rulebookUrl: "https://drive.google.com/file/d/1xODG1S779xIJxol8Jbk3Q8wOxFwdI91t/preview",
-    registrationUrl: CENTRAL_REGISTRATION_URL,
+    registrationUrl: "https://forms.gle/rJ5bxnGSUyPXw6kr5",
     isWide: true,
     leftPoolLayout: true,
     watermark: "11",
@@ -656,9 +657,9 @@ const Events = () => {
                 transition={{ duration: 0.5, delay: 0.35 }}
                 className="border border-white/10 bg-white/[0.04] backdrop-blur-xl p-1.5 rounded-2xl md:rounded-full flex flex-wrap justify-center gap-1.5 items-center shadow-[0_4px_30px_rgba(0,0,0,0.4)] max-w-full"
               >
-                {["ALL", "TECHNICAL", "GAMING", "NON-TECH", "ROBOTICS"].map((filter) => {
+                {["ALL", "TECHNICAL", "ROBOTICS", "GAMING", "NON-TECH"].map((filter, idx) => {
                   const isActive = activeFilter === filter;
-                  return (
+                  const btn = (
                     <button
                       key={filter}
                       onClick={() => setActiveFilter(filter)}
@@ -670,6 +671,10 @@ const Events = () => {
                       {filter}
                     </button>
                   );
+                  return idx === 3 ? [
+                    <div key="break" className="basis-full md:hidden h-0 -my-[3px]" />,
+                    btn
+                  ] : btn;
                 })}
               </motion.div>
             </div>

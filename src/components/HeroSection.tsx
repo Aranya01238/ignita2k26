@@ -246,25 +246,6 @@ const HeroSection = () => {
         {/* Subtle radial glow behind content */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_20%_50%,rgba(168,85,247,0.12)_0%,rgba(0,0,0,0)_70%)] pointer-events-none" />
 
-        {/* ── Floating code/binary particles ── */}
-        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden>
-          {["01", "//", "0x", "{}", "1A", "if", "fn", "10", "AI", "∑", "λ", ">>", "0b", "∞", "=="].map((char, i) => (
-            <span
-              key={i}
-              className="absolute font-mono text-white/[0.06] text-xs animate-float-particle"
-              style={{
-                left: `${(i * 6.5 + 3) % 95}%`,
-                top: `${(i * 13 + 7) % 90}%`,
-                animationDelay: `${i * 0.4}s`,
-                animationDuration: `${6 + (i % 4)}s`,
-                fontSize: i % 3 === 0 ? "1.5rem" : "0.7rem",
-              }}
-            >
-              {char}
-            </span>
-          ))}
-        </div>
-
         {/* ── Main content: asymmetric editorial layout ── */}
         <div className="absolute inset-0 flex items-center">
           <div className="w-full px-8 md:px-16 lg:px-24 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center">

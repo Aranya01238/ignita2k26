@@ -40,17 +40,7 @@ const CTABanner = () => (
       ))}
     </div>
 
-    {/* Animated neon rings */}
-    <motion.div
-      animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-primary/20 pointer-events-none opacity-50"
-    />
-    <motion.div
-      animate={{ rotate: -360, scale: [1.05, 1, 1.05] }}
-      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-secondary/10 pointer-events-none opacity-30"
-    />
+
 
     <div className="container mx-auto relative z-10 text-center px-4">
       <motion.div
@@ -87,21 +77,21 @@ const CTABanner = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-row sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto"
         >
           <Link
             to="/events"
-            className="hero-primary-button pulse-cta w-full sm:w-auto flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg"
+            className="hero-primary-button pulse-cta flex-1 sm:flex-none sm:w-auto flex items-center justify-center gap-1.5 sm:gap-3 px-2 sm:px-8 py-3 sm:py-4 text-xs sm:text-lg whitespace-nowrap"
           >
             Register Now
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 shrink-0" />
           </Link>
           <Link
             to="/events"
-            className="hero-secondary-button glow-button-secondary w-full sm:w-auto flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg"
+            className="hero-secondary-button glow-button-secondary flex-1 sm:flex-none sm:w-auto flex items-center justify-center gap-1.5 sm:gap-3 px-2 sm:px-8 py-3 sm:py-4 text-xs sm:text-lg whitespace-nowrap"
           >
             Explore Events
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 shrink-0" />
           </Link>
         </motion.div>
       </motion.div>

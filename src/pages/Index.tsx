@@ -15,6 +15,13 @@ import { ArrowRight } from "lucide-react";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TerminalSubheading } from "@/components/TerminalSubheading";
 import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +37,9 @@ const Index = () => {
   const [typedText, setTypedText] = useState("");
   const indexRef = useRef<HTMLDivElement>(null);
   const characterScrollProgressRef = useRef(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const touchScrolledRef = useRef(false);
 
   // Loader complete listener
   useEffect(() => {
@@ -165,27 +175,10 @@ const Index = () => {
               {/* Asymmetric radial glows */}
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_20%_50%,rgba(168,85,247,0.08)_0%,rgba(0,0,0,0)_70%)] pointer-events-none" />
 
-              {/* Floating code/binary particles */}
-              <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden>
-                {["01", "//", "0x", "{}", "1A", "if", "fn", "10", "AI", "∑", "λ", ">>", "0b", "∞", "=="].map((char, i) => (
-                  <span
-                    key={i}
-                    className="absolute font-mono text-white/[0.04] text-xs animate-float-particle"
-                    style={{
-                      left: `${(i * 6.5 + 3) % 95}%`,
-                      top: `${(i * 13 + 7) % 90}%`,
-                      animationDelay: `${i * 0.4}s`,
-                      animationDuration: `${6 + (i % 4)}s`,
-                      fontSize: i % 3 === 0 ? "1.5rem" : "0.7rem",
-                    }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </div>
+
 
               {/* Main Landing content layout */}
-              <div className="w-full px-6 sm:px-8 md:px-16 lg:px-24 pt-24 sm:pt-20 md:pt-0 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center pointer-events-auto">
+              <div className="w-full px-6 sm:px-8 md:px-16 lg:px-24 pt-10 sm:pt-14 md:pt-0 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 md:gap-8 items-center pointer-events-auto">
                 {/* Title block */}
                 <div className="space-y-5">
                   <div className="flex items-center gap-3">
@@ -219,41 +212,87 @@ const Index = () => {
                   </div>
 
                   <div className="flex flex-col gap-4 pt-2">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                      <Link to="/events" className="hero-primary-button pulse-cta flex items-center gap-3 text-sm">
+                    <div className="flex flex-row sm:flex-row items-center lg:items-center lg:justify-start gap-3 sm:gap-4 w-full">
+                      <Link to="/events" className="hero-primary-button pulse-cta flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-sm flex-1 sm:flex-none sm:w-auto px-4 sm:px-6 whitespace-nowrap">
                         Register Now
-                        <ArrowRight size={16} />
+                        <ArrowRight className="w-4 h-4 sm:w-4 sm:h-4" />
                       </Link>
-                      <Link to="/events" className="hero-secondary-button glow-button-secondary flex items-center gap-3 text-sm">
+                      <Link to="/events" className="hero-secondary-button glow-button-secondary flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-sm flex-1 sm:flex-none sm:w-auto px-4 sm:px-6 whitespace-nowrap">
                         Explore Events
-                        <ArrowRight size={16} />
+                        <ArrowRight className="w-4 h-4 sm:w-4 sm:h-4" />
                       </Link>
                     </div>
-                    <div
-                      className="apply-button"
-                      data-hackathon-slug="ignisys-ignitia"
-                      data-button-theme="light"
-                      style={{ height: "44px", width: "312px" }}
-                    ></div>
+                    <div className="flex flex-col lg:flex-row items-center lg:justify-start gap-4 w-full">
+                      <div
+                        className="apply-button"
+                        data-hackathon-slug="ignisys-ignitia"
+                        data-button-theme="light"
+                        style={{ height: "44px", width: "312px" }}
+                      ></div>
+                      <span className="text-white/60 font-mono text-sm uppercase">OR</span>
+
+                      <DropdownMenu modal={false} open={dropdownOpen} onOpenChange={setDropdownOpen}>
+                        <DropdownMenuTrigger
+                          onPointerDown={(e) => {
+                            // On touch devices, block Radix's pointerdown handler — we'll open on touchend instead
+                            if (e.pointerType === "touch") e.preventDefault();
+                          }}
+                          onTouchStart={(e) => {
+                            touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                            touchScrolledRef.current = false;
+                          }}
+                          onTouchMove={(e) => {
+                            if (touchStartRef.current) {
+                              const dy = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+                              const dx = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
+                              if (dy > 8 || dx > 8) touchScrolledRef.current = true;
+                            }
+                          }}
+                          onTouchEnd={() => {
+                            if (!touchScrolledRef.current) setDropdownOpen((o) => !o);
+                            touchStartRef.current = null;
+                            touchScrolledRef.current = false;
+                          }}
+                          className="relative flex items-center justify-center gap-3 bg-[#111116] border border-white/10 text-white font-mono text-sm px-5 py-2 hover:bg-[#1a1a24] data-[state=open]:bg-[#1a1a24] lg:hover:bg-white/5 lg:data-[state=open]:bg-[#111116] transition-all focus:outline-none focus:border-primary/80 h-[44px] rounded-md cursor-pointer group shadow-[0_0_15px_rgba(168,85,247,0.15)] w-[220px] lg:w-[200px]">
+                          <span>Apply with</span>
+                          <ChevronDown className="absolute right-4 h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="bg-[#09090b] border border-white/20 text-white font-mono min-w-[220px] lg:min-w-[200px] p-1.5 shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                          <DropdownMenuItem className="cursor-pointer hover:bg-white/10 focus:bg-white/10 py-3 px-3 transition-colors flex items-center justify-center gap-3 rounded-sm" onClick={() => window.open("https://unstop.com/o/p7hPAvZ", "_blank")}>
+                            <div className="w-7 h-7 flex items-center justify-center bg-white/5 rounded-md p-1 border border-white/5">
+                              <img src="/unstop-icon.png" alt="Unstop" className="w-full h-full object-contain" style={{ imageRendering: 'crisp-edges' }} />
+                            </div>
+                            <span className="font-semibold tracking-wide">Unstop</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer hover:bg-white/10 focus:bg-white/10 py-3 px-3 transition-colors flex items-center justify-center gap-3 rounded-sm" onClick={() => window.open("https://luma.com/do2pxms5", "_blank")}>
+                            <div className="w-7 h-7 flex items-center justify-center bg-white/5 rounded-md p-1 border border-white/5">
+                              <img src="/luma-icon.png" alt="Luma" className="w-full h-full object-contain" style={{ imageRendering: 'crisp-edges' }} />
+                            </div>
+                            <span className="font-semibold tracking-wide">Luma</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+
+                    </div>
                   </div>
                 </div>
 
                 {/* T-MINUS countdown box */}
                 <div className="w-full lg:w-auto lg:min-w-[320px]">
-                  <div className="relative border border-white/10 bg-black/60 p-5 md:p-7 overflow-hidden"
+                  <div className="relative border-0 md:border md:border-white/10 bg-transparent md:bg-black/60 p-0 md:p-7 overflow-hidden"
                     style={{ clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))" }}
                   >
-                    <div className="absolute top-0 right-0 w-4 h-4 bg-primary/50" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }} />
-                    <div className="absolute bottom-0 left-0 w-4 h-4 bg-secondary/50" style={{ clipPath: "polygon(0 0, 0 100%, 100% 100%)" }} />
+                    <div className="absolute top-0 right-0 w-4 h-4 bg-primary/50 hidden md:block" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%)" }} />
+                    <div className="absolute bottom-0 left-0 w-4 h-4 bg-secondary/50 hidden md:block" style={{ clipPath: "polygon(0 0, 0 100%, 100% 100%)" }} />
 
-                    <div className="flex items-center gap-2 mb-4">
+                    <div className="hidden md:flex items-center gap-2 mb-4">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
                       <span className="font-mono text-[9px] tracking-[0.35em] text-white/40 uppercase">Event Launch Countdown</span>
                     </div>
 
                     <CountdownTimer embedded />
 
-                    <div className="mt-4 space-y-1">
+                    <div className="hidden md:block mt-4 space-y-1">
                       <div className="flex justify-between font-mono text-[8px] text-white/30 uppercase tracking-widest">
                         <span>Event window open</span>
                         <span>Launch</span>
@@ -355,7 +394,7 @@ const Index = () => {
             <CTABanner />
 
             {/* Event Map Location Embed */}
-            <section className="section-padding py-16">
+            <section className="section-padding py-6 md:py-16">
               <div className="container mx-auto max-w-5xl px-4">
                 <div className="group relative overflow-hidden border-2 border-primary/30 bg-black/80 h-72 transition-all duration-300 hover:border-primary/80 shadow-[0_0_30px_rgba(139,92,246,0.15)]" style={{ clipPath: "polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)" }}>
                   <div className="absolute inset-0 pointer-events-none bg-primary/10 animate-pulse z-10" />
@@ -377,9 +416,9 @@ const Index = () => {
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Open UEM Kolkata map"
-                    className="absolute right-4 top-4 z-30 font-mono border border-primary/50 bg-black/80 px-4 py-1.5 text-xs font-bold text-primary backdrop-blur-md transition-all hover:bg-primary/20 shadow-[0_0_10px_rgba(139,92,246,0.3)] uppercase tracking-widest"
+                    className="absolute right-4 top-4 z-30 font-mono border border-primary/50 bg-black/80 px-3 py-1 text-[10px] md:px-4 md:py-1.5 md:text-xs font-bold text-primary backdrop-blur-md transition-all hover:bg-primary/20 shadow-[0_0_10px_rgba(139,92,246,0.3)] uppercase tracking-widest"
                   >
-                    [ Get Directions ]
+                    [ Directions ]
                   </a>
                 </div>
               </div>
